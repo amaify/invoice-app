@@ -1,0 +1,240 @@
+@import url("https://fonts.googleapis.com/css2?family=Spartan:wght@500;700&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: "Spartan", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+  max-width: 1920px;
+  margin: 0 auto;
+  scroll-behavior: smooth;
+}
+
+.button {
+  border-radius: 24px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.button-1 {
+  background: #7c5dfa;
+  width: 150px;
+  height: 48px;
+  position: relative;
+}
+
+.button-image {
+  background: #ffffff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  margin-right: 10px;
+}
+
+.button-image img {
+  position: absolute;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.button-text {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.control-header {
+  margin-right: auto;
+  width: 60%;
+}
+
+.control-header__title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0c0e16;
+}
+
+.control-header__text {
+  font-size: 12px;
+  font-weight: 500;
+  color: #888eb0;
+}
+
+.control-filter {
+  margin-right: 4rem;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.control-filter__title--text {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0c0e16;
+  margin-right: 10px;
+}
+
+.invoice {
+  width: 100%;
+  height: 60vh;
+  position: relative;
+}
+
+.invoice-empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -30%);
+          transform: translate(-50%, -30%);
+}
+
+.invoice-empty__image {
+  width: 241.34px;
+  height: 200px;
+}
+
+.invoice-empty__heading {
+  margin-top: 6rem;
+  text-align: center;
+}
+
+.invoice-empty__heading h2 {
+  color: #0c0e16;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+}
+
+.invoice-empty__heading span {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #888eb0;
+}
+
+.nav {
+  background: #373b53;
+  height: 100vh;
+  width: 103px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.nav-logo {
+  margin-bottom: auto;
+  background: #7c5dfa;
+  position: relative;
+  width: 103px;
+  height: 103px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  overflow: hidden;
+}
+
+.nav-logo::after {
+  content: "";
+  position: absolute;
+  width: 103px;
+  height: 103px;
+  background: #9277ff;
+  top: 50%;
+  left: 0;
+  z-index: 0;
+  border-top-left-radius: 20px;
+}
+
+.nav-logo picture {
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.nav-theme {
+  width: 100%;
+  margin-top: auto;
+  position: relative;
+}
+
+.nav-theme::after {
+  content: "";
+  background: #494e6e;
+  width: 100%;
+  height: 1px;
+  display: block;
+  margin-top: 2.5rem;
+}
+
+.nav-theme picture {
+  position: absolute;
+  top: -65%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.nav-avatar {
+  padding: 2.5rem 0;
+}
+
+.nav-avatar picture img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: block;
+}
+
+.layout {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.layout-main {
+  width: 55%;
+  margin: 0 auto;
+  padding: 6rem 0 0 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+/*# sourceMappingURL=main.css.map */

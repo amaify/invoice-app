@@ -1,0 +1,80 @@
+.nav {
+	background: #373b53;
+	height: 100vh;
+	width: 103px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+
+	&-logo {
+		margin-bottom: auto;
+		background: $primary-blue;
+		position: relative;
+		width: 103px;
+		height: 103px;
+		border-top-right-radius: 20px;
+		border-bottom-right-radius: 20px;
+		overflow: hidden;
+
+		&::after {
+			content: "";
+			position: absolute;
+			width: 103px;
+			height: 103px;
+			background: $secondary-blue;
+			top: 50%;
+			left: 0;
+			z-index: 0;
+			border-top-left-radius: 20px;
+		}
+
+		& picture {
+			z-index: 1;
+			// background: $primary-blue;
+			// width: 100%;
+			// height: 100%;
+			// display: block;
+			@include absolute_centering;
+		}
+	}
+
+	&-theme {
+		width: 100%;
+		margin-top: auto;
+		position: relative;
+		// margin-bottom: auto;
+
+		&::after {
+			content: "";
+			background: #494e6e;
+			width: 100%;
+			height: 1px;
+			display: block;
+			margin-top: 2.5rem;
+		}
+
+		& picture {
+			position: absolute;
+			top: -65%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+
+	&-avatar {
+		// margin-top: auto;
+		padding: 2.5rem 0;
+
+		& picture {
+			& img {
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				display: block;
+			}
+		}
+	}
+}
