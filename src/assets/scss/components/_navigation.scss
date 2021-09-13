@@ -1,6 +1,7 @@
 .nav {
 	background: #373b53;
 	height: 100vh;
+	// height: 1299px;
 	width: 103px;
 
 	display: flex;
@@ -8,6 +9,9 @@
 	align-items: center;
 	border-top-right-radius: 20px;
 	border-bottom-right-radius: 20px;
+
+	position: relative;
+	z-index: 7;
 
 	&-logo {
 		margin-bottom: auto;
@@ -45,6 +49,7 @@
 		width: 100%;
 		margin-top: auto;
 		position: relative;
+		cursor: pointer;
 		// margin-bottom: auto;
 
 		&::after {

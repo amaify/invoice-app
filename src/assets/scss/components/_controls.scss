@@ -20,7 +20,10 @@
 
 	&-filter {
 		margin-right: 4rem;
+		cursor: pointer;
 		align-self: center;
+
+		position: relative;
 
 		&__title {
 			&--text {
@@ -29,6 +32,128 @@
 				color: $black;
 				margin-right: 10px;
 			}
+
+			&--img {
+				// & img {
+				// 	transform: rotate(180deg);
+				// }
+
+				& .default {
+					transform: rotate(0deg);
+				}
+
+				& .rotate {
+					transform: rotate(180deg);
+				}
+			}
 		}
+
+		&__dropdown {
+			position: absolute;
+			top: 35px;
+			left: -35px;
+
+			width: 192px;
+			height: 128px;
+			border-radius: 8px;
+			box-shadow: 0px 10px 20px rgba(72, 84, 159, 0.25);
+			background: $white;
+
+			padding: 3rem 2.5rem;
+			z-index: 2;
+
+			// & label {
+			// 	font-size: 12px;
+			// 	font-weight: 700;
+			// }
+
+			// & input {
+			// 	margin-right: 1.5rem;
+			// }
+
+			// & div {
+			// 	cursor: pointer;
+
+			// 	&:not(:last-child) {
+			// 		margin-bottom: 1.3rem;
+			// 	}
+			// }
+			&--container {
+				display: block;
+				position: relative;
+				font-size: 12px;
+				font-weight: 700;
+				margin-bottom: 1.3rem;
+				margin-left: 3rem;
+				cursor: pointer;
+				z-index: 2;
+
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+
+				& input {
+					position: absolute;
+					opacity: 0;
+					cursor: pointer;
+					height: 0;
+					width: 0;
+				}
+
+				& .checkmark {
+					position: absolute;
+					top: 0;
+					left: -30px;
+					height: 16px;
+					background: $very-light-blue;
+					width: 16px;
+					border-radius: 2px;
+				}
+
+				&:hover input ~ .checkmark {
+					border: 1px solid $primary-blue;
+				}
+
+				& input:checked ~ .checkmark {
+					background: $primary-blue;
+				}
+
+				& .checkmark::after {
+					content: "";
+					background-image: url("../images/icon-check.svg");
+					background-size: contain;
+					background-repeat: no-repeat;
+					display: none;
+					position: absolute;
+				}
+
+				& input:checked ~ .checkmark::after {
+					display: block;
+				}
+
+				& .checkmark::after {
+					left: 2px;
+					top: 3px;
+					width: 153px;
+					height: 9px;
+				}
+			}
+		}
+	}
+}
+
+.slide-down {
+	animation-name: slide-down;
+	animation-duration: 0.7s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes slide-down {
+	from {
+		transform: translateY(-30%);
+	}
+	to {
+		transform: translateY(0);
 	}
 }

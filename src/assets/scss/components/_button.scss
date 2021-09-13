@@ -9,6 +9,52 @@
 		width: 150px;
 		height: 48px;
 		position: relative;
+
+		transition: all 0.3s ease-in;
+
+		&:hover,
+		&:active {
+			background: $secondary-blue;
+		}
+	}
+
+	&-1 .button-text {
+		color: $white;
+	}
+
+	&-2 {
+		background: $primary-blue;
+		color: $white;
+
+		width: 128px;
+		height: 48px;
+	}
+
+	&-3 {
+		width: 96px;
+		height: 48px;
+
+		color: $light-blue;
+	}
+
+	&-4 {
+		width: 133px;
+		height: 48px;
+		background: #373b53;
+
+		color: #888eb0;
+	}
+
+	&-6 {
+		background: #f9fafe;
+		color: $light-blue;
+		font-size: 12px;
+		font-weight: 700;
+		line-height: 15px;
+		letter-spacing: -0.25px;
+
+		// width: 100%;
+		padding: 1.5rem 0;
 	}
 
 	&-image {
@@ -31,6 +77,7 @@
 	&-text {
 		font-size: 12px;
 		font-weight: 700;
-		color: $white;
+		line-height: 15px;
+		letter-spacing: -0.25px;
 	}
 }
