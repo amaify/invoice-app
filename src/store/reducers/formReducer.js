@@ -4,6 +4,10 @@ const initialState = {
 	showForm: false,
 	backdrop: false,
 	editForm: false,
+
+	date: "",
+	paymentTerms: 30,
+	listItems: [],
 };
 
 export const FormReducer = (state = initialState, action) => {
@@ -16,6 +20,15 @@ export const FormReducer = (state = initialState, action) => {
 
 		case actionTypes.EDIT_FORM:
 			return { ...state, editForm: true, backdrop: true };
+
+		case actionTypes.GET_DATE:
+			return { ...state, date: action.data };
+
+		case actionTypes.GET_PAYMENT_TERMS:
+			return { ...state, paymentTerms: action.paymentTerms };
+
+		case actionTypes.GET_LIST_ITEMS:
+			return { ...state, listItems: action.listItems };
 
 		default:
 			return state;

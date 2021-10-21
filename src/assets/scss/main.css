@@ -102,6 +102,134 @@ html {
   letter-spacing: -0.25px;
 }
 
+.calendar {
+  width: 100%;
+  margin: 0 auto;
+  position: absolute;
+  top: 95px;
+  left: 0;
+  z-index: 1;
+  -webkit-box-shadow: 0px 10px 20px rgba(72, 84, 159, 0.25);
+          box-shadow: 0px 10px 20px rgba(72, 84, 159, 0.25);
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.calendar .active {
+  color: #7c5dfa;
+}
+
+.calendar-container {
+  width: 100%;
+  padding: 2rem 1rem;
+}
+
+.calendar-month__data td {
+  text-align: center;
+  width: 1px;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: -0.25px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.calendar-month__data td:hover, .calendar-month__data td:active {
+  color: #7c5dfa;
+  cursor: pointer;
+}
+
+.calendar-month__heading {
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: -0.25px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.calendar-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  padding: 0.8rem 0 2rem 0;
+}
+
+.calendar-controls__duration {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.calendar-controls__prev {
+  margin-right: auto;
+}
+
+.calendar-controls__prev, .calendar-controls__next {
+  width: 4%;
+  cursor: pointer;
+}
+
+.calendar-controls__prev img, .calendar-controls__next img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.calendar-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.calendar-body {
+  height: 243px;
+  background-color: transparent;
+}
+
+.calendar-body td {
+  text-align: center;
+}
+
+.calendar-body__text {
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: -0.25px;
+  line-height: 15px;
+  font-weight: 700;
+}
+
+.calendar-header {
+  background: peachpuff;
+}
+
+.calendar-days {
+  padding: 0 0.5rem;
+}
+
+.calendar-year {
+  margin-left: 0.3rem;
+}
+
+.calendar-monthdays, .calendar-year, .calendar-month {
+  font-size: 12px;
+  letter-spacing: -0.25px;
+  line-height: 15px;
+  font-weight: 700;
+}
+
+.calendar-monthdays:hover, .calendar-monthdays:active, .calendar-year:hover, .calendar-year:active, .calendar-month:hover, .calendar-month:active {
+  color: #7c5dfa;
+  cursor: pointer;
+}
+
+.calendar-date {
+  background: pink;
+}
+
 .control {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -334,7 +462,8 @@ html {
 }
 
 .form input[type="text"],
-.form input[type="number"] {
+.form input[type="number"],
+.form input[type="email"] {
   font-size: 12px;
   font-weight: 700;
   color: #0c0e16;
@@ -349,6 +478,7 @@ html {
 
 .form-elements__group {
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .form-elements__group label {
@@ -361,6 +491,10 @@ html {
   margin-bottom: 0.8rem;
 }
 
+.form-elements__group .label-error {
+  color: #ec5757;
+}
+
 .form-elements__group--heading {
   font-size: 12px;
   font-weight: 700;
@@ -368,6 +502,21 @@ html {
   line-height: 15px;
   letter-spacing: -0.25px;
   margin-bottom: 1.5rem;
+}
+
+.form-elements__group--main {
+  position: relative;
+}
+
+.form-elements__group--main-error {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 10px;
+  line-height: 15px;
+  letter-spacing: -0.21px;
+  color: #ec5757;
+  font-weight: 600;
 }
 
 .form-elements__group--input, .form-elements__group--subInput {
@@ -380,6 +529,10 @@ html {
 .form-elements__group--input:hover, .form-elements__group--input:active, .form-elements__group--subInput:hover, .form-elements__group--subInput:active {
   border: 1px solid #9277ff;
   cursor: pointer;
+}
+
+.form-elements__group--input:focus, .form-elements__group--subInput:focus {
+  border: 1px solid #9277ff;
 }
 
 .form-elements__group--input {
@@ -437,8 +590,16 @@ html {
           justify-content: space-between;
 }
 
-.form-elements__group--sub div {
-  width: 30%;
+.form-elements__group--sub .form-elements__group {
+  width: 100%;
+}
+
+.form-elements__group--sub .form-elements__group:not(:last-child) {
+  margin-right: 20px;
+}
+
+.form-elements__group--sub .form-elements__group--main:not(:last-child) {
+  margin-right: 20px;
 }
 
 .form-elements__group--period {
@@ -451,7 +612,8 @@ html {
   margin-bottom: 2.5rem;
 }
 
-.form-elements__group--period div {
+.form-elements__group--period .invoice-date,
+.form-elements__group--period .payment-terms {
   width: 48%;
 }
 
@@ -481,6 +643,7 @@ html {
   left: 0;
   width: 100%;
   overflow: hidden;
+  z-index: 1;
 }
 
 .form-elements__group--period .payment-terms__list--item {
@@ -489,6 +652,8 @@ html {
   letter-spacing: -0.25px;
   line-height: 15px;
   color: #0c0e16;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
   cursor: pointer;
 }
 
@@ -503,6 +668,10 @@ html {
   display: block;
 }
 
+.form-elements__group--period .payment-terms__list--item:hover, .form-elements__group--period .payment-terms__list--item:active {
+  color: #7c5dfa;
+}
+
 .form-elements__group--period .payment-terms label,
 .form-elements__group--period .invoice-date label {
   font-size: 12px;
@@ -514,8 +683,10 @@ html {
   margin-bottom: 0.8rem;
 }
 
-.form-elements__group--period .payment-terms div,
-.form-elements__group--period .invoice-date div {
+.form-elements__group--period .payment-terms .invoice-date__items,
+.form-elements__group--period .payment-terms .payment-terms__items,
+.form-elements__group--period .invoice-date .invoice-date__items,
+.form-elements__group--period .invoice-date .payment-terms__items {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
@@ -527,9 +698,20 @@ html {
   height: 48px;
 }
 
-.form-elements__group--period .payment-terms div:hover, .form-elements__group--period .payment-terms div:active,
-.form-elements__group--period .invoice-date div:hover,
-.form-elements__group--period .invoice-date div:active {
+.form-elements__group--period .payment-terms .invoice-date__items:hover, .form-elements__group--period .payment-terms .invoice-date__items:active,
+.form-elements__group--period .payment-terms .payment-terms__items:hover,
+.form-elements__group--period .payment-terms .payment-terms__items:active,
+.form-elements__group--period .invoice-date .invoice-date__items:hover,
+.form-elements__group--period .invoice-date .invoice-date__items:active,
+.form-elements__group--period .invoice-date .payment-terms__items:hover,
+.form-elements__group--period .invoice-date .payment-terms__items:active {
+  border: 1px solid #9277ff;
+}
+
+.form-elements__group--period .payment-terms .invoice-date__items--active,
+.form-elements__group--period .payment-terms .payment-terms__items--active,
+.form-elements__group--period .invoice-date .invoice-date__items--active,
+.form-elements__group--period .invoice-date .payment-terms__items--active {
   border: 1px solid #9277ff;
 }
 
@@ -547,6 +729,10 @@ html {
 .form-elements__group--period .payment-terms p span:first-child,
 .form-elements__group--period .invoice-date p span:first-child {
   margin-right: auto;
+}
+
+.form-elements__group--period .invoice-date {
+  position: relative;
 }
 
 .form-elements__group--items {
@@ -673,7 +859,7 @@ html {
 }
 
 .form-elements__group--items-form input {
-  padding: 1.5rem 1.8rem;
+  padding: 1.5rem 1rem;
   border-radius: 4px;
   outline: none;
   border: 1px solid #dfe3fa;
@@ -695,6 +881,10 @@ html {
   cursor: pointer;
 }
 
+.form-elements__group--items-form input:focus {
+  border: 1px solid #9277ff;
+}
+
 .form-elements__group--items-form p {
   font-size: 12px;
   font-weight: 700;
@@ -713,6 +903,29 @@ html {
       -ms-grid-row-align: center;
       align-self: center;
   cursor: pointer;
+}
+
+.form-elements .list-error {
+  border: 1px solid #ec5757 !important;
+}
+
+.form-error {
+  margin-top: 3.5rem;
+}
+
+.form-error__text, .form-error__input {
+  font-size: 10px;
+  line-height: 15px;
+  letter-spacing: -0.21px;
+  color: #ec5757;
+}
+
+.form-error__text:last-child, .form-error__input:last-child {
+  margin-top: 0.3rem;
+}
+
+.inputError {
+  border: 1px solid #ec5757;
 }
 
 .slide-down {

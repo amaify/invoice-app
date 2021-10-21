@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import ArrowDown from "../../../../assets/images/icon-arrow-down.svg";
+import { paymentTerms } from "../../../../store/actions/formAction";
 
-function PaymentTerms() {
+function PaymentTerms(props) {
 	let terms = [
 		{ id: 1, text: "Net 1 Day", value: 1 },
 		{ id: 2, text: "Net 7 Days", value: 7 },
@@ -10,7 +12,17 @@ function PaymentTerms() {
 		{ id: 4, text: "Net 30 Days", value: 30 },
 	];
 
+	const dispatch = useDispatch();
+
 	let [visible, setVisible] = useState(false);
+	let [paymentTermsText, setPaymentTerms] = useState("");
+	let [paymentTermsValue, setPaymentTermsValue] = useState(30);
+
+	let paymentTermClass;
+
+	!visible
+		? (paymentTermClass = "payment-terms__items")
+		: (paymentTermClass = "payment-terms__items payment-terms__items--active");
 
 	const toggleList = () => {
 		visible ? setVisible(false) : setVisible(true);
@@ -19,12 +31,20 @@ function PaymentTerms() {
 	let imgClass;
 	visible ? (imgClass = "rotate") : (imgClass = "default");
 
+	const onSetPayment = (e) => {
+		setPaymentTerms(e.target.textContent);
+		setPaymentTermsValue(e.target.value);
+		dispatch(paymentTerms(e.target.value));
+	};
+
 	return (
 		<div className="payment-terms" onClick={toggleList}>
 			<label>Payment Terms</label>
-			<div>
+			<div className={paymentTermClass}>
 				<p>
-					<span>Net 30 Days</span>
+					<span>
+						{paymentTermsText === "" ? "Net 30 Days" : paymentTermsText}
+					</span>
 					<span>
 						<img src={ArrowDown} alt="Directional Arrow" className={imgClass} />
 					</span>
@@ -37,12 +57,20 @@ function PaymentTerms() {
 							key={term.id}
 							className="payment-terms__list--item"
 							value={term.value}
+							onClick={(e) => onSetPayment(e)}
 						>
 							{term.text}
 						</li>
 					))}
 				</ul>
 			) : null}
+			<input
+				type="hidden"
+				name="paymentTerms"
+				value={paymentTermsValue}
+				placeholder="Hello"
+				id="hiddenPaymentTerms"
+			/>
 		</div>
 	);
 }

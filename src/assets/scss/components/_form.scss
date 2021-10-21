@@ -39,10 +39,12 @@
 	}
 
 	& input[type="text"],
-	& input[type="number"] {
+	& input[type="number"],
+	& input[type="email"] {
 		font-size: 12px;
 		font-weight: 700;
 		color: $black;
+		// color: red;
 		line-height: 15px;
 		letter-spacing: -0.25px;
 		font-family: "Spartan", sans-serif;
@@ -53,6 +55,7 @@
 
 		&__group {
 			margin-bottom: 2rem;
+			position: relative;
 
 			& label {
 				font-size: 12px;
@@ -65,6 +68,10 @@
 				margin-bottom: 0.8rem;
 			}
 
+			& .label-error {
+				color: $primary-red;
+			}
+
 			&--heading {
 				font-size: 12px;
 				font-weight: 700;
@@ -73,6 +80,22 @@
 				letter-spacing: -0.25px;
 
 				margin-bottom: 1.5rem;
+			}
+
+			&--main {
+				position: relative;
+
+				&-error {
+					position: absolute;
+					top: 0;
+					right: 0;
+
+					font-size: 10px;
+					line-height: 15px;
+					letter-spacing: -0.21px;
+					color: $primary-red;
+					font-weight: 600;
+				}
 			}
 
 			&--input,
@@ -86,6 +109,10 @@
 				&:active {
 					border: 1px solid $secondary-blue;
 					cursor: pointer;
+				}
+
+				&:focus {
+					border: 1px solid $secondary-blue;
 				}
 			}
 
@@ -113,8 +140,18 @@
 				display: flex;
 				justify-content: space-between;
 
-				& div {
-					width: 30%;
+				& .form-elements__group {
+					width: 100%;
+
+					&:not(:last-child) {
+						margin-right: 20px;
+					}
+				}
+
+				& .form-elements__group--main {
+					&:not(:last-child) {
+						margin-right: 20px;
+					}
 				}
 			}
 
@@ -125,7 +162,8 @@
 
 				// position: relative;
 
-				& div {
+				& .invoice-date,
+				& .payment-terms {
 					width: 48%;
 				}
 
@@ -153,6 +191,7 @@
 						left: 0;
 						width: 100%;
 						overflow: hidden;
+						z-index: 1;
 
 						&--item {
 							font-size: 12px;
@@ -160,6 +199,7 @@
 							letter-spacing: -0.25px;
 							line-height: 15px;
 							color: $black;
+							transition: all 0.3s;
 							cursor: pointer;
 
 							&:not(:last-child) {
@@ -173,6 +213,11 @@
 									background: #dfe3fa;
 									display: block;
 								}
+							}
+
+							&:hover,
+							&:active {
+								color: $primary-blue;
 							}
 						}
 					}
@@ -190,7 +235,8 @@
 						margin-bottom: 0.8rem;
 					}
 
-					& div {
+					& .invoice-date__items,
+					& .payment-terms__items {
 						align-self: center;
 						cursor: pointer;
 						padding: 1.5rem 1.8rem;
@@ -201,6 +247,10 @@
 
 						&:hover,
 						&:active {
+							border: 1px solid $secondary-blue;
+						}
+
+						&--active {
 							border: 1px solid $secondary-blue;
 						}
 					}
@@ -218,6 +268,10 @@
 							margin-right: auto;
 						}
 					}
+				}
+
+				& .invoice-date {
+					position: relative;
 				}
 			}
 
@@ -335,7 +389,7 @@
 					}
 
 					& input {
-						padding: 1.5rem 1.8rem;
+						padding: 1.5rem 1rem;
 						border-radius: 4px;
 						outline: none;
 						border: 1px solid #dfe3fa;
@@ -356,6 +410,10 @@
 						&:active {
 							border: 1px solid $secondary-blue;
 							cursor: pointer;
+						}
+
+						&:focus {
+							border: 1px solid $secondary-blue;
 						}
 					}
 
@@ -378,14 +436,53 @@
 				}
 			}
 		}
+
+		& .list-error {
+			border: 1px solid $primary-red !important;
+		}
+	}
+
+	&-error {
+		margin-top: 3.5rem;
+
+		&__text,
+		&__input {
+			font-size: 10px;
+			line-height: 15px;
+			letter-spacing: -0.21px;
+
+			color: $primary-red;
+
+			&:last-child {
+				margin-top: 0.3rem;
+			}
+		}
+
+		// &__input {
+		// 	position: absolute;
+		// 	top: 0;
+		// 	right: 0;
+		// }
 	}
 }
+
+.inputError {
+	border: 1px solid $primary-red;
+}
+
+// .list-error {
+// 	border: 1px solid $primary-red !important;
+// }
 
 .slide-down {
 	animation-name: slide-down;
 	animation-duration: 0.7s;
 	animation-fill-mode: forwards;
 }
+
+// .active {
+// 	border: 1px solid $secondary-blue;
+// }
 
 @keyframes slide-down {
 	from {
