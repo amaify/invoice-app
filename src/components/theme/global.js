@@ -153,5 +153,144 @@ export const GlobalStyle = createGlobalStyle`
             color: ${(props) =>
 							props.theme.mode === "light" ? "#7e88c3" : "#DFE3FA"};
         }
+
+        .invoice-tiles__content,
+        .details-tiles__tile {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#FFFFFF" : "#1E2139"};
+        }
+
+        .invoice-tiles__content--id {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#FFFFFF"};
+        }
+
+        .invoice-tiles__content--payment-due {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#888EB0" : "#DFE3FA"};
+        }
+
+        .invoice-tiles__content--client-name {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#858BB2" : "#FFFFFF"};
+        }
+
+        .invoice-tiles__content--total-amount {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#FFFFFF"};
+        }
+
+        .invoice-tiles__content--status-draft {
+            background: ${(props) =>
+							props.theme.mode === "light"
+								? "rgba(55, 59, 83, 0.06)"
+								: "rgba(223, 227, 250, 0.06)"}
+        }
+
+        .invoice-tiles__content--status-draft p span:first-child {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#373b53" : "#FFFFFF"}
+        }
+
+        .invoice-tiles__content--status-draft p span:last-child {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#373b53" : "#FFFFFF"}
+        }
+
+        .details-tiles__link a {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#FFFFFF"}
+        }
+
+        .button-8 {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#f9fafe" : "#252945"};
+
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#7e88c3" : "#DFE3FA"}
+        }
+
+        .button-8:hover {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#dfe3fa" : "#FFFFFF"};
+
+            color: ${(props) => (props.theme.mode === "light" ? "" : "#7E88C3")}
+        }
+
+        .details-body__wrapper {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#FFFFFF" : "#1E2139"};
+        }
+
+        .details-body__heading--title-id {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#FFFFFF"};
+        }
+
+        .details-body__heading--title-text {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#7E88C3" : "#DFE3FA"};
+        }
+
+        .details-body__heading--address {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#7E88C3" : "#DFE3FA"};
+        }
+
+        .details-body__billing--title {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#7E88C3" : "#DFE3FA"};
+        }
+
+        .details-body__billing--date-1 p:last-child,
+        .details-body__billing--date-2 p:last-child,
+        .details-body__billing--email-email,
+        .details-body__billing--address-name {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#FFFFFF"};
+        }
+
+        .details-body__billing--address-address {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#7E88C3" : "#DFE3FA"};
+        }
+
+        .details-items {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#F9FAFE" : "#252945"};
+        }
+
+        .details-items__heading--title {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#7E88C3" : "#DFE3FA"};
+        }
+
+        .details-items__list--items-item-2,
+        .details-items__list--items-item-3 {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#7E88C3" : "#DFE3FA"};
+        }
+
+        .details-items__list--items-item-1,
+        .details-items__list--items-item-4 {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#FFFFFF"};
+        }
+
+        .details-items__amount {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#373B53" : "#0C0E16"};
+        }
+
+        .details-tiles__tile--status-status__draft p span:first-child {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#373B53" : "#FFFFFF"};
+        }
+
+
+        .details-tiles__tile--status-status__draft p span:last-child{
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#373b53" : "#FFFFFF"};
+        }
     }
 `;

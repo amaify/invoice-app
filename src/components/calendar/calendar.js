@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import SelectMonthList from "./calendarMonths/calendarMonths";
 import SelectYearList from "./calendarYears/calendarYears";
 import SelectCalendarDays from "./calendarDays/calendarDays";
@@ -8,7 +8,7 @@ import moment from "moment";
 
 import ArrowLeft from "../../assets/images/icon-arrow-left.svg";
 import ArrowRight from "../../assets/images/icon-arrow-right.svg";
-import { getDate } from "../../store/actions/formAction";
+import { getDate, setEditDate } from "../../store/actions/formAction";
 
 function Calendar(props) {
 	let [showMonthPopUp, setMonthPopUp] = useState(false);
@@ -18,6 +18,7 @@ function Calendar(props) {
 	let [dateContext, setDateContext] = useState(moment());
 
 	const dispatch = useDispatch();
+	const { editForm } = props;
 
 	var weekDays = moment.weekdaysShort();
 	var months = moment.monthsShort();
@@ -89,12 +90,21 @@ function Calendar(props) {
 		setNewDate(data);
 		let dateElement = `${currentDate()} ${month()} ${year()}`;
 		props.selectedDate(dateElement);
-		dispatch(getDate(dateElement));
+		if (!editForm) {
+			dispatch(getDate(dateElement));
+		} else {
+			let updateDate = new Date(dateElement).toISOString().split("T")[0];
+			dispatch(setEditDate(updateDate));
+		}
 		props.displayCalendar();
 	};
 
 	return (
-		<div className="calendar">
+		<div
+			className={`calendar ${
+				props.showCalendar ? "display-calendar" : "hide-calendar"
+			}`}
+		>
 			<div className="calendar-container">
 				<div className="calendar-controls">
 					<figure
@@ -160,4 +170,10 @@ function Calendar(props) {
 	);
 }
 
-export default Calendar;
+const mapStateToProps = (state) => {
+	return {
+		editForm: state.form.editForm,
+	};
+};
+
+export default connect(mapStateToProps, null)(Calendar);

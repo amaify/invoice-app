@@ -1,6 +1,7 @@
 import React from "react";
 import { connect, useDispatch } from "react-redux";
 import { hideForm } from "../../store/actions/formAction";
+import Router from "../routes/route";
 
 import Navigation from "../navigation/navigation";
 import Controls from "../controls/control";
@@ -21,10 +22,12 @@ const Layout = (props) => {
 			</div>
 
 			{props.displayForm && <Form />}
+
 			<div className="layout-main">
 				{props.showBackdrop && <Backdrop onClick={closeForm} />}
-				<Controls />
-				<Invoices />
+				{/* {!props.routeToggled && <Controls />} */}
+				{/* <Invoices /> */}
+				<Router />
 			</div>
 		</section>
 	);
@@ -34,6 +37,7 @@ const mapStateToProps = (state) => {
 	return {
 		displayForm: state.form.showForm,
 		showBackdrop: state.form.backdrop,
+		routeToggled: state.routeReducer.routeToggled,
 	};
 };
 

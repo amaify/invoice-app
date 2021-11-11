@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 
 import ArrowDown from "../../../../assets/images/icon-arrow-down.svg";
-import { paymentTerms } from "../../../../store/actions/formAction";
+import {
+	paymentTerms,
+	setEditPaymentTerms,
+} from "../../../../store/actions/formAction";
 
 function PaymentTerms(props) {
+	const dispatch = useDispatch();
+	const { editFormPaymentTerms, editForm } = props;
+
 	let terms = [
-		{ id: 1, text: "Net 1 Day", value: 1 },
+		{ id: 1, text: `Net 1 Day`, value: 1 },
 		{ id: 2, text: "Net 7 Days", value: 7 },
 		{ id: 3, text: "Net 14 Days", value: 14 },
 		{ id: 4, text: "Net 30 Days", value: 30 },
 	];
 
-	const dispatch = useDispatch();
+	console.log(editFormPaymentTerms);
 
 	let [visible, setVisible] = useState(false);
 	let [paymentTermsText, setPaymentTerms] = useState("");
@@ -32,9 +38,13 @@ function PaymentTerms(props) {
 	visible ? (imgClass = "rotate") : (imgClass = "default");
 
 	const onSetPayment = (e) => {
-		setPaymentTerms(e.target.textContent);
-		setPaymentTermsValue(e.target.value);
-		dispatch(paymentTerms(e.target.value));
+		if (!editForm) {
+			setPaymentTerms(e.target.textContent);
+			setPaymentTermsValue(e.target.value);
+			dispatch(paymentTerms(e.target.value));
+		} else {
+			dispatch(setEditPaymentTerms(e.target.value));
+		}
 	};
 
 	return (
@@ -43,7 +53,13 @@ function PaymentTerms(props) {
 			<div className={paymentTermClass}>
 				<p>
 					<span>
-						{paymentTermsText === "" ? "Net 30 Days" : paymentTermsText}
+						{!editForm
+							? paymentTermsText === ""
+								? "Net 30 Days"
+								: paymentTermsText
+							: paymentTermsText === ""
+							? `Net ${editFormPaymentTerms} Days`
+							: paymentTermsText}
 					</span>
 					<span>
 						<img src={ArrowDown} alt="Directional Arrow" className={imgClass} />
@@ -75,4 +91,10 @@ function PaymentTerms(props) {
 	);
 }
 
-export default PaymentTerms;
+const mapStateToProps = (state) => {
+	return {
+		editForm: state.form.editForm,
+	};
+};
+
+export default connect(mapStateToProps, null)(PaymentTerms);

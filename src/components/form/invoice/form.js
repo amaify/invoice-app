@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, connect } from "react-redux";
 import moment from "moment";
 
 import Input from "../input/input";
@@ -9,11 +9,15 @@ import Button from "../../buttons/buttons";
 import PaymentTerms from "./components/payment-terms";
 import Calendar from "../../calendar/calendar";
 import ListItems from "./components/list-items";
+import InputField from "./components/input-field";
 
 import ArrowDown from "../../../assets/images/icon-arrow-down.svg";
 import CalendarImage from "../../../assets/images/icon-calendar.svg";
-import { connect } from "react-redux";
-import { getDate, paymentTerms } from "../../../store/actions/formAction";
+import {
+	getDate,
+	paymentTerms,
+	submitPending,
+} from "../../../store/actions/formAction";
 
 function Form(props) {
 	// let selectedDate, paymentTerms;
@@ -47,16 +51,26 @@ function Form(props) {
 		// 	country: "",
 		// },
 
-		street: "",
-		city: "",
-		postCode: "",
-		country: "",
+		// street: "",
+		// city: "",
+		// postCode: "",
+		// country: "",
+		senderStreet: "",
+		senderCity: "",
+		senderPostCode: "",
+		senderCountry: "",
+
+		clientStreet: "",
+		clientCity: "",
+		clientPostCode: "",
+		clientCountry: "",
 
 		clientName: "",
 		clientEmail: "",
-		projectDescription: "",
+		description: "",
 		date: "",
 		paymentTerms: "",
+		status: "",
 		listOfItems: [],
 	});
 
@@ -84,6 +98,8 @@ function Form(props) {
 	const [isError, setIsError] = useState(false);
 	const [listError, setListError] = useState(false);
 	const [listItemError, setListItemError] = useState(false);
+	const [submitPending, setSubmitPending] = useState(false);
+	const [submitDraft, setSubmitDraft] = useState(false);
 
 	// const [senderAddress, setSenderAddress] = useState({
 	// 	street: "",
@@ -110,6 +126,8 @@ function Form(props) {
 	let [showDate, setShowDate] = useState(false);
 	// let [selectedDate, setSelectedDate] = useState("");
 	let [dateContext, setDateContext] = useState(moment());
+
+	const { formDetails } = props;
 
 	const year = () => dateContext.format("Y");
 	const month = () => dateContext.format("MMM");
@@ -157,15 +175,15 @@ function Form(props) {
 			emailError = "Invalid email";
 		}
 
-		if (!formData.street) streetError = "Can't be empty";
+		if (!formData.senderStreet) streetError = "Can't be empty";
 
-		if (!formData.postCode) postCodeError = "Can't be empty";
+		if (!formData.senderPostCode) postCodeError = "Can't be empty";
 
-		if (!formData.city) cityError = "Can't be empty";
+		if (!formData.senderCity) cityError = "Can't be empty";
 
-		if (!formData.country) countryError = "Can't be empty";
+		if (!formData.senderCountry) countryError = "Can't be empty";
 
-		if (!formData.clientCountry) clientCountryError = "Can't be empty";
+		if (!formData.clientStreet) clientCountryError = "Can't be empty";
 
 		if (!formData.clientCity) clientCityError = "Can't be empty";
 
@@ -173,19 +191,11 @@ function Form(props) {
 
 		if (!formData.clientCountry) clientCountryError = "Can't be empty";
 
-		if (!formData.clientAddress) clientStreetError = "Can't be empty";
+		if (!formData.clientStreet) clientStreetError = "Can't be empty";
 
-		if (!formData.projectDescription)
-			projectDescriptionError = "Can't be empty";
+		if (!formData.description) projectDescriptionError = "Can't be empty";
 
 		if (!formData.clientName) clientNameError = "Can't be empty";
-
-		if (props.listItems.length < 1) {
-			setListError(true);
-			console.log("it is empty");
-		} else {
-			setListError(false);
-		}
 
 		if (props.listItems.length > 0) {
 			props.listItems.forEach((item) => {
@@ -234,8 +244,11 @@ function Form(props) {
 				itemPriceError: itemPriceError,
 				itemQuantityError: itemQuantityError,
 			});
+			setSubmitPending(false);
+			// setListItemError(true);
+			// setSubmitDraft(false);
 			setIsError(true);
-			return false;
+			// return false;
 		} else {
 			setErrors({
 				emailError: "",
@@ -253,43 +266,135 @@ function Form(props) {
 				itemPriceError: "",
 				itemQuantityError: "",
 			});
+			setIsError(false);
 		}
+
+		if (props.listItems.length < 1) {
+			setSubmitPending(false);
+			setListError(true);
+			console.log("it is empty");
+			return false;
+		} else {
+			setListError(false);
+
+			if (itemNameError || itemQuantityError || itemPriceError) {
+				setSubmitPending(false);
+				setIsError(true);
+				console.log("list item error");
+				return false;
+			}
+		}
+
+		// if (itemNameError || itemPriceError || itemQuantityError) {
+		// 	setSubmitPending(false);
+		// 	setIsError(true);
+		// 	// return false;
+		// } else {
+		// 	setIsError(false);
+		// }
 
 		setIsError(false);
 
 		return true;
 	};
 
+	// const y =
+
+	useEffect(() => {
+		let date = new Date(props.date).toISOString().split("T")[0];
+		let paymentTerms = props.paymentTerms;
+		let listItems = props.listItems;
+
+		formData.date = date;
+		formData.paymentTerms = paymentTerms;
+		formData.listOfItems = listItems;
+
+		// console.log(formData);
+		// dispatch(submitPending(formData));
+		// console.log(submitBtn);
+		if (submitPending) {
+			let isValid = validateForm();
+			if (isValid) {
+				console.log(formData);
+
+				setSubmitPending(false);
+			}
+		}
+		// console.log(formData);
+	}, [submitPending]);
+
+	useEffect(() => {
+		let date = new Date(props.date).toISOString().split("T")[0];
+		let paymentTerms = props.paymentTerms;
+		let listItems = props.listItems;
+
+		formData.date = date;
+		formData.paymentTerms = paymentTerms;
+		formData.listOfItems = listItems;
+
+		// console.log(formData);
+		// dispatch(submitPending(formData));
+		console.log(submitDraft);
+		if (submitDraft) {
+			console.log(formData);
+
+			setSubmitDraft(false);
+		}
+		// console.log(formData);
+	}, [submitDraft]);
+
 	const onSubmitForm = (e) => {
 		e.preventDefault();
 
-		let isValid = validateForm();
+		// let isValid = validateForm();
 		// setFormData({
 		// 	...formData,
 		// 	date: props.date,
 		// 	paymentTerms: props.paymentTerms,
 		// });
 
-		let date = props.date;
-		let paymentTerms = props.paymentTerms;
-		let listItems = props.listItems;
+		// let date = props.date;
+		// let paymentTerms = props.paymentTerms;
+		// let listItems = props.listItems;
 
 		// console.log(x);
 		// console.log(y);
 
-		formData.date = date;
-		formData.paymentTerms = paymentTerms;
-		formData.listOfItems = listItems;
+		// formData.date = date;
+		// formData.paymentTerms = paymentTerms;
+		// formData.listOfItems = listItems;
 
-		if (isValid) {
-			console.log(formData);
-		}
+		// if (isValid) {
+		// 	console.log(formData);
+		// }
 	};
+
+	const onSendPending = (e) => {
+		// setFormData({ ...formData, status: "Pending" });
+		setFormData((prevState) => ({ ...prevState, status: "Pending" }));
+
+		setSubmitPending(true);
+
+		onSubmitForm(e);
+
+		// console.log(formData);
+	};
+
+	const onSaveDraft = (e) => {
+		setFormData((prevState) => ({ ...prevState, status: "Draft" }));
+
+		setSubmitDraft(true);
+
+		onSubmitForm(e);
+	};
+	// console.log(formData.status);
+
+	// console.log(formData.status);
 
 	useMemo(() => {
 		console.log(errors);
 		console.log(isError);
-		console.log(listItemError);
+		console.log(listError);
 	}, [errors]);
 
 	// console.log(errors);
@@ -447,22 +552,37 @@ function Form(props) {
 			) : (
 				<h2 className="form-heading">
 					Edit <span>#</span>
-					<span>xm9141</span>
+					<span>{formDetails.id}</span>
 				</h2>
 			)}
 			{/* <h2 className="form-heading">new invoice</h2> */}
 
-			<form className="form-elements" onSubmit={onSubmitForm}>
+			<InputField
+				onSendPending={onSendPending}
+				onSaveDraft={onSaveDraft}
+				handleInputChange={handleInputChange}
+				formData={formData}
+				validateForm={validateForm}
+				errors={errors}
+				isError={isError}
+				listError={listError}
+				calendarClass={calendarClass}
+				getDateData={getDateData}
+				displayCalendar={displayCalendar}
+				showDate={showDate}
+				formDetails={formDetails}
+			/>
+
+			{/* <form className="form-elements" onSubmit={onSendPending || onSaveDraft}>
 				<div className="form-elements__group--main">
 					<Input
 						group="Bill From"
 						id="Address"
-						name="street"
+						name="senderStreet"
 						label="Street Address"
 						type="text"
-						defaultValue={formData.street}
+						defaultValue={formData.senderStreet}
 						onChange={handleInputChange}
-						// className="form-elements__group--input"
 						className={
 							errors.streetError === ""
 								? "form-elements__group--input"
@@ -480,10 +600,9 @@ function Form(props) {
 							label="City"
 							id="city"
 							type="text"
-							name="city"
-							defaultValue={formData.city}
+							name="senderCity"
+							defaultValue={formData.senderCity}
 							onChange={handleInputChange}
-							// className="form-elements__group--subInput"
 							className={
 								errors.cityError === ""
 									? "form-elements__group--subInput"
@@ -500,11 +619,10 @@ function Form(props) {
 						<Input
 							label="Post Code"
 							id="postCode"
-							name="postCode"
+							name="senderPostCode"
 							type="text"
-							defaultValue={formData.postCode}
+							defaultValue={formData.senderPostCode}
 							onChange={handleInputChange}
-							// className="form-elements__group--subInput"
 							className={
 								errors.postCodeError === ""
 									? "form-elements__group--subInput"
@@ -521,11 +639,10 @@ function Form(props) {
 						<Input
 							label="Country"
 							id="country"
-							name="country"
+							name="senderCountry"
 							type="text"
-							defaultValue={formData.country}
+							defaultValue={formData.senderCountry}
 							onChange={handleInputChange}
-							// className="form-elements__group--subInput"
 							className={
 								errors.countryError === ""
 									? "form-elements__group--subInput"
@@ -548,7 +665,6 @@ function Form(props) {
 						type="text"
 						defaultValue={formData.clientName}
 						onChange={handleInputChange}
-						// className="form-elements__group--input"
 						className={
 							errors.clientNameError === ""
 								? "form-elements__group--input"
@@ -570,7 +686,6 @@ function Form(props) {
 						onChange={handleInputChange}
 						type="email"
 						placeholder="e.g. email@example.com"
-						// className="form-elements__group--input"
 						className={
 							errors.emailError === ""
 								? "form-elements__group--input"
@@ -587,11 +702,10 @@ function Form(props) {
 					<Input
 						id="client-address"
 						label="Street Address"
-						name="clientAddress"
+						name="clientStreet"
 						type="text"
-						defaultValue={formData.street}
+						defaultValue={formData.clientStreet}
 						onChange={handleInputChange}
-						// className="form-elements__group--input"
 						className={
 							errors.clientStreetError === ""
 								? "form-elements__group--input"
@@ -611,9 +725,8 @@ function Form(props) {
 							id="city"
 							type="text"
 							name="clientCity"
-							defaultValue={formData.city}
+							defaultValue={formData.clientCity}
 							onChange={handleInputChange}
-							// className="form-elements__group--subInput"
 							className={
 								errors.clientCityError === ""
 									? "form-elements__group--subInput"
@@ -632,9 +745,8 @@ function Form(props) {
 							id="postCode"
 							type="text"
 							name="clientPostCode"
-							defaultValue={formData.postCode}
+							defaultValue={formData.clientPostCode}
 							onChange={handleInputChange}
-							// className="form-elements__group--subInput"
 							className={
 								errors.clientPostCodeError === ""
 									? "form-elements__group--subInput"
@@ -653,9 +765,8 @@ function Form(props) {
 							id="country"
 							type="text"
 							name="clientCountry"
-							defaultValue={formData.country}
+							defaultValue={formData.clientCountry}
 							onChange={handleInputChange}
-							// className="form-elements__group--subInput"
 							className={
 								errors.clientCountryError === ""
 									? "form-elements__group--subInput"
@@ -670,20 +781,12 @@ function Form(props) {
 				</div>
 
 				<div className="form-elements__group--period">
-					{/* <Input
-						label="Invoice Date"
-						id="date"
-						name="invoiceDate"
-						type="date"
-						value=""
-						className="form-elements__group--subInput"
-					/> */}
+					
 					<div className="invoice-date">
 						<label>Issue Date</label>
 						<div className={calendarClass} onClick={displayCalendar}>
 							<p>
-								{/* <span>10 Sept 2021</span> */}
-								{/* <span>{selectedDate}</span> */}
+								
 								{!showDate ? (
 									<span>
 										{currentDate()} {month()} {year()}
@@ -691,11 +794,7 @@ function Form(props) {
 								) : (
 									<span>{visibleDate}</span>
 								)}
-								{/* //{" "}
-								<span>
-									// {currentDate()} {month()} {year()}
-									//{" "}
-								</span> */}
+								
 								<span>
 									<img src={CalendarImage} alt="A Calendar" />
 								</span>
@@ -718,12 +817,11 @@ function Form(props) {
 					<Input
 						id="projectDescription"
 						label="Project Description"
-						name="projectDescription"
+						name="description"
 						type="text"
-						defaultValue={formData.projectDescription}
+						defaultValue={formData.description}
 						onChange={handleInputChange}
 						placeholder="e.g. Graphic Design Service"
-						// className="form-elements__group--input"
 						className={
 							errors.projectDescriptionError === ""
 								? "form-elements__group--input"
@@ -736,24 +834,7 @@ function Form(props) {
 					</p>
 				</div>
 
-				{/* <div className="form-elements__group--items">
-					<h3>item list</h3>
-
-					<div className="form-elements__group--items-label">
-						<p className="form-elements__group--items-label-1">Item Name</p>
-						<p className="form-elements__group--items-label-2">Qty.</p>
-						<p className="form-elements__group--items-label-3">Price</p>
-						<p className="form-elements__group--items-label-4">Total</p>
-					</div>
-
-					<div
-						dangerouslySetInnerHTML={{ __html: listItems.join(" ") }}
-						className="form-elements__group--items-form"
-					></div>
-					<div className="form-elements__group--items-form">{itemList}</div>
-					{listItems.map((list) => list.props.children)}
-					<Button text="+ Add New Item" type="6" onClick={addItemToList} />
-				</div> */}
+				
 				<ListItems
 					validateForm={validateForm}
 					listItemError={listItemError}
@@ -762,11 +843,7 @@ function Form(props) {
 					itemQuantityError={errors.itemQuantityError}
 				/>
 
-				{/* <div className="form-elements__group--items-btns">
-					<Button type="3" text="Discard" />
-					<Button type="4" text="Save as Draft" />
-					<Button type="2" text="Save &amp; Send" />
-				</div> */}
+				
 				<div className="form-error">
 					{isError && (
 						<p className="form-error__text form-error__all">
@@ -783,8 +860,8 @@ function Form(props) {
 				{!props.editForm ? (
 					<div className="form-elements__group--items-btns">
 						<Button type="3" text="Discard" />
-						<Button type="4" text="Save as Draft" />
-						<Button type="2" text="Save &amp; Send" />
+						<Button type="4" text="Save as Draft" onClick={onSaveDraft} />
+						<Button type="2" text="Save &amp; Send" onClick={onSendPending} />
 					</div>
 				) : (
 					<div className="form-elements__group--items-btns form-elements__group--items-editBtns">
@@ -792,7 +869,7 @@ function Form(props) {
 						<Button type="2" text="Save Changes" />
 					</div>
 				)}
-			</form>
+			</form> */}
 		</section>
 	);
 }
@@ -800,6 +877,7 @@ function Form(props) {
 const mapStateToProps = (state) => {
 	return {
 		editForm: state.form.editForm,
+		formDetails: state.form.formDetails,
 		date: state.form.date,
 		paymentTerms: state.form.paymentTerms,
 		showForm: state.form.showForm,

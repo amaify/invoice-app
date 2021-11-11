@@ -1,5 +1,5 @@
 .form {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 80px;
 	z-index: 6;
@@ -356,6 +356,17 @@
 						width: 100%;
 
 						margin-bottom: 2rem;
+
+						& .delete-icon {
+							align-self: center;
+							fill: #888eb0;
+							transition: all 0.3s;
+
+							&:hover {
+								cursor: pointer;
+								fill: $primary-red;
+							}
+						}
 					}
 
 					& .itemForm-1 {

@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Layout from "./components/layout/layout";
 import { connect, useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
+import data from "./data.json";
+import Router from "./components/routes/route";
 
 import moment from "moment";
+import { getInvoice } from "./store/actions/invoiceAction";
 
 import { GlobalStyle } from "./components/theme/global";
 import { ThemeProvider } from "styled-components";
@@ -38,11 +42,16 @@ function App() {
 		localStorage.setItem("theme", JSON.stringify(themeObject));
 	}, [themeObject]);
 
+	// useEffect(() => {
+	// 	dispatch(getInvoice(data));
+	// }, []);
+
 	return (
 		<ThemeProvider theme={themeObject}>
 			<>
 				<GlobalStyle />
 				<Layout />
+				{/* <Router /> */}
 			</>
 		</ThemeProvider>
 	);
@@ -54,4 +63,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, null)(App);
+export default withRouter(connect(mapStateToProps, null)(App));

@@ -19,7 +19,7 @@ export const FormReducer = (state = initialState, action) => {
 			return { ...state, showForm: false, editForm: false, backdrop: false };
 
 		case actionTypes.EDIT_FORM:
-			return { ...state, editForm: true, backdrop: true };
+			return { ...state, editForm: true, formDetails: action.invoice };
 
 		case actionTypes.GET_DATE:
 			return { ...state, date: action.data };
@@ -29,6 +29,57 @@ export const FormReducer = (state = initialState, action) => {
 
 		case actionTypes.GET_LIST_ITEMS:
 			return { ...state, listItems: action.listItems };
+
+		case actionTypes.ADD_ITEM_TO_LIST:
+			let newFormDetails = { ...state.formDetails };
+			newFormDetails.items.push({
+				name: "",
+				quantity: "",
+				price: "",
+				total: "",
+			});
+
+			return { ...state, formDetails: newFormDetails };
+
+		// case actionTypes.EDIT_ON_CHANGE:
+		// 	let newArray = [...state.formDetails.items];
+
+		// 	console.log(newArray);
+		// 	return { ...state };
+
+		case actionTypes.EDIT_LIST_DELETE:
+			let editList = [...state.formDetails.items];
+
+			for (let i = 0; i < editList.length; i++) {
+				if (i === action.data) {
+					editList.splice(i, 1);
+				}
+			}
+
+			// console.log(editList);
+
+			return {
+				...state,
+				formDetails: { ...state.formDetails, items: editList },
+			};
+
+		case actionTypes.SET_EDIT_PAYMENT_TERMS:
+			return {
+				...state,
+				formDetails: {
+					...state.formDetails,
+					paymentTerms: action.data,
+				},
+			};
+
+		case actionTypes.SET_EDIT_DATE:
+			return {
+				...state,
+				formDetails: {
+					...state.formDetails,
+					createdAt: action.data,
+				},
+			};
 
 		default:
 			return state;

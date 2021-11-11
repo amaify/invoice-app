@@ -1,21 +1,24 @@
 import React, { useState } from "react";
-
+import { useDispatch, connect } from "react-redux";
 import Dropdown from "./dropdown";
 
 import ArrowDown from "../../../assets/images/icon-arrow-down.svg";
+import { toggleFilter } from "../../../store/actions/invoiceAction";
 
-function Filter() {
-	let [dropDown, setDropdown] = useState(false);
+function Filter(props) {
+	const dispatch = useDispatch();
+	// let [dropDown, setDropdown] = useState(false);
 
 	const setDropdownVisibility = () => {
-		dropDown ? setDropdown(false) : setDropdown(true);
+		// dropDown ? setDropdown(false) : setDropdown(true);
+		dispatch(toggleFilter());
 	};
 
 	let imgClass;
-	dropDown ? (imgClass = "rotate") : (imgClass = "default");
+	props.dropDown ? (imgClass = "rotate") : (imgClass = "default");
 
 	let slide;
-	dropDown ? (slide = "slide-down") : (slide = "slide-up");
+	props.dropDown ? (slide = "slide-down") : (slide = "slide-up");
 
 	return (
 		<div className="control-filter">
@@ -26,9 +29,16 @@ function Filter() {
 				</span>
 			</p>
 
-			{dropDown ? <Dropdown animateDropdown={slide} /> : ""}
+			{/* {props.dropDown ? <Dropdown animateDropdown={slide} /> : ""} */}
+			<Dropdown animateDropdown={slide} />
 		</div>
 	);
 }
 
-export default Filter;
+const mapStateToProps = (state) => {
+	return {
+		dropDown: state.invoiceReducer.dropDown,
+	};
+};
+
+export default connect(mapStateToProps, null)(Filter);

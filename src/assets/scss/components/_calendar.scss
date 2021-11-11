@@ -143,3 +143,26 @@
 		background: pink;
 	}
 }
+
+.hide-calendar {
+	visibility: hidden;
+	opacity: 0;
+}
+
+.display-calendar {
+	visibility: visible;
+	opacity: 1;
+
+	animation-name: slideDown;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes slideDown {
+	0% {
+		transform: translateY(-10rem);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}

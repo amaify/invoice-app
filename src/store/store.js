@@ -1,6 +1,11 @@
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 // import { themeReducer } from "./reducers/themeReducer";
-import { themeReducer, FormReducer } from "./reducers/index";
+import {
+	themeReducer,
+	FormReducer,
+	invoiceReducer,
+	routeReducer,
+} from "./reducers/index";
 import thunk from "redux-thunk";
 
 // function saveToLocalStorage(state) {
@@ -40,6 +45,8 @@ const logger = () => {
 const rootReducer = combineReducers({
 	themeReducer: themeReducer,
 	form: FormReducer,
+	invoiceReducer: invoiceReducer,
+	routeReducer: routeReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

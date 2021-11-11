@@ -1,5 +1,6 @@
 .control {
 	display: flex;
+	margin-bottom: 65px;
 
 	&-header {
 		margin-right: auto;
@@ -61,6 +62,9 @@
 
 			padding: 3rem 2.5rem;
 			z-index: 2;
+
+			opacity: 0;
+			visibility: hidden;
 
 			// & label {
 			// 	font-size: 12px;
@@ -147,6 +151,18 @@
 	animation-name: slide-down;
 	animation-duration: 0.7s;
 	animation-fill-mode: forwards;
+
+	opacity: 1;
+	visibility: visible;
+}
+
+.slide-up {
+	animation-name: slide-up;
+	animation-duration: 0.7s;
+	animation-fill-mode: forwards;
+
+	opacity: 0;
+	visibility: hidden;
 }
 
 @keyframes slide-down {
@@ -155,5 +171,14 @@
 	}
 	to {
 		transform: translateY(0);
+	}
+}
+
+@keyframes slide-up {
+	from {
+		transform: translateY(0);
+	}
+	to {
+		transform: translateY(-30%);
 	}
 }
