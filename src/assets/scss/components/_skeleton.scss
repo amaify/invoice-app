@@ -1,0 +1,146 @@
+.skeleton {
+	background: $white;
+	width: 100%;
+	min-height: 72px;
+	border-radius: 8px;
+
+	padding: 1.5rem 4rem;
+	box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	&:not(:last-child) {
+		margin-bottom: 1rem;
+	}
+
+	& .loading {
+		background: #c1c1c1;
+		min-height: 20px;
+		position: relative;
+		overflow: hidden;
+
+		&::before {
+			content: "";
+			position: absolute;
+			display: block;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(to right, transparent, #dedede, transparent);
+			transform: translateX(-100%);
+			animation: loading 2s infinite;
+		}
+	}
+
+	& .id {
+		width: 25%;
+		height: 15px;
+		margin-right: 43px;
+	}
+
+	& .due-payment {
+		width: 25%;
+		height: 15px;
+		margin-right: 45px;
+	}
+
+	& .client-name {
+		width: 25%;
+		height: 15px;
+		margin-right: 73px;
+	}
+
+	& .total-amount {
+		width: 20%;
+		height: 24px;
+		margin-right: 40px;
+	}
+
+	& .status {
+		width: 104px;
+		height: 40px;
+	}
+}
+
+.skeleton-details {
+	&__content {
+		background: $white;
+	}
+
+	&__tiles {
+		width: 100%;
+		height: 88px;
+		padding: 0 2rem;
+		border-radius: 4px;
+		margin-bottom: 24px;
+
+		display: flex;
+		align-items: center;
+		width: 100%;
+
+		&--status {
+			margin-right: auto;
+			width: 20%;
+			height: 25px;
+		}
+
+		&--buttons {
+			width: 40%;
+			height: 25px;
+		}
+	}
+
+	&__body {
+		width: 100%;
+		height: 631px;
+		padding: 4rem;
+
+		display: flex;
+		flex-direction: column;
+
+		&--address,
+		&--details,
+		&--items {
+			width: 100%;
+			// margin-bottom: 3rem;
+		}
+
+		&--address {
+			height: 100px;
+			margin-bottom: 2rem;
+		}
+
+		&--details {
+			height: 150px;
+			margin-bottom: 3rem;
+		}
+
+		&--items {
+			height: 200px;
+		}
+	}
+
+	& .loading {
+		background: #c1c1c1;
+		// min-height: 25px;
+		position: relative;
+		overflow: hidden;
+
+		&::before {
+			content: "";
+			position: absolute;
+			display: block;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(to right, transparent, #dedede, transparent);
+			transform: translateX(-100%);
+			animation: loading 2s infinite;
+		}
+	}
+}
+
+@keyframes loading {
+	100% {
+		transform: translateX(100%);
+	}
+}

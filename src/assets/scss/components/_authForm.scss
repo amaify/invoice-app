@@ -1,0 +1,294 @@
+//CODE FOR LOGIN FORM
+.login,
+.register {
+	width: 100%;
+	min-height: 50vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&-body {
+		background: $white;
+		width: 50%;
+		padding: 3rem;
+		border-radius: 8px;
+		box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+
+		&__heading {
+			font-size: 24px;
+			color: #0c0e16;
+			line-height: 32px;
+			letter-spacing: -0.5px;
+			font-weight: 700;
+			text-transform: capitalize;
+
+			margin-bottom: 2rem;
+		}
+
+		&__form {
+			margin-bottom: 2.5rem;
+
+			&--input {
+				width: 100%;
+				padding: 1.5rem 1.8rem;
+				border-radius: 4px;
+				border: 1px solid #dfe3fa;
+				outline: none;
+
+				font-size: 12px;
+				line-height: 15px;
+				letter-spacing: 2px;
+				font-weight: 700;
+
+				&:hover,
+				&:focus {
+					cursor: pointer;
+					border: 1px solid $primary-blue;
+				}
+
+				// &:focus {
+				// 	border: 1px solid $primary-blue;
+				// }
+
+				&::placeholder {
+					font-size: 12px;
+					line-height: 15px;
+					letter-spacing: -0.25px;
+					font-weight: 700;
+					color: #0c0e16;
+					opacity: 0.4;
+				}
+
+				&[type="password"] {
+					letter-spacing: 10px;
+				}
+
+				& .inputError {
+					border: 1px solid $primary-red;
+				}
+			}
+
+			&--sub {
+				display: flex;
+				flex-wrap: wrap;
+				width: 100%;
+
+				&-content {
+					width: 30%;
+
+					&:not(:last-child) {
+						margin-right: auto;
+					}
+				}
+
+				&-input {
+					padding: 1.5rem 1.8rem;
+					border-radius: 4px;
+					border: 1px solid #dfe3fa;
+					outline: none;
+					width: 100%;
+
+					font-size: 12px;
+					line-height: 15px;
+					letter-spacing: -0.25px;
+					font-weight: 700;
+
+					&:hover,
+					&:focus {
+						border: 1px solid $primary-blue;
+						cursor: pointer;
+					}
+
+					& .inputError {
+						border: 1px solid $primary-red;
+					}
+				}
+			}
+
+			&--main {
+				position: relative;
+			}
+
+			&--error {
+				position: absolute;
+				top: 0;
+				right: 0;
+
+				font-size: 12px;
+				line-height: 15px;
+				letter-spacing: -0.25px;
+				color: $primary-red;
+			}
+		}
+
+		&__links {
+			display: flex;
+
+			& a {
+				font-size: 12px;
+
+				&:first-child {
+					margin-right: auto;
+				}
+			}
+
+			& span {
+				font-size: 12px;
+				color: #0c0e16;
+				margin-right: 8px;
+			}
+		}
+	}
+}
+
+.forgotpassword {
+	width: 100%;
+	min-height: 50vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&-body {
+		background: $white;
+		padding: 3rem;
+		border-radius: 8px;
+		box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+		// text-align: center;
+
+		&__img {
+			// margin-bottom: 5.5rem;
+			width: 30%;
+			margin: 0 auto;
+
+			& img {
+				width: 100%;
+				height: 100%;
+				display: block;
+			}
+		}
+
+		&__heading {
+			font-size: 24px;
+			line-height: 32px;
+			letter-spacing: -0.5px;
+			text-align: center;
+			font-weight: 500;
+			margin-top: 2rem;
+			color: #0c0e16;
+		}
+
+		&__text {
+			font-size: 12px;
+			line-height: 24px;
+			letter-spacing: -0.25px;
+			text-align: center;
+			color: #7e88c3;
+		}
+
+		&__form {
+			margin-top: 2rem;
+
+			&--input {
+				width: 100%;
+				padding: 1.5rem 1.8rem;
+				border-radius: 4px;
+				border: 1px solid #dfe3fa;
+				outline: none;
+
+				font-size: 12px;
+				line-height: 15px;
+				letter-spacing: 1px;
+				font-weight: 700;
+
+				&:hover,
+				&:focus {
+					cursor: pointer;
+					border: 1px solid $primary-blue;
+				}
+
+				// &:focus {
+				// 	border: 1px solid $primary-blue;
+				// }
+
+				&::placeholder {
+					font-size: 12px;
+					line-height: 15px;
+					letter-spacing: -0.25px;
+					font-weight: 700;
+					color: #0c0e16;
+					opacity: 0.4;
+				}
+
+				& .inputError {
+					border: 1px solid $primary-red;
+				}
+			}
+
+			&--main {
+				position: relative;
+			}
+
+			&--error {
+				position: absolute;
+				top: 0;
+				right: 0;
+
+				font-size: 12px;
+				line-height: 15px;
+				letter-spacing: -0.25px;
+				color: $primary-red;
+			}
+		}
+	}
+}
+
+.auth-error,
+.auth-success {
+	margin: 0.5rem 0;
+	padding: 0.8rem 1.2rem;
+	text-align: center;
+	border-radius: 4px;
+
+	& p {
+		font-size: 14px;
+		color: $white;
+	}
+}
+
+.auth-error {
+	background: $primary-red;
+}
+
+.auth-success {
+	background: #2ad338;
+}
+
+.auth-error-remove,
+.auth-success-remove {
+	display: none;
+}
+
+// .register {
+// 	width: 100%;
+// 	min-height: 50vh;
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+
+// 	&-body {
+// 		background: $white;
+// 		width: 50%;
+// 		padding: 3rem;
+
+// 		&__heading {
+// 			font-size: 24px;
+// 			color: #0c0e16;
+// 			line-height: 32px;
+// 			letter-spacing: -0.5px;
+// 			font-weight: 700;
+// 			text-transform: capitalize;
+
+// 			margin-bottom: 2rem;
+// 		}
+// 	}
+// }

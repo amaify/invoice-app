@@ -13,6 +13,12 @@ export const resetInvoice = () => {
 	};
 };
 
+export const emptyInvoiceOnLogout = () => {
+	return {
+		type: actionTypes.EMPTY_INVOICE_ON_LOGOUT,
+	};
+};
+
 export const toggleFilter = () => {
 	return {
 		type: actionTypes.TOGGLE_FILTER,
@@ -29,5 +35,18 @@ export const filterInvoice = (status) => {
 	return {
 		type: actionTypes.FILTER_INVOICE,
 		data: status,
+	};
+};
+
+export const loading = () => {
+	return {
+		type: actionTypes.LOADING,
+	};
+};
+
+export const setError = (data) => {
+	return {
+		type: actionTypes.SET_ERROR,
+		data: data,
 	};
 };

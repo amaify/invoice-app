@@ -11,6 +11,7 @@ const Input = (props) => {
 				<label
 					htmlFor={props.id}
 					className={props.error === "" ? "" : "label-error"}
+					id={props.id}
 				>
 					{props.label}
 				</label>
@@ -19,12 +20,14 @@ const Input = (props) => {
 			{/* <p className="form-elements__group--main-error">Can't be empty</p> */}
 			<input
 				type={props.type}
-				defaultValue={props.value}
+				defaultValue={props.defaultValue}
 				name={props.name}
 				placeholder={props.placeholder}
 				onChange={props.onChange}
 				onBlur={props.onBlur}
 				className={props.className}
+				aria-labelledby={props.ariaLabelledby}
+				data-testid={props.dataTestid}
 			/>
 			{/* </div> */}
 		</div>

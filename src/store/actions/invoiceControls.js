@@ -13,3 +13,21 @@ export const deleteInvoice = (invoice) => {
 		data: invoice,
 	};
 };
+
+export const confirmDelete = () => {
+	return {
+		type: actionTypes.SHOW_MODAL,
+	};
+};
+
+export const cancelDelete = () => {
+	return {
+		type: actionTypes.CANCEL_DELETE,
+	};
+};
+
+export const removeError = () => {
+	return {
+		type: actionTypes.REMOVE_ERROR,
+	};
+};

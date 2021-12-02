@@ -4,7 +4,7 @@ import EmptyImage from "../../../assets/images/illustration-empty.svg";
 
 const EmptyInvoice = () => {
 	return (
-		<div className="invoice-empty">
+		<div className="invoice-empty" data-testid="empty-invoice">
 			<picture className="invoice-empty__image">
 				<img src={EmptyImage} alt="No Invoice image" />
 			</picture>

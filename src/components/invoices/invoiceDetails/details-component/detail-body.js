@@ -5,6 +5,10 @@ import { parseDate } from "../../../util/utility";
 function DetailsBody(props) {
 	const { data } = props;
 
+	const senderItems = localStorage.getItem("senderAddress");
+
+	const addressItems = JSON.parse(senderItems);
+
 	return (
 		<div className="details-body">
 			<div className="details-body__heading">
@@ -14,14 +18,18 @@ function DetailsBody(props) {
 						{data.id}
 					</span>
 					<span className="details-body__heading--title-text">
-						{data.description}
+						{data.description === "" ? "No Information" : data.description}
 					</span>
 				</p>
 				<p className="details-body__heading--address">
-					<span>{data.senderAddress.street}</span>
+					{/* <span>{data.senderAddress.street}</span>
 					<span>{data.senderAddress.city}</span>
 					<span>{data.senderAddress.postCode}</span>
-					<span>{data.senderAddress.country}</span>
+					<span>{data.senderAddress.country}</span> */}
+					<span>{addressItems.street}</span>
+					<span>{addressItems.city}</span>
+					<span>{addressItems.postCode}</span>
+					<span>{addressItems.country}</span>
 				</p>
 			</div>
 
@@ -39,19 +47,31 @@ function DetailsBody(props) {
 				<div className="details-body__billing--address">
 					<p className="details-body__billing--title">bill to</p>
 					<p className="details-body__billing--address-name">
-						{data.clientName}
+						{data.clientName === "" ? "No Information" : data.clientName}
 					</p>
 					<p className="details-body__billing--address-address">
-						<span>{data.clientAddress.street}</span>
-						<span>{data.clientAddress.city}</span>
-						<span>{data.clientAddress.postCode}</span>
-						<span>{data.clientAddress.country}</span>
+						<span>
+							{data.clientStreet === "" ? "No Information" : data.clientStreet}
+						</span>
+						<span>
+							{data.clientCity === "" ? "No Information" : data.clientCity}
+						</span>
+						<span>
+							{data.clientPostCode === ""
+								? "No Information"
+								: data.clientPostCode}
+						</span>
+						<span>
+							{data.clientCountry === ""
+								? "No Information"
+								: data.clientCountry}
+						</span>
 					</p>
 				</div>
 				<div className="details-body__billing--email">
 					<p className="details-body__billing--title">sent to</p>
 					<p className="details-body__billing--email-email">
-						{data.clientEmail}
+						{data.clientEmail === "" ? "No Information" : data.clientEmail}
 					</p>
 				</div>
 			</div>

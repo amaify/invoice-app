@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch, connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 
+import Validate from "../../util/validate";
 import Input from "../input/input";
 import Delete from "../../../assets/images/icon-delete.svg";
 import Button from "../../buttons/buttons";
@@ -14,16 +16,25 @@ import InputField from "./components/input-field";
 import ArrowDown from "../../../assets/images/icon-arrow-down.svg";
 import CalendarImage from "../../../assets/images/icon-calendar.svg";
 import {
+	editInput,
 	getDate,
+	hideForm,
 	paymentTerms,
 	submitPending,
 } from "../../../store/actions/formAction";
+import {
+	submitFormDraft,
+	submitFormPending,
+} from "../../../store/util/formUtility";
+import { updateInvoice } from "../../../store/util/invoiceUtility";
 
 function Form(props) {
 	// let selectedDate, paymentTerms;
 	// let paymentTerms
+	const history = useHistory();
 	let visibleDate = useSelector((state) => state.form.date);
 	const dispatch = useDispatch();
+	const { formDetails, editForm } = props;
 
 	// const [listItems, setListItems] = useState([
 	// 	{
@@ -35,6 +46,19 @@ function Form(props) {
 	// ]);
 
 	// let [listData, setListData] = useState([]);
+
+	const senderItems = localStorage.getItem("senderAddress");
+
+	const addressItems = JSON.parse(senderItems);
+
+	// console.log(addressItems);
+
+	const [senderDetails, setSenderDetails] = useState({
+		senderStreet: addressItems.street,
+		senderCity: addressItems.city,
+		senderPostCode: addressItems.postCode,
+		senderCountry: addressItems.country,
+	});
 
 	const [formData, setFormData] = useState({
 		// senderAddress: {
@@ -55,10 +79,10 @@ function Form(props) {
 		// city: "",
 		// postCode: "",
 		// country: "",
-		senderStreet: "",
-		senderCity: "",
-		senderPostCode: "",
-		senderCountry: "",
+		// senderStreet: "3 Enfield Street",
+		// senderCity: "Middlesbrough",
+		// senderPostCode: "TS1 4EH",
+		// senderCountry: "England",
 
 		clientStreet: "",
 		clientCity: "",
@@ -100,6 +124,7 @@ function Form(props) {
 	const [listItemError, setListItemError] = useState(false);
 	const [submitPending, setSubmitPending] = useState(false);
 	const [submitDraft, setSubmitDraft] = useState(false);
+	const [submitEditForm, setSubmitEditForm] = useState(false);
 
 	// const [senderAddress, setSenderAddress] = useState({
 	// 	street: "",
@@ -126,8 +151,9 @@ function Form(props) {
 	let [showDate, setShowDate] = useState(false);
 	// let [selectedDate, setSelectedDate] = useState("");
 	let [dateContext, setDateContext] = useState(moment());
-
-	const { formDetails } = props;
+	const [onEditInput, setEditInput] = useState(
+		editForm ? formDetails || onEditInput : ""
+	);
 
 	const year = () => dateContext.format("Y");
 	const month = () => dateContext.format("MMM");
@@ -169,46 +195,186 @@ function Form(props) {
 
 		// let listItemError = false;
 
-		if (formData.clientEmail === "") {
-			emailError = "Can't be empty";
-		} else if (!validateEmail(formData.clientEmail)) {
-			emailError = "Invalid email";
+		if (!editForm) {
+			if (formData.clientEmail === "") {
+				emailError = "Can't be empty";
+			} else if (!validateEmail(formData.clientEmail)) {
+				emailError = "Invalid email";
+			}
+		} else {
+			if (formDetails.clientEmail === "") {
+				emailError = "Can't be empty";
+			} else if (!validateEmail(formDetails.clientEmail)) {
+				emailError = "Invalid email";
+			}
+		}
+		// if (formData.clientEmail === "") {
+		// 	emailError = "Can't be empty";
+		// } else if (!validateEmail(formData.clientEmail)) {
+		// 	emailError = "Invalid email";
+		// }
+
+		// if (!formData.senderStreet) streetError = "Can't be empty";
+
+		if (!editForm) {
+			if (!senderDetails.senderStreet) {
+				streetError = "New form Can't be empty";
+			}
+		} else {
+			if (!senderDetails.senderStreet) {
+				streetError = "Edit form Can't be empty";
+			}
 		}
 
-		if (!formData.senderStreet) streetError = "Can't be empty";
+		// if (!formData.senderPostCode) postCodeError = "Can't be empty";
 
-		if (!formData.senderPostCode) postCodeError = "Can't be empty";
+		if (!editForm) {
+			if (!senderDetails.senderPostCode) {
+				postCodeError = "Can't be empty";
+			}
+		} else {
+			if (!senderDetails.senderPostCode) {
+				postCodeError = "Can't be empty";
+			}
+		}
 
-		if (!formData.senderCity) cityError = "Can't be empty";
+		// if (!formData.senderCity) cityError = "Can't be empty";
 
-		if (!formData.senderCountry) countryError = "Can't be empty";
+		if (!editForm) {
+			if (!senderDetails.senderCity) {
+				cityError = "Can't be empty";
+			}
+		} else {
+			if (!senderDetails.senderCity) {
+				cityError = "Can't be empty";
+			}
+		}
 
-		if (!formData.clientStreet) clientCountryError = "Can't be empty";
+		// if (!formData.senderCountry) countryError = "Can't be empty";
 
-		if (!formData.clientCity) clientCityError = "Can't be empty";
+		if (!editForm) {
+			if (!senderDetails.senderCountry) {
+				countryError = "Can't be empty";
+			}
+		} else {
+			if (!senderDetails.senderCountry) {
+				countryError = "Can't be empty";
+			}
+		}
 
-		if (!formData.clientPostCode) clientPostCodeError = "Can't be empty";
+		// if (!formData.clientStreet) clientCountryError = "Can't be empty";
 
-		if (!formData.clientCountry) clientCountryError = "Can't be empty";
+		if (!editForm) {
+			if (!formData.clientStreet) {
+				clientStreetError = "Can't be empty";
+			}
+		} else {
+			if (!formDetails.clientStreet) {
+				clientStreetError = "Can't be empty";
+			}
+		}
 
-		if (!formData.clientStreet) clientStreetError = "Can't be empty";
+		// if (!formData.clientCity) clientCityError = "Can't be empty";
 
-		if (!formData.description) projectDescriptionError = "Can't be empty";
+		if (!editForm) {
+			if (!formData.clientCity) {
+				clientCityError = "Can't be empty";
+			}
+		} else {
+			if (!formDetails.clientCity) {
+				clientCityError = "Can't be empty";
+			}
+		}
 
-		if (!formData.clientName) clientNameError = "Can't be empty";
+		// if (!formData.clientPostCode) clientPostCodeError = "Can't be empty";
 
-		if (props.listItems.length > 0) {
-			props.listItems.forEach((item) => {
-				// if (!item.itemName || !item.itemPrice || !item.total) {
-				// 	setListItemError(true);
-				// 	console.log("it is not empty");
-				// } else {
-				// 	setListItemError(false);
-				// }
-				if (!item.itemName) itemNameError = "itemName Error";
-				if (!item.itemPrice) itemPriceError = "itemPrice Error";
-				if (!item.itemQuantity) itemQuantityError = "itemQuantity Error";
-			});
+		if (!editForm) {
+			if (!formData.clientPostCode) {
+				clientPostCodeError = "Can't be empty";
+			}
+		} else {
+			if (!formDetails.clientPostCode) {
+				clientPostCodeError = "Can't be empty";
+			}
+		}
+
+		// if (!formData.clientCountry) clientCountryError = "Can't be empty";
+
+		if (!editForm) {
+			if (!formData.clientCountry) {
+				clientCountryError = "Can't be empty";
+			}
+		} else {
+			if (!formDetails.clientCountry) {
+				clientCountryError = "Can't be empty";
+			}
+		}
+
+		// if (!formData.clientStreet) clientStreetError = "Can't be empty";
+
+		// if (!editForm) {
+		// 	if (!formData.clientStreet) {
+		// 		streetError = "Can't be empty";
+		// 	}
+		// } else {
+		// 	if (!formDetails.clientStreet) {
+		// 		streetError = "Can't be empty";
+		// 	}
+		// }
+
+		// if (!formData.description) projectDescriptionError = "Can't be empty";
+
+		if (!editForm) {
+			if (!formData.description) {
+				projectDescriptionError = "Can't be empty";
+			}
+		} else {
+			if (!formDetails.description) {
+				projectDescriptionError = "Can't be empty";
+			}
+		}
+
+		// if (!formData.clientName) clientNameError = "Can't be empty";
+
+		if (!editForm) {
+			if (!formData.clientName) {
+				clientNameError = "Can't be empty";
+			}
+		} else {
+			if (!formDetails.clientName) {
+				clientNameError = "Can't be empty";
+			}
+		}
+
+		if (!editForm) {
+			if (props.listItems.length > 0) {
+				props.listItems.forEach((item) => {
+					// if (!item.itemName || !item.itemPrice || !item.total) {
+					// 	setListItemError(true);
+					// 	console.log("it is not empty");
+					// } else {
+					// 	setListItemError(false);
+					// }
+					if (!item.name) itemNameError = "itemName Error";
+					if (!item.price) itemPriceError = "itemPrice Error";
+					if (!item.quantity) itemQuantityError = "itemQuantity Error";
+				});
+				setListError(false);
+			} else {
+				setListError(true);
+				console.log("listError here");
+			}
+		} else {
+			if (formDetails.items.length > 0) {
+				formDetails.items.forEach((item) => {
+					if (!item.name) itemNameError = "itemName Error";
+					if (!item.price) itemPriceError = "itemPrice Error";
+					if (!item.quantity) itemQuantityError = "itemQuantity Error";
+				});
+				setListError(false);
+			} else {
+				setListError(true);
+			}
 		}
 
 		if (
@@ -245,10 +411,13 @@ function Form(props) {
 				itemQuantityError: itemQuantityError,
 			});
 			setSubmitPending(false);
+			setSubmitEditForm(false);
 			// setListItemError(true);
 			// setSubmitDraft(false);
 			setIsError(true);
-			// return false;
+			console.log(isError);
+			console.log("Error occured here!");
+			return false;
 		} else {
 			setErrors({
 				emailError: "",
@@ -269,21 +438,54 @@ function Form(props) {
 			setIsError(false);
 		}
 
-		if (props.listItems.length < 1) {
-			setSubmitPending(false);
-			setListError(true);
-			console.log("it is empty");
-			return false;
-		} else {
-			setListError(false);
+		// if (props.listItems.length < 1) {
+		// 	setSubmitPending(false);
+		// 	setListError(true);
+		// 	console.log("it is empty");
+		// 	return false;
+		// } else {
+		// 	setListError(false);
 
-			if (itemNameError || itemQuantityError || itemPriceError) {
-				setSubmitPending(false);
-				setIsError(true);
-				console.log("list item error");
-				return false;
-			}
-		}
+		// 	if (itemNameError || itemQuantityError || itemPriceError) {
+		// 		setSubmitPending(false);
+		// 		setIsError(true);
+		// 		console.log("list item error");
+		// 		return false;
+		// 	}
+		// }
+
+		// if (!editForm) {
+		// 	if (props.listItems.length < 1) {
+		// 		setSubmitPending(false);
+		// 		setListError(true);
+		// 		console.log("it is empty");
+		// 		return false;
+		// 	} else {
+		// 		setListError(false);
+
+		// 		if (itemNameError || itemQuantityError || itemPriceError) {
+		// 			setSubmitPending(false);
+		// 			setIsError(true);
+		// 			console.log("list item error");
+		// 			return false;
+		// 		}
+		// 	}
+		// } else {
+		// 	if (formDetails.items.length < 1) {
+		// 		setSubmitEditForm(false);
+		// 		setListError(true);
+		// 		console.log("it is empty");
+		// 		return false;
+		// 	} else {
+		// 		setListError(false);
+		// 		if (itemNameError || itemQuantityError || itemPriceError) {
+		// 			setSubmitEditForm(false);
+		// 			setIsError(true);
+		// 			console.log("list item error");
+		// 			return false;
+		// 		}
+		// 	}
+		// }
 
 		// if (itemNameError || itemPriceError || itemQuantityError) {
 		// 	setSubmitPending(false);
@@ -293,19 +495,59 @@ function Form(props) {
 		// 	setIsError(false);
 		// }
 
+		if (listError) {
+			setSubmitPending(false);
+			setSubmitEditForm(false);
+			return false;
+		}
+
 		setIsError(false);
 
 		return true;
 	};
 
+	const onHandleBlur = () => {
+		if (isError) {
+			// console.log("validating is somehow working!");
+			return validateForm();
+		}
+	};
+
+	const onDiscardFormInputs = (e) => {
+		e.preventDefault();
+
+		console.log("cleared!!");
+		setFormData({
+			clientStreet: "",
+			clientCity: "",
+			clientPostCode: "",
+			clientCountry: "",
+
+			clientName: "",
+			clientEmail: "",
+			description: "",
+			date: "",
+			paymentTerms: "",
+			status: "",
+		});
+		props.listItems.length = 0;
+
+		dispatch(hideForm());
+	};
+
+	// useEffect(() => {
+	// 	return formData;
+	// }, [formData]);
+
 	// const y =
 
 	useEffect(() => {
-		let date = new Date(props.date).toISOString().split("T")[0];
+		// let date = new Date(props.date).toISOString().split("T")[0];
 		let paymentTerms = props.paymentTerms;
 		let listItems = props.listItems;
 
-		formData.date = date;
+		// formData.date = date;
+		formData.date = props.date;
 		formData.paymentTerms = paymentTerms;
 		formData.listOfItems = listItems;
 
@@ -318,30 +560,52 @@ function Form(props) {
 				console.log(formData);
 
 				setSubmitPending(false);
+
+				dispatch(submitFormPending(formData, history));
 			}
 		}
 		// console.log(formData);
 	}, [submitPending]);
 
 	useEffect(() => {
-		let date = new Date(props.date).toISOString().split("T")[0];
+		// let date = new Date(props.date).toISOString().split("T")[0];
 		let paymentTerms = props.paymentTerms;
 		let listItems = props.listItems;
 
-		formData.date = date;
+		// formData.date = date;
+		formData.date = props.date;
 		formData.paymentTerms = paymentTerms;
 		formData.listOfItems = listItems;
 
 		// console.log(formData);
 		// dispatch(submitPending(formData));
-		console.log(submitDraft);
+		// console.log(submitDraft);
 		if (submitDraft) {
 			console.log(formData);
 
 			setSubmitDraft(false);
+
+			dispatch(submitFormDraft(formData));
 		}
 		// console.log(formData);
 	}, [submitDraft]);
+
+	useEffect(() => {
+		// submitEditForm, setSubmitEditForm
+		if (submitEditForm) {
+			let isValid = validateForm();
+			if (isValid) {
+				console.log(formDetails);
+				formDetails.status = "Pending";
+				setSubmitEditForm(false);
+
+				dispatch(updateInvoice(formDetails, history));
+			}
+			// console.log(formDetails);
+
+			// setSubmitEditForm(false);
+		}
+	}, [submitEditForm]);
 
 	const onSubmitForm = (e) => {
 		e.preventDefault();
@@ -387,33 +651,44 @@ function Form(props) {
 
 		onSubmitForm(e);
 	};
+
+	const onEditFormSave = (e) => {
+		// submitEditForm, setSubmitEditForm
+		e.preventDefault();
+
+		setSubmitEditForm(true);
+
+		// console.log("submitted");
+		// console.log(e);
+		return;
+	};
 	// console.log(formData.status);
 
 	// console.log(formData.status);
 
-	useMemo(() => {
-		console.log(errors);
-		console.log(isError);
-		console.log(listError);
-	}, [errors]);
+	// useMemo(() => {
+	// 	console.log(errors);
+	// 	console.log(isError);
+	// 	console.log(listError);
+	// }, [errors]);
 
 	// console.log(errors);
 	// console.log(isError);
 
-	let calendarClass;
+	// let calendarClass;
 
-	!showCalendar
-		? (calendarClass = "invoice-date__items")
-		: (calendarClass = "invoice-date__items invoice-date__items--active");
+	// !showCalendar
+	// 	? (calendarClass = "invoice-date__items")
+	// 	: (calendarClass = "invoice-date__items invoice-date__items--active");
 
-	const displayCalendar = () => {
-		showCalendar ? setShowCalendar(false) : setShowCalendar(true);
-	};
+	// const displayCalendar = () => {
+	// 	showCalendar ? setShowCalendar(false) : setShowCalendar(true);
+	// };
 
-	const getDateData = () => {
-		setShowDate(true);
-		// setSelectedDate(data);
-	};
+	// const getDateData = () => {
+	// 	setShowDate(true);
+	// 	// setSelectedDate(data);
+	// };
 
 	// useEffect(() => {
 	// 	getDateData();
@@ -545,6 +820,20 @@ function Form(props) {
 		});
 	};
 
+	const editHandleInputChange = (e) => {
+		const { name, value } = e.target;
+
+		let updatedInput = { ...formDetails };
+
+		updatedInput[name] = value;
+
+		dispatch(editInput(updatedInput));
+		setEditInput(updatedInput);
+		// console.log(name);
+		// console.log(value);
+		console.log(onEditInput);
+	};
+
 	return (
 		<section className="form">
 			{!props.editForm ? (
@@ -562,15 +851,20 @@ function Form(props) {
 				onSaveDraft={onSaveDraft}
 				handleInputChange={handleInputChange}
 				formData={formData}
+				senderDetails={senderDetails}
 				validateForm={validateForm}
 				errors={errors}
 				isError={isError}
 				listError={listError}
-				calendarClass={calendarClass}
-				getDateData={getDateData}
-				displayCalendar={displayCalendar}
+				// calendarClass={calendarClass}
+				// getDateData={getDateData}
+				// displayCalendar={displayCalendar}
 				showDate={showDate}
 				formDetails={formDetails}
+				onEditFormSave={onEditFormSave}
+				editHandleInputChange={editHandleInputChange}
+				onHandleBlur={onHandleBlur}
+				onDiscardFormInputs={onDiscardFormInputs}
 			/>
 
 			{/* <form className="form-elements" onSubmit={onSendPending || onSaveDraft}>

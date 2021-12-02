@@ -419,12 +419,12 @@
 
 						&:hover,
 						&:active {
-							border: 1px solid $secondary-blue;
-							cursor: pointer;
+							border: 1px solid $secondary-blue !important;
+							cursor: pointer !important;
 						}
 
 						&:focus {
-							border: 1px solid $secondary-blue;
+							border: 1px solid $secondary-blue !important;
 						}
 					}
 

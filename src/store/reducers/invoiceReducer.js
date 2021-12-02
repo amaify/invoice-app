@@ -1,21 +1,64 @@
 import * as actionTypes from "../actions/actionTypes";
 import { deleteInvoice } from "../actions/invoiceControls";
 
-const initialState = {
+export const initialState = {
 	invoice: [],
 	status: "",
 	filtered: false,
 	dropDown: false,
+	showModal: false,
+	backdrop: false,
+
+	loading: false,
+	error: false,
+	errMessage: "",
 	// toggleClicked: true,
 };
 
 export const invoiceReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.GET_INVOICE:
-			return { ...state, invoice: action.data, filtered: false };
+			return {
+				...state,
+				invoice: action.data,
+				filtered: false,
+				loading: false,
+				pendingLoading: false,
+				draftLoading: false,
+				error: false,
+			};
+
+		case actionTypes.HIDE_FORM:
+			return {
+				...state,
+				pendingLoading: false,
+			};
+
+		case actionTypes.SET_ERROR:
+			return {
+				...state,
+				error: true,
+				loading: false,
+				errMessage: action.data,
+				showModal: true,
+				backdrop: true,
+				pendingLoading: false,
+				draftLoading: false,
+			};
+
+		case actionTypes.REMOVE_ERROR:
+			return {
+				...state,
+				error: false,
+				showModal: false,
+				backdrop: false,
+			};
 
 		case actionTypes.RESET_INVOICE:
-			return { ...state, filtered: false, status: "" };
+			return { ...state, filtered: false, loading: false };
+
+		case actionTypes.EMPTY_INVOICE_ON_LOGOUT:
+			return { ...state, invoice: (state.invoice = []) };
 
 		case actionTypes.TOGGLE_FILTER:
 			return { ...state, dropDown: !state.dropDown };
@@ -40,10 +83,14 @@ export const invoiceReducer = (state = initialState, action) => {
 			};
 
 		case actionTypes.SUBMIT_PENDING:
-			let invoice = [...state.invoice];
-			invoice.push(action.invoiceData);
+			// let invoice = [...state.invoice];
+			// invoice.push(action.invoiceData);
 
-			return { ...state, invoice: invoice };
+			// return { ...state, invoice: invoice, pendingLoading: true };
+			return { ...state, pendingLoading: true };
+
+		case actionTypes.SUBMIT_DRAFT:
+			return { ...state, draftLoading: true };
 
 		case actionTypes.SET_TO_PAID:
 			let updatedInvoice = [...state.invoice];
@@ -59,16 +106,40 @@ export const invoiceReducer = (state = initialState, action) => {
 			};
 
 		case actionTypes.DELETE_INVOICE:
-			let deletedInvoice = [...state.invoice];
-			for (let i = 0; i < deletedInvoice.length; i++) {
-				if (deletedInvoice[i].id === action.data.id) {
-					deletedInvoice.splice(i, 1);
-				}
-			}
+			// let deletedInvoice = [...state.invoice];
+			// for (let i = 0; i < deletedInvoice.length; i++) {
+			// 	if (deletedInvoice[i].id === action.data.id) {
+			// 		deletedInvoice.splice(i, 1);
+			// 	}
+			// }
 
 			return {
 				...state,
-				invoice: deletedInvoice,
+				// invoice: deletedInvoice,
+				confirmDelete: false,
+				backdrop: false,
+				showModal: false,
+			};
+
+		case actionTypes.SHOW_MODAL:
+			return {
+				...state,
+				showModal: true,
+				backdrop: true,
+			};
+
+		case actionTypes.CANCEL_DELETE:
+			return {
+				...state,
+				confirmDelete: false,
+				backdrop: false,
+				showModal: false,
+			};
+
+		case actionTypes.LOADING:
+			return {
+				...state,
+				loading: true,
 			};
 
 		default:

@@ -21,10 +21,11 @@ const Layout = (props) => {
 				<Navigation />
 			</div>
 
-			{props.displayForm && <Form />}
+			{props.displayForm && props.isAuth && <Form />}
 
 			<div className="layout-main">
-				{props.showBackdrop && <Backdrop onClick={closeForm} />}
+				{(props.showBackdrop && <Backdrop onClick={closeForm} />) ||
+					(props.invoiceBackdrop && <Backdrop />)}
 				{/* {!props.routeToggled && <Controls />} */}
 				{/* <Invoices /> */}
 				<Router />
@@ -35,8 +36,10 @@ const Layout = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
+		isAuth: state.authReducer.isAuth,
 		displayForm: state.form.showForm,
 		showBackdrop: state.form.backdrop,
+		invoiceBackdrop: state.invoiceReducer.backdrop,
 		routeToggled: state.routeReducer.routeToggled,
 	};
 };

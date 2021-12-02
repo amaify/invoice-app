@@ -6,18 +6,29 @@ import Button from "../../../buttons/buttons";
 import Delete from "../../../../assets/images/icon-delete.svg";
 import { dispatchListItems } from "../../../../store/util/formUtility";
 import {
+	addNewItemToList,
+	deleteListItems,
 	editListAddItems,
 	editlistDelete,
 	editOnChange,
 	getListItems,
+	listOnChange,
 } from "../../../../store/actions/formAction";
 
 function ListItems(props) {
 	const dispatch = useDispatch();
-	const [listItems, setListItems] = useState([]);
+	const [listItemss, setListItems] = useState([]);
 	const [editListItems, setEditListItems] = useState([]);
 
-	const { editForm, editFormListItems, formDetails } = props;
+	const {
+		editForm,
+		editFormListItems,
+		formDetails,
+		listItems,
+		onHandleBlur,
+		errors,
+		validateForm,
+	} = props;
 
 	const onItemChange = (e, index) => {
 		const { name, value } = e.target;
@@ -25,7 +36,9 @@ function ListItems(props) {
 		let newArray = [...listItems];
 		newArray[index][name] = value;
 
+		// console.log(newArray);
 		setListItems(newArray);
+		dispatch(listOnChange(newArray));
 	};
 
 	const onEditItemChange = (e, index) => {
@@ -36,12 +49,12 @@ function ListItems(props) {
 
 		// console.log(y);
 		setEditListItems(editListArray);
-		// dispatch(editOnChange(editListArray));
+		dispatch(editOnChange(editListArray));
 	};
 
-	useEffect(() => {
-		dispatch(getListItems(listItems));
-	}, [listItems]);
+	// useEffect(() => {
+	// 	dispatch(getListItems(listItems));
+	// }, [listItems]);
 
 	// useEffect(() => {
 	// 	dispatch(editOnChange(editListItems));
@@ -49,21 +62,24 @@ function ListItems(props) {
 
 	const addItemToList = (e) => {
 		e.preventDefault();
+		// if (errors) {
+		// validateForm();
+		// }
 
 		if (!editForm) {
-			return setListItems([
-				...listItems,
-				{ itemName: "", itemPrice: "", itemQuantity: "", total: "" },
-			]);
+			return dispatch(addNewItemToList());
 		} else {
 			return dispatch(editListAddItems());
 		}
 	};
 
 	const deleteList = (index) => {
-		const newArray = [...listItems];
-		newArray.splice(index, 1);
-		setListItems(newArray);
+		// const newArray = [...listItems];
+		// let x = newArray.splice(index, 1);
+		// console.log(x);
+		// setListItems(x);
+
+		return dispatch(deleteListItems(index));
 	};
 
 	const onDeleteEditList = (index) => {
@@ -91,10 +107,11 @@ function ListItems(props) {
 									<div className="form-elements__group" id="item-name">
 										<input
 											type="text"
-											defaultValue={item.name}
-											// value={item.name}
+											// defaultValue={item.name}
+											value={item.name}
 											name="name"
 											onChange={(e) => onEditItemChange(e, i)}
+											onBlur={onHandleBlur}
 											className={
 												props.itemNameError === ""
 													? "added-item"
@@ -106,10 +123,11 @@ function ListItems(props) {
 									<div className="form-elements__group" id="item-qty">
 										<input
 											type="number"
-											defaultValue={item.quantity}
-											// value={item.quantity}
+											// defaultValue={item.quantity}
+											value={item.quantity}
 											name="quantity"
 											onChange={(e) => onEditItemChange(e, i)}
+											onBlur={onHandleBlur}
 											className={
 												props.itemQuantityError === ""
 													? "added-item"
@@ -121,10 +139,11 @@ function ListItems(props) {
 									<div className="form-elements__group" id="item-price">
 										<input
 											type="number"
-											defaultValue={item.price}
-											// value={item.price}
+											// defaultValue={item.price}
+											value={item.price}
 											name="price"
 											onChange={(e) => onEditItemChange(e, i)}
+											onBlur={onHandleBlur}
 											className={
 												props.itemPriceError === ""
 													? "added-item"
@@ -165,54 +184,61 @@ function ListItems(props) {
 					: listItems.length > 0 &&
 					  listItems.map((item, i) => {
 							return (
-								<div className="list" key={i * 1.9}>
+								<div className="list" key={i * 2.3}>
 									<div className="form-elements__group" id="item-name">
 										<input
 											type="text"
-											defaultValue={item.name}
-											name="itemName"
+											value={item.name}
+											name="name"
 											onChange={(e) => onItemChange(e, i)}
+											onBlur={onHandleBlur}
 											className={
 												props.itemNameError === ""
 													? "added-item"
 													: "added-item list-error"
 											}
+											data-testid="itemName"
 										/>
 									</div>
 
 									<div className="form-elements__group" id="item-qty">
 										<input
 											type="number"
-											defaultValue={item.quantity}
-											name="itemQuantity"
+											value={item.quantity}
+											name="quantity"
 											onChange={(e) => onItemChange(e, i)}
+											onBlur={onHandleBlur}
 											className={
 												props.itemQuantityError === ""
 													? "added-item"
 													: "added-item list-error"
 											}
+											data-testid="itemQuantity"
 										/>
 									</div>
 
 									<div className="form-elements__group" id="item-price">
 										<input
 											type="number"
-											defaultValue={item.price}
-											name="itemPrice"
+											value={item.price}
+											name="price"
 											onChange={(e) => onItemChange(e, i)}
+											onBlur={onHandleBlur}
 											className={
 												props.itemPriceError === ""
 													? "added-item"
 													: "added-item list-error"
 											}
+											data-testid="itemPrice"
 										/>
 									</div>
-									<p className="total-price">
-										{listItems.length > 0
+									<p className="total-price" data-testid="totalPrice">
+										{/* {listItems.length > 0
 											? (listItems[i].total = (
 													listItems[i].itemQuantity * listItems[i].itemPrice
 											  ).toFixed(2))
-											: ""}
+											: ""} */}
+										{(item.total = (item.price * item.quantity).toFixed(2))}
 									</p>
 									{/* <img
 									src={Delete}
@@ -238,7 +264,12 @@ function ListItems(props) {
 					  })}
 			</div>
 
-			<Button text="+ Add New Item" type="6" onClick={addItemToList} />
+			<Button
+				text="+ Add New Item"
+				type="6"
+				onClick={addItemToList}
+				dataTestid="addItemsButton"
+			/>
 
 			{/* <div>{JSON.stringify(listItems)}</div> */}
 		</div>
@@ -249,6 +280,7 @@ const mapStateToProps = (state) => {
 	return {
 		editForm: state.form.editForm,
 		formDetails: state.form.formDetails,
+		listItems: state.form.listItems,
 	};
 };
 

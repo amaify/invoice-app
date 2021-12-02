@@ -36,7 +36,7 @@ export const GlobalStyle = createGlobalStyle`
 
         .form-heading {
             color: ${(props) =>
-							props.theme.mode === "light" ? "#0C0E16" : "#FFFFFF"};
+							props.theme.mode === "light" ? "#0C0E16" : "#FFFFFF"}; 
         }
 
         .form-elements__group--input,
@@ -152,6 +152,11 @@ export const GlobalStyle = createGlobalStyle`
 
             color: ${(props) =>
 							props.theme.mode === "light" ? "#7e88c3" : "#DFE3FA"};
+        }
+
+        .button-6:hover {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#dfe3fa" : "#353849"};
         }
 
         .invoice-tiles__content,
@@ -291,6 +296,48 @@ export const GlobalStyle = createGlobalStyle`
         .details-tiles__tile--status-status__draft p span:last-child{
             color: ${(props) =>
 							props.theme.mode === "light" ? "#373b53" : "#FFFFFF"};
+        }
+
+        .no-items {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#FFFFFF"};
+        }
+
+        .skeleton {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#ffffff" : "#1E2139"};
+        }
+
+        .skeleton .loading {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#c1c1c1" : "#ffffff"};
+        }
+
+        .skeleton .loading::before {
+            background: ${(props) =>
+							props.theme.mode === "light"
+								? "linear-gradient(to right, transparent, #dedede, transparent);"
+								: "linear-gradient(to right, transparent, #c1c1c1, transparent);"};
+        }
+
+        .modal-content {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#FFFFFF" : "#1E2139"};
+        }
+
+        .modal-content__text h1 {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#FFFFFF"}; 
+        }
+
+        .modal-content__text p {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#888eb0" : "#DFE3FA"};
+        }
+
+        .modal-content__error p {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#888eb0" : "#DFE3FA"};
         }
     }
 `;

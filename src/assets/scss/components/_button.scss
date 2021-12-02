@@ -10,7 +10,7 @@
 		height: 48px;
 		position: relative;
 
-		transition: all 0.3s ease-in;
+		transition: all 0.3s ease-in-out;
 
 		&:hover,
 		&:active {
@@ -40,6 +40,7 @@
 	&-3 {
 		width: 96px;
 		height: 48px;
+		transition: all 0.3s ease-in-out;
 
 		color: $light-blue;
 	}
@@ -48,8 +49,14 @@
 		width: 133px;
 		height: 48px;
 		background: #373b53;
+		transition: all 0.3s ease-in-out;
 
 		color: #888eb0;
+
+		&:hover,
+		&:active {
+			background: #0c0e16;
+		}
 	}
 
 	&-6 {
@@ -62,6 +69,12 @@
 
 		// width: 100%;
 		padding: 1.5rem 0;
+		transition: all 0.3s ease-in-out;
+
+		&:hover,
+		&:active {
+			background: #dfe3fa;
+		}
 	}
 
 	&-7 {

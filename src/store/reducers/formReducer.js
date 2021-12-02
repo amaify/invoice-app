@@ -16,7 +16,13 @@ export const FormReducer = (state = initialState, action) => {
 			return { ...state, showForm: true, backdrop: true };
 
 		case actionTypes.HIDE_FORM:
-			return { ...state, showForm: false, editForm: false, backdrop: false };
+			return {
+				...state,
+				showForm: false,
+				editForm: false,
+				backdrop: false,
+				listItems: [],
+			};
 
 		case actionTypes.EDIT_FORM:
 			return { ...state, editForm: true, formDetails: action.invoice };
@@ -30,7 +36,7 @@ export const FormReducer = (state = initialState, action) => {
 		case actionTypes.GET_LIST_ITEMS:
 			return { ...state, listItems: action.listItems };
 
-		case actionTypes.ADD_ITEM_TO_LIST:
+		case actionTypes.ADD_ITEM_TO_EDIT_LIST:
 			let newFormDetails = { ...state.formDetails };
 			newFormDetails.items.push({
 				name: "",
@@ -41,11 +47,25 @@ export const FormReducer = (state = initialState, action) => {
 
 			return { ...state, formDetails: newFormDetails };
 
-		// case actionTypes.EDIT_ON_CHANGE:
-		// 	let newArray = [...state.formDetails.items];
+		case actionTypes.ADD_NEW_ITEM_TO_LIST:
+			let newItems = [...state.listItems];
+			newItems.push({ name: "", quantity: "", price: "", total: "" });
 
-		// 	console.log(newArray);
-		// 	return { ...state };
+			return { ...state, listItems: newItems };
+
+		case actionTypes.DELETE_LIST_ITEMS:
+			let itemList = [...state.listItems];
+
+			for (let i = 0; i < itemList.length; i++) {
+				if (i === action.data) {
+					itemList.splice(i, 1);
+				}
+			}
+
+			return {
+				...state,
+				listItems: itemList,
+			};
 
 		case actionTypes.EDIT_LIST_DELETE:
 			let editList = [...state.formDetails.items];
@@ -55,8 +75,6 @@ export const FormReducer = (state = initialState, action) => {
 					editList.splice(i, 1);
 				}
 			}
-
-			// console.log(editList);
 
 			return {
 				...state,
@@ -79,6 +97,12 @@ export const FormReducer = (state = initialState, action) => {
 					...state.formDetails,
 					createdAt: action.data,
 				},
+			};
+
+		case actionTypes.EDIT_INPUT:
+			return {
+				...state,
+				formDetails: action.data,
 			};
 
 		default:

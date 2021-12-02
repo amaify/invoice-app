@@ -91,6 +91,7 @@ function Calendar(props) {
 		let dateElement = `${currentDate()} ${month()} ${year()}`;
 		props.selectedDate(dateElement);
 		if (!editForm) {
+			// console.log(dateElement);
 			dispatch(getDate(dateElement));
 		} else {
 			let updateDate = new Date(dateElement).toISOString().split("T")[0];

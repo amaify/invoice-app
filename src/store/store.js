@@ -5,6 +5,7 @@ import {
 	FormReducer,
 	invoiceReducer,
 	routeReducer,
+	AuthReducer,
 } from "./reducers/index";
 import thunk from "redux-thunk";
 
@@ -47,6 +48,7 @@ const rootReducer = combineReducers({
 	form: FormReducer,
 	invoiceReducer: invoiceReducer,
 	routeReducer: routeReducer,
+	authReducer: AuthReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
