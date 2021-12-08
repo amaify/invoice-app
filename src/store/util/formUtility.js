@@ -53,7 +53,7 @@ export const submitFormPending = (formData) => {
 				if (responseData.statusCode === 201) {
 					dispatch(hideForm());
 					dispatch(displayInvoice());
-					console.log(responseData);
+					// console.log(responseData);
 					// dispatch(getInvoice());
 					// history.replace("/");
 				} else {
@@ -88,6 +88,7 @@ export const submitFormDraft = (formData) => {
 					dispatch(displayInvoice());
 					// dispatch(getInvoice());
 					// history.replace("/");
+					console.log(responseData);
 				} else {
 					dispatch(hideForm());
 					dispatch(setError(responseData.message));
@@ -95,7 +96,7 @@ export const submitFormDraft = (formData) => {
 				}
 			})
 			.catch((error) => {
-				dispatch(setError(error));
+				dispatch(setError(error.message));
 				dispatch(hideForm());
 			});
 	};

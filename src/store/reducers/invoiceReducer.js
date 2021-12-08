@@ -3,13 +3,18 @@ import { deleteInvoice } from "../actions/invoiceControls";
 
 export const initialState = {
 	invoice: [],
+	filteredInvoice: [],
+	singleInvoice: [],
 	status: "",
+	marked: false,
 	filtered: false,
 	dropDown: false,
 	showModal: false,
 	backdrop: false,
 
 	loading: false,
+	markedLoading: false,
+	invoiceMarked: false,
 	error: false,
 	errMessage: "",
 	// toggleClicked: true,
@@ -26,6 +31,13 @@ export const invoiceReducer = (state = initialState, action) => {
 				pendingLoading: false,
 				draftLoading: false,
 				error: false,
+			};
+
+		case actionTypes.GET_SINGLE_INVOICE:
+			return {
+				...state,
+				singleInvoice: action.data,
+				loading: false,
 			};
 
 		case actionTypes.HIDE_FORM:
@@ -55,10 +67,16 @@ export const invoiceReducer = (state = initialState, action) => {
 			};
 
 		case actionTypes.RESET_INVOICE:
-			return { ...state, filtered: false, loading: false };
+			return {
+				...state,
+				filtered: false,
+				loading: false,
+				markLoading: false,
+				filteredInvoice: (state.filteredInvoice = []),
+			};
 
 		case actionTypes.EMPTY_INVOICE_ON_LOGOUT:
-			return { ...state, invoice: (state.invoice = []) };
+			return { ...state, invoice: (state.invoice = []), backdrop: false };
 
 		case actionTypes.TOGGLE_FILTER:
 			return { ...state, dropDown: !state.dropDown };
@@ -103,6 +121,25 @@ export const invoiceReducer = (state = initialState, action) => {
 			return {
 				...state,
 				invoice: updatedInvoice,
+			};
+
+		case actionTypes.MARK_AS_PAID_LOADING:
+			return {
+				...state,
+				markedLoading: true,
+			};
+
+		// case actionTypes.MARKED:
+		// 	return {
+		// 		...state,
+		// 		marked: true,
+		// 	};
+
+		case actionTypes.INVOICE_MARKED:
+			return {
+				...state,
+				markedLoading: false,
+				invoiceMarked: true,
 			};
 
 		case actionTypes.DELETE_INVOICE:

@@ -105,6 +105,13 @@ export const FormReducer = (state = initialState, action) => {
 				formDetails: action.data,
 			};
 
+		case actionTypes.EMPTY_INVOICE_ON_LOGOUT:
+			return {
+				...state,
+				backdrop: false,
+				showForm: false,
+			};
+
 		default:
 			return state;
 	}

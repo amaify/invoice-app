@@ -23,11 +23,19 @@ function Filter(props) {
 	return (
 		<div className="control-filter">
 			<p className="control-filter__title" onClick={setDropdownVisibility}>
-				<span className="control-filter__title--text">Filter by status</span>
-				<span className="control-filter__title--img">
-					<img src={ArrowDown} alt="Directional Arrow" className={imgClass} />
+				<span className="control-filter__title--text control-filter__title--text-mobile">
+					Filter
 				</span>
+				<span className="control-filter__title--text control-filter__title--text-desktop">
+					Filter by status
+				</span>
+				{/* <span className="control-filter__title--img">
+					<img src={ArrowDown} alt="Directional Arrow" className={imgClass} />
+				</span> */}
 			</p>
+			<picture className="control-filter__title--img">
+				<img src={ArrowDown} alt="Directional Arrow" className={imgClass} />
+			</picture>
 
 			{/* {props.dropDown ? <Dropdown animateDropdown={slide} /> : ""} */}
 			<Dropdown animateDropdown={slide} />

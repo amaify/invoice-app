@@ -6,8 +6,9 @@
 
 	&-1 {
 		background: $primary-blue;
-		width: 150px;
-		height: 48px;
+		width: 95px;
+		height: 44px;
+		// padding: 7px 10px 7px 0px;
 		position: relative;
 
 		transition: all 0.3s ease-in-out;
@@ -16,17 +17,25 @@
 		&:active {
 			background: $secondary-blue;
 		}
+
+		&-desktop {
+			display: none;
+		}
+
+		& .button-text {
+			color: $white;
+		}
 	}
 
-	&-1 .button-text {
-		color: $white;
-	}
+	// &-1 .button-text {
+	// 	color: $white;
+	// }
 
 	&-2 {
 		background: $primary-blue;
 		color: $white;
 
-		width: 128px;
+		width: 50%;
 		height: 48px;
 
 		transition: all 0.3s ease-in;
@@ -34,6 +43,21 @@
 		&:hover,
 		&:active {
 			background: $secondary-blue;
+		}
+
+		@include responsive_layout(bp__sm) {
+			background: $primary-blue;
+			color: $white;
+
+			width: 128px;
+			height: 48px;
+
+			transition: all 0.3s ease-in;
+
+			&:hover,
+			&:active {
+				background: $secondary-blue;
+			}
 		}
 	}
 
@@ -79,7 +103,7 @@
 
 	&-7 {
 		background: $primary-red;
-		width: 89px;
+		width: 35%;
 		height: 48px;
 		border-radius: 24px;
 
@@ -91,11 +115,27 @@
 		&:active {
 			background: $secondary-red;
 		}
+
+		@include responsive_layout(bp__sm) {
+			background: $primary-red;
+			width: 89px;
+			height: 48px;
+			border-radius: 24px;
+
+			color: $white;
+
+			transition: all 0.3s ease-in;
+
+			&:hover,
+			&:active {
+				background: $secondary-red;
+			}
+		}
 	}
 
 	&-8 {
 		background: #f9fafe;
-		width: 73px;
+		width: 25%;
 		height: 48px;
 		border-radius: 24px;
 
@@ -106,6 +146,22 @@
 		&:hover,
 		&:active {
 			background: #dfe3fa;
+		}
+
+		@include responsive_layout(bp__sm) {
+			background: #f9fafe;
+			width: 73px;
+			height: 48px;
+			border-radius: 24px;
+
+			color: $light-blue;
+
+			transition: all 0.3s ease-in;
+
+			&:hover,
+			&:active {
+				background: #dfe3fa;
+			}
 		}
 	}
 
@@ -131,5 +187,150 @@
 		font-weight: 700;
 		line-height: 15px;
 		letter-spacing: -0.25px;
+	}
+
+	@include responsive_layout(bp__sm) {
+		border-radius: 24px;
+		border: none;
+		outline: none;
+		cursor: pointer;
+
+		&-1 {
+			background: $primary-blue;
+			width: 150px;
+			height: 48px;
+			padding: 0 0 0 0;
+			position: relative;
+
+			transition: all 0.3s ease-in-out;
+
+			&:hover,
+			&:active {
+				background: $secondary-blue;
+			}
+
+			&-desktop {
+				display: block;
+			}
+
+			&-mobile {
+				display: none;
+			}
+		}
+
+		&-1 .button-text {
+			color: $white;
+		}
+
+		&-2 {
+			background: $primary-blue;
+			color: $white;
+
+			width: 128px;
+			height: 48px;
+
+			transition: all 0.3s ease-in;
+
+			&:hover,
+			&:active {
+				background: $secondary-blue;
+			}
+		}
+
+		&-3 {
+			width: 96px;
+			height: 48px;
+			transition: all 0.3s ease-in-out;
+
+			color: $light-blue;
+		}
+
+		&-4 {
+			width: 133px;
+			height: 48px;
+			background: #373b53;
+			transition: all 0.3s ease-in-out;
+
+			color: #888eb0;
+
+			&:hover,
+			&:active {
+				background: #0c0e16;
+			}
+		}
+
+		&-6 {
+			background: #f9fafe;
+			color: $light-blue;
+			font-size: 12px;
+			font-weight: 700;
+			line-height: 15px;
+			letter-spacing: -0.25px;
+
+			// width: 100%;
+			padding: 1.5rem 0;
+			transition: all 0.3s ease-in-out;
+
+			&:hover,
+			&:active {
+				background: #dfe3fa;
+			}
+		}
+
+		&-7 {
+			background: $primary-red;
+			width: 89px;
+			height: 48px;
+			border-radius: 24px;
+
+			color: $white;
+
+			transition: all 0.3s ease-in;
+
+			&:hover,
+			&:active {
+				background: $secondary-red;
+			}
+		}
+
+		&-8 {
+			background: #f9fafe;
+			width: 73px;
+			height: 48px;
+			border-radius: 24px;
+
+			color: $light-blue;
+
+			transition: all 0.3s ease-in;
+
+			&:hover,
+			&:active {
+				background: #dfe3fa;
+			}
+		}
+
+		&-image {
+			background: $white;
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+
+			display: inline-block;
+			vertical-align: middle;
+			position: relative;
+			margin-right: 10px;
+
+			& img {
+				position: absolute;
+				@include absolute_centering;
+			}
+		}
+
+		&-text {
+			font-size: 12px;
+			font-weight: 700;
+			line-height: 15px;
+			letter-spacing: -0.25px;
+		}
 	}
 }

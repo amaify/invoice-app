@@ -339,5 +339,15 @@ export const GlobalStyle = createGlobalStyle`
             color: ${(props) =>
 							props.theme.mode === "light" ? "#888eb0" : "#DFE3FA"};
         }
+
+        .details-tiles__tile--buttons-mobile {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#FFFFFF" : "#1E2139"};
+        }
+
+        .form-link p {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#DFE3FA"};
+        }
     }
 `;

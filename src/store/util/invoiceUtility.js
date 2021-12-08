@@ -1,11 +1,17 @@
 import { hideForm, submitDraft, submitPending } from "../actions/formAction";
 import {
 	getInvoice,
+	getSingleInvoice,
 	loading,
 	resetInvoice,
 	setError,
 } from "../actions/invoiceAction";
-import { deleteInvoice } from "../actions/invoiceControls";
+import {
+	deleteInvoice,
+	invoiceMarked,
+	markAsPaidLoading,
+	marked,
+} from "../actions/invoiceControls";
 
 export const displayInvoice = () => {
 	return (dispatch) => {
@@ -46,6 +52,30 @@ export const displayInvoice = () => {
 	};
 };
 
+export const getOneInvoice = (data) => {
+	return (dispatch) => {
+		dispatch(loading());
+
+		fetch(`http://localhost:8080/invoice/invoice/${data._id}`, {
+			method: "GET",
+		})
+			.then((response) => response.json())
+			.then((responseData) => {
+				// passed = responseData.invoice;
+				if (responseData.statusCode === 200) {
+					console.log(responseData);
+					dispatch(getSingleInvoice(responseData.invoice));
+				} else {
+					dispatch(setError(responseData.message));
+				}
+			})
+			.catch((error) => {
+				// console.log(err.message);
+				return dispatch(setError(error.message));
+			});
+	};
+};
+
 export const updateInvoice = (data, history) => {
 	return (dispatch) => {
 		dispatch(submitPending());
@@ -78,20 +108,35 @@ export const updateInvoice = (data, history) => {
 
 export const markAsPaid = (data) => {
 	return (dispatch) => {
-		dispatch(loading());
-		data.status = "Paid";
+		// dispatch(loading());
+		dispatch(markAsPaidLoading());
+		// const invoiceStatus = data.status = "Paid";
+		// data.status = "Paid";
+		// console.log(data);
+
+		const updatedStatusData = {
+			...data,
+			status: "Paid",
+		};
+
+		// console.log(updatedStatusData);
+
 		fetch(`http://localhost:8080/invoice/invoice/${data._id}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(data),
+			body: JSON.stringify(updatedStatusData),
 		})
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 200) {
 					console.log(responseData);
 					dispatch(resetInvoice());
+					// dispatch(marked());
+					data.status = "Paid";
+					dispatch(invoiceMarked());
+					// dispatch(displayInvoice());
 				} else {
 					dispatch(hideForm());
 					dispatch(setError(responseData.message));
@@ -99,7 +144,7 @@ export const markAsPaid = (data) => {
 				}
 			})
 			.catch((error) => {
-				dispatch(setError(error));
+				dispatch(setError(error.message));
 			});
 	};
 };

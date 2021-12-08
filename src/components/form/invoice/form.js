@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch, connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import moment from "moment";
+
+import ArrowLeft from "../../../assets/images/icon-arrow-left.svg";
 
 import Validate from "../../util/validate";
 import Input from "../input/input";
@@ -20,13 +22,18 @@ import {
 	getDate,
 	hideForm,
 	paymentTerms,
+	setEditPaymentTerms,
 	submitPending,
 } from "../../../store/actions/formAction";
 import {
+	getPaymentTerms,
 	submitFormDraft,
 	submitFormPending,
 } from "../../../store/util/formUtility";
-import { updateInvoice } from "../../../store/util/invoiceUtility";
+import {
+	displayInvoice,
+	updateInvoice,
+} from "../../../store/util/invoiceUtility";
 
 function Form(props) {
 	// let selectedDate, paymentTerms;
@@ -517,22 +524,35 @@ function Form(props) {
 		e.preventDefault();
 
 		console.log("cleared!!");
-		setFormData({
-			clientStreet: "",
-			clientCity: "",
-			clientPostCode: "",
-			clientCountry: "",
+		// setFormData({
+		// 	clientStreet: "",
+		// 	clientCity: "",
+		// 	clientPostCode: "",
+		// 	clientCountry: "",
 
-			clientName: "",
-			clientEmail: "",
-			description: "",
-			date: "",
-			paymentTerms: "",
-			status: "",
-		});
+		// 	clientName: "",
+		// 	clientEmail: "",
+		// 	description: "",
+		// 	date: "",
+		// 	paymentTerms: "",
+		// 	status: "",
+		// });
+
+		const inputElement = document.querySelectorAll(
+			".form-elements__group--client"
+		);
+
+		for (let i = 0; i < inputElement.length; i++) {
+			inputElement[i].value = "";
+		}
+
+		// console.log(inputElement);
+
+		dispatch(getDate(dateElement));
+		// dispatch(getPaymentTerms());
+		dispatch(paymentTerms(30));
+
 		props.listItems.length = 0;
-
-		dispatch(hideForm());
 	};
 
 	// useEffect(() => {
@@ -834,8 +854,18 @@ function Form(props) {
 		console.log(onEditInput);
 	};
 
+	const onHideForm = () => {
+		return dispatch(hideForm());
+	};
+
 	return (
 		<section className="form">
+			<div className="details-tiles__link form-link" onClick={onHideForm}>
+				<picture className="form-link__img">
+					<img src={ArrowLeft} alt="Arrow pointing left" />
+				</picture>
+				<p>Go back</p>
+			</div>
 			{!props.editForm ? (
 				<h2 className="form-heading">new invoice</h2>
 			) : (

@@ -105,6 +105,7 @@ function ListItems(props) {
 							return (
 								<div className="list" key={i * 1.9}>
 									<div className="form-elements__group" id="item-name">
+										<label>Item Name</label>
 										<input
 											type="text"
 											// defaultValue={item.name}
@@ -121,6 +122,7 @@ function ListItems(props) {
 									</div>
 
 									<div className="form-elements__group" id="item-qty">
+										<label>Qty.</label>
 										<input
 											type="number"
 											// defaultValue={item.quantity}
@@ -137,6 +139,7 @@ function ListItems(props) {
 									</div>
 
 									<div className="form-elements__group" id="item-price">
+										<label>Price</label>
 										<input
 											type="number"
 											// defaultValue={item.price}
@@ -151,7 +154,8 @@ function ListItems(props) {
 											}
 										/>
 									</div>
-									<p className="total-price">
+									<p className="total-price" data-testid="totalPrice">
+										<label>Total</label>
 										{/* {listItems.length > 0
 									? (listItems[i].total = (
 											listItems[i].itemQuantity * listItems[i].itemPrice
@@ -186,6 +190,7 @@ function ListItems(props) {
 							return (
 								<div className="list" key={i * 2.3}>
 									<div className="form-elements__group" id="item-name">
+										<label>Item Name</label>
 										<input
 											type="text"
 											value={item.name}
@@ -202,6 +207,7 @@ function ListItems(props) {
 									</div>
 
 									<div className="form-elements__group" id="item-qty">
+										<label>Qty.</label>
 										<input
 											type="number"
 											value={item.quantity}
@@ -218,6 +224,7 @@ function ListItems(props) {
 									</div>
 
 									<div className="form-elements__group" id="item-price">
+										<label>Price</label>
 										<input
 											type="number"
 											value={item.price}
@@ -233,6 +240,7 @@ function ListItems(props) {
 										/>
 									</div>
 									<p className="total-price" data-testid="totalPrice">
+										<label>Total</label>
 										{/* {listItems.length > 0
 											? (listItems[i].total = (
 													listItems[i].itemQuantity * listItems[i].itemPrice

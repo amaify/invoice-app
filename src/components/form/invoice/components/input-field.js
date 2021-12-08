@@ -97,7 +97,7 @@ function InputField(props) {
 					// className="form-elements__group--input"
 					className={
 						errors.streetError === ""
-							? "form-elements__group--input"
+							? "form-elements__group--input form-elements__group--sender"
 							: "form-elements__group--input inputError"
 					}
 					error={errors.streetError}
@@ -105,7 +105,7 @@ function InputField(props) {
 				<p className="form-elements__group--main-error">{errors.streetError}</p>
 			</div>
 			<div className="form-elements__group--sub">
-				<div className="form-elements__group--main">
+				<div className="form-elements__group--main form-elements__group--main-mobile1">
 					<Input
 						label="City"
 						id="city"
@@ -119,7 +119,7 @@ function InputField(props) {
 						// className="form-elements__group--subInput"
 						className={
 							errors.cityError === ""
-								? "form-elements__group--subInput"
+								? "form-elements__group--subInput form-elements__group--sender"
 								: "form-elements__group--subInput inputError"
 						}
 						error={errors.cityError}
@@ -127,7 +127,7 @@ function InputField(props) {
 					<p className="form-elements__group--main-error">{errors.cityError}</p>
 				</div>
 
-				<div className="form-elements__group--main">
+				<div className="form-elements__group--main form-elements__group--main-mobile2">
 					<Input
 						label="Post Code"
 						id="postCode"
@@ -141,7 +141,7 @@ function InputField(props) {
 						// className="form-elements__group--subInput"
 						className={
 							errors.postCodeError === ""
-								? "form-elements__group--subInput"
+								? "form-elements__group--subInput form-elements__group--sender"
 								: "form-elements__group--subInput inputError"
 						}
 						error={errors.postCodeError}
@@ -151,7 +151,7 @@ function InputField(props) {
 					</p>
 				</div>
 
-				<div className="form-elements__group--main">
+				<div className="form-elements__group--main form-elements__group--main-mobile3">
 					<Input
 						label="Country"
 						id="country"
@@ -165,7 +165,7 @@ function InputField(props) {
 						// className="form-elements__group--subInput"
 						className={
 							errors.countryError === ""
-								? "form-elements__group--subInput"
+								? "form-elements__group--subInput form-elements__group--sender"
 								: "form-elements__group--subInput inputError"
 						}
 						error={errors.countryError}
@@ -194,7 +194,7 @@ function InputField(props) {
 					// className="form-elements__group--input"
 					className={
 						errors.clientNameError === ""
-							? "form-elements__group--input"
+							? "form-elements__group--input form-elements__group--client"
 							: "form-elements__group--input inputError"
 					}
 					error={errors.clientNameError}
@@ -222,7 +222,7 @@ function InputField(props) {
 					// className="form-elements__group--input"
 					className={
 						errors.emailError === ""
-							? "form-elements__group--input"
+							? "form-elements__group--input form-elements__group--client"
 							: "form-elements__group--input inputError"
 					}
 					error={errors.emailError}
@@ -249,7 +249,7 @@ function InputField(props) {
 					// className="form-elements__group--input"
 					className={
 						errors.clientStreetError === ""
-							? "form-elements__group--input"
+							? "form-elements__group--input form-elements__group--client"
 							: "form-elements__group--input inputError"
 					}
 					error={errors.clientStreetError}
@@ -260,7 +260,7 @@ function InputField(props) {
 			</div>
 
 			<div className="form-elements__group--sub">
-				<div className="form-elements__group--main">
+				<div className="form-elements__group--main form-elements__group--main-mobile1">
 					<Input
 						dataTestid="clientCity"
 						label="City"
@@ -276,7 +276,7 @@ function InputField(props) {
 						// className="form-elements__group--subInput"
 						className={
 							errors.clientCityError === ""
-								? "form-elements__group--subInput"
+								? "form-elements__group--subInput form-elements__group--client"
 								: "form-elements__group--subInput inputError"
 						}
 						error={errors.clientCityError}
@@ -286,7 +286,7 @@ function InputField(props) {
 					</p>
 				</div>
 
-				<div className="form-elements__group--main">
+				<div className="form-elements__group--main form-elements__group--main-mobile2">
 					<Input
 						dataTestid="clientPostCode"
 						label="Post Code"
@@ -302,7 +302,7 @@ function InputField(props) {
 						// className="form-elements__group--subInput"
 						className={
 							errors.clientPostCodeError === ""
-								? "form-elements__group--subInput"
+								? "form-elements__group--subInput form-elements__group--client"
 								: "form-elements__group--subInput inputError"
 						}
 						error={errors.clientPostCodeError}
@@ -312,7 +312,7 @@ function InputField(props) {
 					</p>
 				</div>
 
-				<div className="form-elements__group--main">
+				<div className="form-elements__group--main form-elements__group--main-mobile3">
 					<Input
 						dataTestid="clientCountry"
 						label="Country"
@@ -328,7 +328,7 @@ function InputField(props) {
 						// className="form-elements__group--subInput"
 						className={
 							errors.clientCountryError === ""
-								? "form-elements__group--subInput"
+								? "form-elements__group--subInput form-elements__group--client"
 								: "form-elements__group--subInput inputError"
 						}
 						error={errors.clientCountryError}
@@ -415,7 +415,7 @@ function InputField(props) {
 					// className="form-elements__group--input"
 					className={
 						errors.projectDescriptionError === ""
-							? "form-elements__group--input"
+							? "form-elements__group--input form-elements__group--client"
 							: "form-elements__group--input inputError"
 					}
 					error={errors.projectDescriptionError}

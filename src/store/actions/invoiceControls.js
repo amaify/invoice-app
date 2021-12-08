@@ -7,6 +7,18 @@ export const setToPaid = (invoice) => {
 	};
 };
 
+export const markAsPaidLoading = () => {
+	return {
+		type: actionTypes.MARK_AS_PAID_LOADING,
+	};
+};
+
+export const invoiceMarked = () => {
+	return {
+		type: actionTypes.INVOICE_MARKED,
+	};
+};
+
 export const deleteInvoice = (invoice) => {
 	return {
 		type: actionTypes.DELETE_INVOICE,

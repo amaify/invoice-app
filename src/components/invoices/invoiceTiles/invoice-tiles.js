@@ -8,6 +8,7 @@ import ArrowRight from "../../../assets/images/icon-arrow-right.svg";
 import Skeleton from "../../skeleton/skeleton";
 import EmptyInvoice from "../emptyInvoice/emptyInvoice";
 import InvoiceLinks from "./invoice-links";
+import InvoiceMobileLinks from "./invoice-links-mobile";
 import { parseDate } from "../../util/utility";
 import { getInvoice } from "../../../store/actions/invoiceAction";
 import { toggleRoute } from "../../../store/actions/routeAction";
@@ -24,6 +25,22 @@ function InvoiceTiles({
 	const dispatch = useDispatch();
 	// const { invoiceData } = props;
 	let invoiceX;
+
+	useEffect(() => {
+		// dispatch(getInvoice(data));
+		// fetch("http://localhost:8080/invoice/invoice", {
+		// 	method: "GET",
+		// })
+		// 	.then((res) => res.json())
+		// 	.then((data) => {
+		// 		if (data.statusCode === 200) {
+		// 			dispatch(getInvoice(data.invoice));
+		// 			console.log(data);
+		// 		}
+		// 	})
+		// 	.catch((err) => console.log(err));
+		return isAuth ? dispatch(displayInvoice()) : null;
+	}, []);
 
 	// const [invoice, setInvoice] = useState([]);
 
@@ -109,7 +126,10 @@ function InvoiceTiles({
 			{!loading ? (
 				isAuth ? (
 					invoiceData.length !== 0 ? (
-						<InvoiceLinks invoiceData={invoiceData} />
+						<div>
+							<InvoiceLinks invoiceData={invoiceData} />
+							<InvoiceMobileLinks invoiceData={invoiceData} />
+						</div>
 					) : (
 						<EmptyInvoice />
 					)

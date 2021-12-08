@@ -7,6 +7,13 @@ export const getInvoice = (invoice) => {
 	};
 };
 
+export const getSingleInvoice = (singleInvoice) => {
+	return {
+		type: actionTypes.GET_SINGLE_INVOICE,
+		data: singleInvoice,
+	};
+};
+
 export const resetInvoice = () => {
 	return {
 		type: actionTypes.RESET_INVOICE,

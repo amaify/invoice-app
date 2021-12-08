@@ -3,7 +3,7 @@ import React from "react";
 function Button(props) {
 	return (
 		<button
-			className={`button button-${props.type}`}
+			className={`button button-${props.type} button-${props.type}-${props.responsive}`}
 			onClick={props.onClick}
 			data-testid={props.dataTestid}
 		>

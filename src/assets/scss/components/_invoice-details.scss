@@ -1,3 +1,12 @@
+.details {
+	position: relative;
+	padding-bottom: 15rem;
+
+	@include responsive_layout(bp__sm) {
+		padding-bottom: 0;
+	}
+}
+
 .details-tiles {
 	margin-bottom: 24px;
 	box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
@@ -25,13 +34,14 @@
 		align-items: center;
 
 		background: $white;
-		padding: 20px 32px;
+		padding: 24px 24px;
 		border-radius: 8px;
 
 		&--status {
 			display: flex;
 			align-items: center;
-			margin-right: auto;
+			margin-right: 0;
+			width: 100%;
 
 			&-text {
 				color: #858bb2;
@@ -40,7 +50,7 @@
 				line-height: 15px;
 				letter-spacing: -0.25px;
 				text-transform: capitalize;
-				margin-right: 16px;
+				margin-right: auto;
 			}
 
 			&-status {
@@ -107,8 +117,150 @@
 		}
 
 		&--buttons {
+			&-mobile {
+				background: $white;
+				margin-top: 56px;
+
+				position: absolute;
+				bottom: 0;
+				left: -30px;
+				width: 100vw;
+
+				padding: 21px 30px 22px 30px;
+				display: flex;
+				flex-wrap: nowrap;
+			}
+
+			&-desktop {
+				display: none;
+			}
+
 			& button:not(:last-child) {
 				margin-right: 8px;
+			}
+		}
+	}
+
+	@include responsive_layout(bp__sm) {
+		margin-bottom: 24px;
+		box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+
+		&__link {
+			margin-bottom: 32px;
+
+			& img {
+				margin-right: 24px;
+			}
+
+			& a {
+				text-decoration: none;
+				font-size: 12px;
+				font-weight: bold;
+				line-height: 15px;
+				letter-spacing: -0.25px;
+
+				color: $black;
+			}
+		}
+
+		&__tile {
+			display: flex;
+			align-items: center;
+
+			background: $white;
+			padding: 20px 32px;
+			border-radius: 8px;
+
+			&--status {
+				display: flex;
+				align-items: center;
+				margin-right: auto;
+				width: auto;
+
+				&-text {
+					color: #858bb2;
+					font-weight: 500;
+					font-size: 12px;
+					line-height: 15px;
+					letter-spacing: -0.25px;
+					text-transform: capitalize;
+					margin-right: 16px;
+				}
+
+				&-status {
+					background: rgba(255, 143, 0, 0.06);
+					border-radius: 6px;
+
+					& p {
+						color: #ff8f00;
+						padding: 1rem 2rem;
+
+						font-size: 12px;
+						font-weight: 700;
+						line-height: 15px;
+						letter-spacing: -0.25px;
+						text-transform: capitalize;
+
+						& span:first-child {
+							display: inline-block;
+							vertical-align: middle;
+							width: 8px;
+							height: 8px;
+							border-radius: 50%;
+							margin-right: 0.7rem;
+							background: #ff8f00;
+						}
+					}
+
+					&__pending {
+						background: rgba($status-pending, 0.06);
+
+						& p span:first-child {
+							background: $status-pending;
+						}
+
+						& p span:last-child {
+							color: $status-pending;
+						}
+					}
+
+					&__draft {
+						background: rgba($status-draft, 0.06);
+
+						& p span:first-child {
+							background: $status-draft;
+						}
+
+						& p span:last-child {
+							color: $status-draft;
+						}
+					}
+
+					&__paid {
+						background: rgba($status-paid, 0.06);
+
+						& p span:first-child {
+							background: $status-paid;
+						}
+
+						& p span:last-child {
+							color: $status-paid;
+						}
+					}
+				}
+			}
+
+			&--buttons {
+				&-mobile {
+					display: none;
+				}
+				&-desktop {
+					display: block;
+				}
+
+				& button:not(:last-child) {
+					margin-right: 8px;
+				}
 			}
 		}
 	}
@@ -116,10 +268,19 @@
 
 .details-body__wrapper {
 	background: $white;
-	padding: 48px 48px;
+	padding: 24px 24px;
 
 	box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
 	border-radius: 8px;
+	overflow-wrap: break-word;
+
+	@include responsive_layout(bp__sm) {
+		background: $white;
+		padding: 48px 48px;
+
+		box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+		border-radius: 8px;
+	}
 }
 
 .details-body {
@@ -127,10 +288,12 @@
 
 	&__heading {
 		display: flex;
+		flex-direction: column;
 		margin-bottom: 20px;
 
 		&--title {
-			margin-right: auto;
+			margin-right: 0;
+			margin-bottom: 30px;
 
 			&-id {
 				font-size: 16px;
@@ -140,7 +303,7 @@
 
 				display: block;
 				color: $black;
-				margin-bottom: 8px;
+				margin-bottom: 4px;
 
 				& span {
 					color: $light-blue;
@@ -167,7 +330,7 @@
 			letter-spacing: -0.23px;
 
 			& span {
-				text-align: right;
+				text-align: left;
 
 				&:not(:last-child) {
 					display: block;
@@ -178,6 +341,7 @@
 
 	&__billing {
 		display: flex;
+		flex-wrap: wrap;
 		width: 100%;
 
 		&--title {
@@ -193,7 +357,8 @@
 
 		&--date {
 			// margin-right: 100px;
-			width: 25%;
+			width: 45%;
+			margin-right: auto;
 
 			&-1 {
 				margin-bottom: 32px;
@@ -221,6 +386,7 @@
 		&--address {
 			// margin-right: 110px;
 			width: 35%;
+			overflow-wrap: break-word;
 
 			&-address {
 				color: $light-blue;
@@ -246,7 +412,8 @@
 		}
 
 		&--email {
-			min-width: 35%;
+			min-width: 100%;
+			margin-top: 32px;
 
 			&-email {
 				font-size: 15px;
@@ -257,6 +424,147 @@
 			}
 		}
 	}
+
+	@include responsive_layout(bp__sm) {
+		margin-bottom: 49px;
+
+		&__heading {
+			display: flex;
+			flex-direction: row;
+			margin-bottom: 20px;
+
+			&--title {
+				margin-right: auto;
+				margin-bottom: 0;
+
+				&-id {
+					font-size: 16px;
+					font-weight: 700;
+					line-height: 24px;
+					letter-spacing: -0.8px;
+
+					display: block;
+					color: $black;
+					margin-bottom: 8px;
+
+					& span {
+						color: $light-blue;
+						font-size: 16px;
+						font-weight: 700;
+					}
+				}
+
+				&-text {
+					color: $light-blue;
+					font-size: 12px;
+					line-height: 15px;
+					letter-spacing: -0.25px;
+
+					text-transform: capitalize;
+				}
+			}
+
+			&--address {
+				color: $light-blue;
+				font-size: 11px;
+				font-weight: 500;
+				line-height: 18px;
+				letter-spacing: -0.23px;
+
+				& span {
+					text-align: right;
+
+					&:not(:last-child) {
+						display: block;
+					}
+				}
+			}
+		}
+
+		&__billing {
+			display: flex;
+			width: 100%;
+
+			&--title {
+				font-size: 12px;
+				line-height: 15px;
+				letter-spacing: -0.25px;
+				font-weight: 500;
+				text-transform: capitalize;
+
+				color: $light-blue;
+				margin-bottom: 12px;
+			}
+
+			&--date {
+				// margin-right: 100px;
+				width: 25%;
+				margin-right: 0;
+
+				&-1 {
+					margin-bottom: 32px;
+
+					& p:last-child {
+						font-size: 15px;
+						font-weight: 700;
+						line-height: 20px;
+						letter-spacing: -0.31px;
+						color: $black;
+					}
+				}
+
+				&-2 {
+					& p:last-child {
+						font-size: 15px;
+						font-weight: 700;
+						line-height: 20px;
+						letter-spacing: -0.31px;
+						color: $black;
+					}
+				}
+			}
+
+			&--address {
+				// margin-right: 110px;
+				width: 35%;
+
+				&-address {
+					color: $light-blue;
+					font-size: 11px;
+					font-weight: 500;
+					line-height: 18px;
+					letter-spacing: -0.31px;
+
+					& span {
+						display: block;
+					}
+				}
+
+				&-name {
+					font-size: 15px;
+					font-weight: 700;
+					line-height: 20px;
+					letter-spacing: -0.31px;
+					color: $black;
+
+					margin-bottom: 8px;
+				}
+			}
+
+			&--email {
+				min-width: 35%;
+				margin-top: 0;
+
+				&-email {
+					font-size: 15px;
+					font-weight: 700;
+					line-height: 20px;
+					letter-spacing: -0.31px;
+					color: $black;
+				}
+			}
+		}
+	}
 }
 
 .details-items {
@@ -264,10 +572,14 @@
 
 	border-radius: 8px;
 
+	&__desktop {
+		display: none;
+	}
+
 	&__heading {
-		display: flex;
+		display: none;
 		margin-bottom: 32px;
-		padding: 32px 32px 0 32px;
+		padding: 32px 32px 0 24px;
 
 		&--title {
 			font-size: 11px;
@@ -302,11 +614,28 @@
 
 	&__list {
 		margin-bottom: 40px;
-		padding: 0 32px 0 32px;
+		padding: 24px 24px 0 24px;
 
 		&--items {
 			display: flex;
 			margin-bottom: 32px;
+
+			&-details {
+				margin-right: auto;
+
+				&-quantity {
+					display: flex;
+					margin-top: 8px;
+				}
+			}
+
+			&-total {
+				align-self: center;
+			}
+
+			&-desktop {
+				display: none;
+			}
 
 			&-item {
 				font-size: 12px;
@@ -319,7 +648,7 @@
 					// margin-right: 204px;
 					color: $black;
 
-					width: 40%;
+					width: 100%;
 				}
 
 				&-2,
@@ -335,14 +664,14 @@
 
 				&-3 {
 					// margin-right: 80px;
-					text-align: right;
-					width: 26%;
+					text-align: left;
+					width: 100%;
 				}
 
 				&-4 {
 					text-align: right;
 					font-weight: 700;
-					width: 25%;
+					width: 100%;
 				}
 			}
 		}
@@ -351,7 +680,7 @@
 	&__amount {
 		background: $status-draft;
 		border-radius: 0 0 8px 8px;
-		padding: 24px 32px 24px 32px;
+		padding: 24px 24px 24px 24px;
 
 		display: flex;
 		align-items: center;
@@ -367,12 +696,158 @@
 			text-transform: capitalize;
 
 			margin-right: auto;
+
+			&-desktop {
+				display: none;
+			}
 		}
 
 		&--figure {
-			font-size: 24px;
+			font-size: 20px;
 			line-height: 32px;
-			letter-spacing: -0.5px;
+			letter-spacing: -0.42px;
+		}
+	}
+
+	@include responsive_layout(bp__sm) {
+		background: #f9fafe;
+
+		border-radius: 8px;
+
+		&__mobile {
+			display: none;
+		}
+
+		&__desktop {
+			display: block;
+		}
+
+		&__heading {
+			display: flex;
+			margin-bottom: 32px;
+			padding: 32px 32px 0 32px;
+
+			&--title {
+				font-size: 11px;
+				font-weight: 500;
+				line-height: 18px;
+				letter-spacing: -0.23px;
+				color: $light-blue;
+
+				text-transform: capitalize;
+				width: 100%;
+
+				&-1 {
+					width: 40%;
+				}
+
+				&-2 {
+					width: 9%;
+					text-align: center;
+				}
+
+				&-3 {
+					width: 26%;
+					text-align: right;
+				}
+
+				&-4 {
+					width: 26%;
+					text-align: right;
+				}
+			}
+		}
+
+		&__list {
+			margin-bottom: 40px;
+			padding: 0 32px 0 32px;
+
+			&--items {
+				display: flex;
+				margin-bottom: 32px;
+
+				&-mobile {
+					display: none;
+				}
+
+				&-desktop {
+					display: flex;
+				}
+
+				&-item {
+					font-size: 12px;
+					line-height: 15px;
+					letter-spacing: -0.25px;
+					// width: 100%;
+
+					&-1 {
+						font-weight: 700;
+						// margin-right: 204px;
+						color: $black;
+
+						width: 40%;
+					}
+
+					&-2,
+					&-3 {
+						color: $light-blue;
+					}
+
+					&-2 {
+						// margin-right: 30px;
+						width: 9%;
+						text-align: center;
+					}
+
+					&-3 {
+						// margin-right: 80px;
+						text-align: right;
+						width: 26%;
+					}
+
+					&-4 {
+						text-align: right;
+						font-weight: 700;
+						width: 25%;
+					}
+				}
+			}
+		}
+
+		&__amount {
+			background: $status-draft;
+			border-radius: 0 0 8px 8px;
+			padding: 24px 32px 24px 32px;
+
+			display: flex;
+			align-items: center;
+
+			& p {
+				color: $white;
+			}
+
+			&--text {
+				font-size: 11px;
+				line-height: 18px;
+				letter-spacing: -0.23px;
+				text-transform: capitalize;
+
+				margin-right: auto;
+
+				&-mobile {
+					display: none;
+				}
+
+				&-desktop {
+					display: block;
+				}
+			}
+
+			&--figure {
+				font-size: 24px;
+				line-height: 32px;
+				letter-spacing: -0.5px;
+			}
 		}
 	}
 }

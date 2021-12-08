@@ -1,21 +1,50 @@
 .form {
 	position: fixed;
 	top: 0;
-	left: 80px;
+	left: 0;
 	z-index: 6;
 	overflow-y: scroll;
+	overflow-x: hidden;
 
-	width: 719px;
+	width: 100%;
 	height: 100vh;
 	background: $white;
-	padding: 5rem 8rem 4rem 10rem;
+	padding: 13rem 2rem 0 2rem;
 
-	border-top-right-radius: 20px;
-	border-bottom-right-radius: 20px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
 
 	animation-name: slide-right;
 	animation-duration: 0.7s;
 	animation-fill-mode: forwards;
+
+	&-link {
+		display: flex;
+		width: 100%;
+		align-items: center;
+		cursor: pointer;
+
+		&__img {
+			width: 2%;
+			margin-right: 24px;
+
+			& img {
+				width: 100%;
+				height: 100%;
+				display: block;
+			}
+		}
+
+		& p {
+			text-decoration: none;
+			font-size: 12px;
+			font-weight: bold;
+			line-height: 15px;
+			letter-spacing: -0.25px;
+
+			color: $black;
+		}
+	}
 
 	&-heading {
 		text-transform: capitalize;
@@ -96,6 +125,15 @@
 					color: $primary-red;
 					font-weight: 600;
 				}
+
+				&-mobile1,
+				&-mobile2 {
+					width: 45%;
+				}
+
+				&-mobile3 {
+					width: 100%;
+				}
 			}
 
 			&--input,
@@ -138,25 +176,27 @@
 				margin-bottom: 3rem;
 
 				display: flex;
+				flex-wrap: wrap;
 				justify-content: space-between;
 
 				& .form-elements__group {
 					width: 100%;
 
 					&:not(:last-child) {
-						margin-right: 20px;
+						margin-right: 0;
 					}
 				}
 
 				& .form-elements__group--main {
 					&:not(:last-child) {
-						margin-right: 20px;
+						margin-right: 0;
 					}
 				}
 			}
 
 			&--period {
 				display: flex;
+				flex-direction: column;
 				justify-content: space-between;
 				margin-bottom: 2.5rem;
 
@@ -164,7 +204,7 @@
 
 				& .invoice-date,
 				& .payment-terms {
-					width: 48%;
+					width: 100%;
 				}
 
 				& .payment-terms {
@@ -272,11 +312,13 @@
 
 				& .invoice-date {
 					position: relative;
+					margin-bottom: 2rem;
 				}
 			}
 
 			&--items {
 				margin-top: 4rem;
+				// position: relative;
 
 				& button {
 					width: 100%;
@@ -294,7 +336,8 @@
 				}
 
 				&-label {
-					display: flex;
+					display: none;
+
 					margin-bottom: 1.5rem;
 
 					& p {
@@ -324,14 +367,32 @@
 
 				&-btns {
 					display: flex;
+					justify-content: center;
+					position: relative;
 					margin-top: 5rem;
+					padding: 3rem 0;
 
 					& .button-3 {
-						margin-right: auto;
+						margin-right: 7px;
 					}
 
 					& .button-4 {
-						margin-right: 1rem;
+						margin-right: 7px;
+					}
+
+					&::before {
+						content: "";
+						display: block;
+						width: 125%;
+						height: 64px;
+						position: absolute;
+						top: -55px;
+						left: -30px;
+						background: linear-gradient(
+							180deg,
+							rgba(0, 0, 0, 0.0001) 0%,
+							rgba(0, 0, 0, 0.1) 100%
+						);
 					}
 				}
 
@@ -355,12 +416,14 @@
 						flex-wrap: wrap;
 						width: 100%;
 
-						margin-bottom: 2rem;
+						margin-bottom: 5rem;
 
 						& .delete-icon {
 							align-self: center;
 							fill: #888eb0;
 							transition: all 0.3s;
+							align-self: center;
+							margin-top: 2rem;
 
 							&:hover {
 								cursor: pointer;
@@ -386,12 +449,13 @@
 					}
 
 					& #item-name {
-						margin-right: 2rem;
-						width: 214px;
+						margin-right: 0;
+						margin-bottom: 2rem;
+						width: 100%;
 					}
 
 					& #item-qty {
-						width: 46px;
+						width: 64px;
 						margin-right: 2rem;
 					}
 
@@ -436,8 +500,9 @@
 						color: #888eb0;
 
 						align-self: center;
-						margin-left: 3rem;
+						margin-left: auto;
 						margin-right: auto;
+						align-self: flex-start;
 					}
 
 					& img {
@@ -474,6 +539,544 @@
 		// 	top: 0;
 		// 	right: 0;
 		// }
+	}
+
+	@include responsive_layout(bp__sm) {
+		position: fixed;
+		top: 0;
+		left: 80px;
+		z-index: 6;
+		overflow-y: scroll;
+
+		width: 719px;
+		height: 100vh;
+		background: $white;
+		padding: 5rem 8rem 4rem 10rem;
+
+		border-top-right-radius: 20px;
+		border-bottom-right-radius: 20px;
+
+		animation-name: slide-right;
+		animation-duration: 0.7s;
+		animation-fill-mode: forwards;
+
+		&-link {
+			display: none;
+		}
+
+		&-heading {
+			text-transform: capitalize;
+			font-size: 24px;
+			font-weight: 700;
+			color: $black;
+			line-height: 32px;
+			letter-spacing: -0.5px;
+
+			margin-bottom: 3rem;
+
+			& span {
+				&:first-child {
+					color: $grey;
+				}
+
+				&:last-child {
+					text-transform: uppercase;
+				}
+			}
+		}
+
+		& input[type="text"],
+		& input[type="number"],
+		& input[type="email"] {
+			font-size: 12px;
+			font-weight: 700;
+			color: $black;
+			// color: red;
+			line-height: 15px;
+			letter-spacing: -0.25px;
+			font-family: "Spartan", sans-serif;
+		}
+
+		&-elements {
+			width: 100%;
+
+			&__group {
+				margin-bottom: 2rem;
+				position: relative;
+
+				& label {
+					font-size: 12px;
+					line-height: 15px;
+					font-weight: 500;
+					letter-spacing: -0.25px;
+
+					display: block;
+					color: $light-blue;
+					margin-bottom: 0.8rem;
+				}
+
+				& .label-error {
+					color: $primary-red;
+				}
+
+				&--heading {
+					font-size: 12px;
+					font-weight: 700;
+					color: $primary-blue;
+					line-height: 15px;
+					letter-spacing: -0.25px;
+
+					margin-bottom: 1.5rem;
+				}
+
+				&--main {
+					position: relative;
+
+					&-error {
+						position: absolute;
+						top: 0;
+						right: 0;
+
+						font-size: 10px;
+						line-height: 15px;
+						letter-spacing: -0.21px;
+						color: $primary-red;
+						font-weight: 600;
+					}
+
+					&-mobile1,
+					&-mobile2 {
+						width: 30%;
+					}
+
+					&-mobile3 {
+						width: 30%;
+					}
+				}
+
+				&--input,
+				&--subInput {
+					padding: 1.5rem 1.8rem;
+					border-radius: 4px;
+					outline: none;
+					border: 1px solid #dfe3fa;
+
+					&:hover,
+					&:active {
+						border: 1px solid $secondary-blue;
+						cursor: pointer;
+					}
+
+					&:focus {
+						border: 1px solid $secondary-blue;
+					}
+				}
+
+				&--input {
+					width: 100%;
+
+					&::placeholder {
+						font-size: 12px;
+						font-weight: 700;
+						line-height: 15px;
+						letter-spacing: -0.25px;
+						opacity: 0.4;
+						color: $black;
+					}
+				}
+
+				&--subInput {
+					width: 100%;
+				}
+
+				&--sub {
+					margin-top: 2.5rem;
+					margin-bottom: 3rem;
+
+					display: flex;
+					flex-wrap: nowrap;
+					justify-content: space-between;
+
+					& .form-elements__group {
+						width: 100%;
+
+						&:not(:last-child) {
+							margin-right: 20px;
+						}
+					}
+
+					& .form-elements__group--main {
+						&:not(:last-child) {
+							margin-right: 20px;
+						}
+					}
+				}
+
+				&--period {
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+					margin-bottom: 2.5rem;
+
+					// position: relative;
+
+					& .invoice-date,
+					& .payment-terms {
+						width: 48%;
+					}
+
+					& .payment-terms {
+						position: relative;
+
+						& .default {
+							transform: rotate(0deg);
+						}
+
+						& .rotate {
+							transform: rotate(180deg);
+						}
+
+						&__list {
+							list-style: none;
+
+							background: $white;
+							border-radius: 8px;
+							padding: 1.5rem 1.8rem;
+							box-shadow: 0px 10px 20px rgba(72, 84, 159, 0.25);
+
+							position: absolute;
+							top: 90px;
+							left: 0;
+							width: 100%;
+							overflow: hidden;
+							z-index: 1;
+
+							&--item {
+								font-size: 12px;
+								font-weight: 700;
+								letter-spacing: -0.25px;
+								line-height: 15px;
+								color: $black;
+								transition: all 0.3s;
+								cursor: pointer;
+
+								&:not(:last-child) {
+									&::after {
+										content: "";
+										width: calc(100% + 50px);
+										height: 1px;
+										margin-top: 1.5rem;
+										margin-bottom: 1.5rem;
+										margin-left: -25px;
+										background: #dfe3fa;
+										display: block;
+									}
+								}
+
+								&:hover,
+								&:active {
+									color: $primary-blue;
+								}
+							}
+						}
+					}
+
+					& .payment-terms,
+					& .invoice-date {
+						& label {
+							font-size: 12px;
+							line-height: 15px;
+							font-weight: 500;
+							letter-spacing: -0.25px;
+							display: block;
+							color: #7e88c3;
+							margin-bottom: 0.8rem;
+						}
+
+						& .invoice-date__items,
+						& .payment-terms__items {
+							align-self: center;
+							cursor: pointer;
+							padding: 1.5rem 1.8rem;
+							border-radius: 4px;
+							border: 1px solid #dfe3fa;
+							width: 100%;
+							height: 48px;
+
+							&:hover,
+							&:active {
+								border: 1px solid $secondary-blue;
+							}
+
+							&--active {
+								border: 1px solid $secondary-blue;
+							}
+						}
+
+						& p {
+							font-size: 12px;
+							font-weight: 700;
+							line-height: 15px;
+							letter-spacing: -0.25px;
+
+							display: flex;
+							// flex-direction: column;
+
+							& span:first-child {
+								margin-right: auto;
+							}
+						}
+					}
+
+					& .invoice-date {
+						position: relative;
+						margin-bottom: 0;
+					}
+				}
+
+				&--items {
+					margin-top: 4rem;
+
+					& button {
+						width: 100%;
+					}
+
+					& h3 {
+						font-size: 18px;
+						font-weight: 700;
+						line-height: 32px;
+						letter-spacing: -0.38px;
+						text-transform: capitalize;
+						color: #777f98;
+
+						margin-bottom: 1rem;
+					}
+
+					&-label {
+						display: flex;
+						margin-bottom: 1.5rem;
+
+						& p {
+							font-size: 12px;
+							font-weight: 500;
+							line-height: 15px;
+							letter-spacing: -0.25px;
+							color: $light-blue;
+						}
+
+						&-1 {
+							width: 45%;
+						}
+
+						&-2 {
+							width: 15%;
+						}
+
+						&-3 {
+							width: 20%;
+						}
+					}
+
+					& .button-6 {
+						margin-top: 2rem;
+					}
+
+					&-btns {
+						display: flex;
+						margin-top: 5rem;
+						padding: 0 0;
+
+						& .button-3 {
+							margin-right: auto;
+						}
+
+						& .button-4 {
+							margin-right: 1rem;
+						}
+
+						&::before {
+							display: none;
+							// width: 125%;
+							// height: 64px;
+							// position: absolute;
+							// top: -55px;
+							// left: -30px;
+							// background: linear-gradient(
+							// 	180deg,
+							// 	rgba(0, 0, 0, 0.0001) 0%,
+							// 	rgba(0, 0, 0, 0.1) 100%
+							// );
+						}
+					}
+
+					&-editBtns {
+						justify-content: flex-end;
+
+						& button {
+							&:first-child {
+								width: 96px;
+								margin-right: 1rem;
+							}
+						}
+					}
+
+					&-form {
+						display: flex;
+						flex-wrap: wrap;
+
+						& .list {
+							display: flex;
+							flex-wrap: wrap;
+							width: 100%;
+
+							margin-bottom: 2rem;
+
+							& .delete-icon {
+								align-self: center;
+								fill: #888eb0;
+								transition: all 0.3s;
+								align-self: none;
+								margin-top: 0;
+
+								&:hover {
+									cursor: pointer;
+									fill: $primary-red;
+								}
+							}
+						}
+
+						& .itemForm-1 {
+							width: 45%;
+						}
+
+						& .itemForm-2 {
+							width: 15%;
+						}
+
+						& .itemForm-3 {
+							width: 20%;
+						}
+
+						& div {
+							margin-bottom: 0;
+						}
+
+						& #item-name {
+							margin-right: 2rem;
+							margin-bottom: 0;
+							width: 214px;
+						}
+
+						& #item-qty {
+							width: 46px;
+							margin-right: 2rem;
+						}
+
+						& #item-price {
+							width: 100px;
+						}
+
+						& #item-name label,
+						& #item-qty label,
+						& #item-price label {
+							display: none;
+						}
+
+						& input {
+							padding: 1.5rem 1rem;
+							border-radius: 4px;
+							outline: none;
+							border: 1px solid #dfe3fa;
+							width: 100%;
+
+							&::-webkit-outer-spin-button,
+							&::-webkit-inner-spin-button {
+								-webkit-appearance: none;
+								margin: 0;
+							}
+
+							/* Firefox */
+							&[type="number"] {
+								-moz-appearance: textfield;
+							}
+
+							&:hover,
+							&:active {
+								border: 1px solid $secondary-blue !important;
+								cursor: pointer !important;
+							}
+
+							&:focus {
+								border: 1px solid $secondary-blue !important;
+							}
+						}
+
+						& p {
+							font-size: 12px;
+							font-weight: 700;
+							line-height: 15px;
+							letter-spacing: -0.25px;
+							color: #888eb0;
+
+							align-self: center;
+							margin-left: 3rem;
+							margin-right: auto;
+						}
+
+						& img {
+							align-self: center;
+							cursor: pointer;
+						}
+					}
+				}
+			}
+
+			& .list-error {
+				border: 1px solid $primary-red !important;
+			}
+		}
+
+		&-error {
+			margin-top: 3.5rem;
+
+			&__text,
+			&__input {
+				font-size: 10px;
+				line-height: 15px;
+				letter-spacing: -0.21px;
+
+				color: $primary-red;
+
+				&:last-child {
+					margin-top: 0.3rem;
+				}
+			}
+
+			// &__input {
+			// 	position: absolute;
+			// 	top: 0;
+			// 	right: 0;
+			// }
+		}
+	}
+}
+
+.total-price {
+	& label {
+		display: block;
+		color: #7e88c3;
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 15px;
+		letter-spacing: -0.25px;
+
+		margin-bottom: 25px;
+	}
+
+	@include responsive_layout(bp__sm) {
+		& label {
+			display: none;
+		}
 	}
 }
 

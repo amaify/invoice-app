@@ -46,21 +46,21 @@ function App(props) {
 		localStorage.setItem("theme", JSON.stringify(themeObject));
 	}, [themeObject]);
 
-	useEffect(() => {
-		// dispatch(getInvoice(data));
-		// fetch("http://localhost:8080/invoice/invoice", {
-		// 	method: "GET",
-		// })
-		// 	.then((res) => res.json())
-		// 	.then((data) => {
-		// 		if (data.statusCode === 200) {
-		// 			dispatch(getInvoice(data.invoice));
-		// 			console.log(data);
-		// 		}
-		// 	})
-		// 	.catch((err) => console.log(err));
-		return props.isAuth ? dispatch(displayInvoice()) : null;
-	}, []);
+	// useEffect(() => {
+	// 	// dispatch(getInvoice(data));
+	// 	// fetch("http://localhost:8080/invoice/invoice", {
+	// 	// 	method: "GET",
+	// 	// })
+	// 	// 	.then((res) => res.json())
+	// 	// 	.then((data) => {
+	// 	// 		if (data.statusCode === 200) {
+	// 	// 			dispatch(getInvoice(data.invoice));
+	// 	// 			console.log(data);
+	// 	// 		}
+	// 	// 	})
+	// 	// 	.catch((err) => console.log(err));
+	// 	return props.isAuth ? dispatch(displayInvoice()) : null;
+	// }, []);
 
 	useEffect(() => {
 		if (tokenData.token !== null && tokenData.duration !== undefined) {

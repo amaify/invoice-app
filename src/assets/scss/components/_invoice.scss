@@ -3,10 +3,12 @@
 	// height: 60vh;
 	// margin-top: 6rem;
 	position: relative;
+	z-index: 0;
+	padding-bottom: 13rem;
 
 	&-empty {
 		position: absolute;
-		top: 50%;
+		top: 0;
 		left: 50%;
 		transform: translate(-50%, 50%);
 
@@ -16,7 +18,7 @@
 		}
 
 		&__heading {
-			margin-top: 6rem;
+			margin-top: 3rem;
 			text-align: center;
 
 			& h2 {
@@ -46,9 +48,28 @@
 			align-items: center;
 			// justify-content: space-between;
 			width: 100%;
-			padding: 1.5rem 4rem;
+			// height: auto;
+			max-height: 100%;
+			padding: 1.5rem 2rem;
 			text-align: left;
 			text-decoration: none;
+
+			&-desktop {
+				display: none;
+			}
+
+			&-mobile {
+				&--1 {
+					margin-right: auto;
+				}
+
+				&--2 {
+					width: 45%;
+					display: flex;
+					flex-direction: column;
+					overflow-wrap: break-word;
+				}
+			}
 
 			&:hover {
 				border: 1px solid $primary-blue;
@@ -62,7 +83,7 @@
 			&--payment-due,
 			&--client-name {
 				// margin-right: auto;
-				width: 25%;
+				width: 100%;
 			}
 
 			& img {
@@ -78,6 +99,8 @@
 				font-size: 12px;
 				line-height: 15px;
 				letter-spacing: -0.25px;
+
+				margin-bottom: 24px;
 				& span {
 					color: $light-blue;
 					font-size: 12px;
@@ -97,16 +120,20 @@
 
 			&--payment-due {
 				color: $grey;
+
+				margin-bottom: 8px;
 			}
 
 			&--client-name {
-				text-align: left;
+				text-align: right;
 
 				color: #858bb2;
+
+				margin-bottom: 27px;
 			}
 
 			&--total-amount {
-				width: 20%;
+				width: 100%;
 				font-size: 16px;
 				font-weight: bold;
 				line-height: 24px;
@@ -116,10 +143,12 @@
 			}
 
 			&--status {
-				padding: 1rem 2rem;
-				width: 18%;
+				padding: 1.5rem 1rem;
+				width: 104px;
 				text-align: center;
 				border-radius: 6px;
+
+				align-self: flex-end;
 
 				& p {
 					font-size: 12px;
@@ -130,6 +159,7 @@
 
 					display: inline-block;
 					vertical-align: middle;
+					width: 100%;
 				}
 
 				& p span:first-child {
@@ -175,6 +205,203 @@
 
 					& p span:last-child {
 						color: $status-draft;
+					}
+				}
+			}
+		}
+	}
+
+	@include responsive_layout(bp__sm) {
+		width: 100%;
+		// height: 60vh;
+		// margin-top: 6rem;
+		position: relative;
+		z-index: 0;
+
+		&-empty {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, 50%);
+
+			&__image {
+				width: 241.34px;
+				height: 200px;
+			}
+
+			&__heading {
+				margin-top: 6rem;
+				text-align: center;
+
+				& h2 {
+					color: $black;
+					font-size: 20px;
+					font-weight: 700;
+					margin-bottom: 2.5rem;
+				}
+
+				& span {
+					display: block;
+					font-size: 12px;
+					font-weight: 500;
+					color: $grey;
+				}
+			}
+		}
+
+		&-tiles {
+			&__content {
+				background: $white;
+				box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+				border-radius: 8px;
+				border: 1px solid transparent;
+
+				display: flex;
+				align-items: center;
+				// justify-content: space-between;
+				width: 100%;
+				padding: 1.5rem 4rem;
+				text-align: left;
+				text-decoration: none;
+
+				&-desktop {
+					display: flex;
+				}
+
+				&-mobile {
+					display: none;
+				}
+
+				&:hover {
+					border: 1px solid $primary-blue;
+				}
+
+				&:not(:last-child) {
+					margin-bottom: 2rem;
+				}
+
+				&--id,
+				&--payment-due,
+				&--client-name {
+					// margin-right: auto;
+					width: 25%;
+				}
+
+				& img {
+					width: 1%;
+					height: 1%;
+					display: block;
+					margin-left: 2rem;
+				}
+
+				&--id {
+					color: $black;
+					font-weight: bold;
+					font-size: 12px;
+					line-height: 15px;
+					letter-spacing: -0.25px;
+					margin-bottom: 0;
+					& span {
+						color: $light-blue;
+						font-size: 12px;
+						line-height: 15px;
+						font-weight: bold;
+						letter-spacing: -0.25px;
+					}
+				}
+
+				&--payment-due,
+				&--client-name {
+					font-size: 12px;
+					font-weight: 500;
+					line-height: 15px;
+					letter-spacing: -0.25px;
+				}
+
+				&--payment-due {
+					color: $grey;
+					margin-bottom: 0;
+				}
+
+				&--client-name {
+					text-align: left;
+
+					color: #858bb2;
+
+					margin-bottom: 0;
+				}
+
+				&--total-amount {
+					width: 20%;
+					font-size: 16px;
+					font-weight: bold;
+					line-height: 24px;
+					letter-spacing: -0.8px;
+
+					text-align: left;
+				}
+
+				&--status {
+					padding: 1rem 2rem;
+					width: 18%;
+					text-align: center;
+					border-radius: 6px;
+
+					& p {
+						font-size: 12px;
+						font-weight: bold;
+						line-height: 15px;
+						letter-spacing: -0.25px;
+						text-transform: capitalize;
+
+						display: inline-block;
+						vertical-align: middle;
+					}
+
+					& p span:first-child {
+						display: inline-block;
+						vertical-align: middle;
+						width: 8px;
+						height: 8px;
+						border-radius: 50%;
+
+						margin-right: 0.7rem;
+					}
+
+					&-paid {
+						background: rgba($status-paid, 0.06);
+
+						& p span:first-child {
+							background: $status-paid;
+						}
+
+						& p span:last-child {
+							color: $status-paid;
+						}
+					}
+
+					&-pending {
+						background: rgba($status-pending, 0.06);
+
+						& p span:first-child {
+							background: $status-pending;
+						}
+
+						& p span:last-child {
+							color: $status-pending;
+						}
+					}
+
+					&-draft {
+						background: rgba($status-draft, 0.06);
+
+						& p span:first-child {
+							background: $status-draft;
+						}
+
+						& p span:last-child {
+							color: $status-draft;
+						}
 					}
 				}
 			}

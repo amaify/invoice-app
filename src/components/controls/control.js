@@ -61,15 +61,31 @@ function Controls(props) {
 		filteredInvoice.length < 2 ? (pluralText = "is") : (pluralText = "are");
 	}
 
-	const logoutHandler = () => {
-		return dispatch(logoutUser());
-	};
+	// const logoutHandler = () => {
+	// 	return dispatch(logoutUser());
+	// };
 
 	return (
 		<header className="control">
 			<div className="control-header">
 				<h1 className="control-header__title">Invoices</h1>
-				<p className="control-header__text">
+				<p className="control-header__text control-header__text-mobile">
+					{/* {!filtered
+						? invoiceData.length < 1
+							? "No Invoice"
+							: `There ${pluralText} ${invoiceData.length} total ${invoiceText}`
+						: `There ${pluralText} ${filteredInvoice.length} ${status} ${invoiceText}`} */}
+
+					{isAuth
+						? !filtered
+							? invoiceData.length < 1
+								? "No Invoice"
+								: ` ${invoiceData.length} ${invoiceText}`
+							: ` ${filteredInvoice.length} ${status} ${invoiceText}`
+						: "No Invoice"}
+				</p>
+
+				<p className="control-header__text control-header__text-desktop">
 					{/* {!filtered
 						? invoiceData.length < 1
 							? "No Invoice"
@@ -86,14 +102,25 @@ function Controls(props) {
 				</p>
 			</div>
 
-			{isAuth && <Button type="2" text="Logout" onClick={logoutHandler} />}
+			{/* {isAuth && <Button type="2" text="Logout" onClick={logoutHandler} />} */}
 
 			<Filter />
 			<Button
 				type="1"
+				responsive="mobile"
+				text="New"
+				icon={<img src={IconPlus} alt="Plus Icon" />}
+				onClick={openForm}
+				dataTestid="New-invoice btn"
+			/>
+
+			<Button
+				type="1"
+				responsive="desktop"
 				text="New Invoice"
 				icon={<img src={IconPlus} alt="Plus Icon" />}
 				onClick={openForm}
+				dataTestid="New-invoice btn"
 			/>
 		</header>
 	);

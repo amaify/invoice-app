@@ -114,6 +114,13 @@ export const handlers = [
 		}
 	),
 
+	rest.get(
+		"http://localhost:8080/invoice/invoice/:invoiceId",
+		(req, res, ctx) => {
+			return res(ctx.status(200), ctx.json(passedData));
+		}
+	),
+
 	rest.get("*", (req, res, ctx) => {
 		console.error(`Please add a request handler for ${req.url.toString()}`);
 		return res(

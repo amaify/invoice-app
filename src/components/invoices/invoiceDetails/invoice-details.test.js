@@ -16,9 +16,11 @@ import { server } from "../../../mocks/server";
 import {
 	confirmDelete,
 	deleteInvoice,
+	invoiceMarked,
 } from "../../../store/actions/invoiceControls";
 import {
 	deleteAnInvoice,
+	getOneInvoice,
 	markAsPaid,
 } from "../../../store/util/invoiceUtility";
 import {
@@ -28,7 +30,10 @@ import {
 } from "../../../store/actions/formAction";
 import { UserLogin } from "../../../store/util/authUtility";
 import { login } from "../../../store/actions/authAction";
-import { resetInvoice } from "../../../store/actions/invoiceAction";
+import {
+	getSingleInvoice,
+	resetInvoice,
+} from "../../../store/actions/invoiceAction";
 
 const history = createMemoryHistory();
 
@@ -40,7 +45,7 @@ const passedData = {
 		paymentDue: "2021-11-26",
 		description: "Test things",
 		paymentTerms: 1,
-		status: "testStatus",
+		status: "Test Status",
 		clientName: "Test Abraham",
 		clientEmail: "rajval@test.co.au",
 		clientStreet: "1009 Test road",
@@ -55,6 +60,50 @@ const passedData = {
 	},
 };
 
+// const singleInvoiceData = {
+// 	_id: "61981046b75d3052ec0e9bd",
+// 	id: "123456",
+// 	createdAt: "2021-11-25",
+// 	paymentDue: "2021-11-26",
+// 	description: "Test things",
+// 	paymentTerms: 1,
+// 	status: "testStatus",
+// 	clientName: "Test Abraham",
+// 	clientEmail: "rajval@test.co.au",
+// 	clientStreet: "1009 Test road",
+// 	clientPostCode: "DU00 HTST",
+// 	clientCity: "Duss City",
+// 	clientCountry: "Test Republic",
+// 	items: [
+// 		{ name: "Test Uniform", price: 140.99, quantity: 23, total: 3242.77 },
+// 		{ name: "Test Shoes", price: 20.99, quantity: 23, total: 482.77 },
+// 	],
+// 	total: 3725.54,
+// };
+
+const mainData = [
+	{
+		_id: "61981046b75d3052ec0e9bd",
+		id: "123456",
+		createdAt: "2021-11-25",
+		paymentDue: "2021-11-26",
+		description: "Test things",
+		paymentTerms: 1,
+		status: "Pending",
+		clientName: "Test Abraham",
+		clientEmail: "rajval@test.co.au",
+		clientStreet: "1009 Test road",
+		clientPostCode: "DU00 HTST",
+		clientCity: "Duss City",
+		clientCountry: "Test Republic",
+		items: [
+			{ name: "Test Uniform", price: 140.99, quantity: 23, total: 3242.77 },
+			{ name: "Test Shoes", price: 20.99, quantity: 23, total: 482.77 },
+		],
+		total: 3725.54,
+	},
+];
+
 history.location.state = passedData;
 
 describe("Invoice Details actions", () => {
@@ -67,6 +116,8 @@ describe("Invoice Details actions", () => {
 		};
 		localStorage.setItem("senderAddress", JSON.stringify(localStorageObject));
 
+		store.dispatch(getOneInvoice(passedData.invoiceItem));
+
 		render(
 			<Provider store={store}>
 				<Router history={history}>
@@ -76,6 +127,8 @@ describe("Invoice Details actions", () => {
 				</Router>
 			</Provider>
 		);
+
+		await store.dispatch(getSingleInvoice(mainData));
 
 		const deleteButtonElement = screen.getByRole("button", {
 			name: "Delete",
@@ -119,24 +172,24 @@ describe("Invoice Details actions", () => {
 	});
 
 	test("When the edit button is clicked", async () => {
-		const receivedLoginData = {
-			senderAddress: {
-				street: "123 Athol Street",
-				city: "Warri",
-				postCode: "WR3 X45",
-				country: "Nigeria",
-			},
+		// const receivedLoginData = {
+		// 	senderAddress: {
+		// 		street: "123 Athol Street",
+		// 		city: "Warri",
+		// 		postCode: "WR3 X45",
+		// 		country: "Nigeria",
+		// 	},
 
-			token:
-				"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTlkMTJiMWIyMzY5Y",
-			statusCode: 200,
-		};
+		// 	token:
+		// 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTlkMTJiMWIyMzY5Y",
+		// 	statusCode: 200,
+		// };
 
-		await store.dispatch(
-			UserLogin({ email: "test@test.com", password: "test1234", history })
-		);
+		// await store.dispatch(
+		// 	UserLogin({ email: "test@test.com", password: "test1234", history })
+		// );
 
-		await store.dispatch(login(receivedLoginData));
+		// await store.dispatch(login(receivedLoginData));
 
 		const localStorageObject = {
 			street: "1234 Athol Street",
@@ -156,6 +209,10 @@ describe("Invoice Details actions", () => {
 				</Router>
 			</Provider>
 		);
+
+		store.dispatch(getOneInvoice(passedData.invoiceItem));
+
+		await store.dispatch(getSingleInvoice(mainData));
 
 		const editButtonElement = screen.getByRole("button", {
 			name: "Edit",
@@ -191,6 +248,12 @@ describe("Invoice Details actions", () => {
 			</Provider>
 		);
 
+		// mainData[0].status = "Paid";
+
+		// store.dispatch(getOneInvoice(passedData.invoiceItem));
+
+		await store.dispatch(getSingleInvoice(mainData));
+
 		const markAsPaidButtonElement = screen.getByRole("button", {
 			name: "Mark as Paid",
 			exact: false,
@@ -198,9 +261,13 @@ describe("Invoice Details actions", () => {
 
 		fireEvent.click(markAsPaidButtonElement);
 
-		await store.dispatch(markAsPaid(passedData.invoiceItem));
+		mainData[0].status = "Paid";
 
-		store.dispatch(resetInvoice());
+		await store.dispatch(markAsPaid(mainData));
+
+		await store.dispatch(resetInvoice());
+
+		await store.dispatch(invoiceMarked());
 
 		expect(
 			screen.queryByRole("button", { name: "Mark as Paid", exact: false })
@@ -214,24 +281,24 @@ describe("Invoice Details actions", () => {
 
 describe("Edit form actions", () => {
 	test(`When the user clicks on the "Save changes Button" after filling out the input fields correctly`, async () => {
-		const receivedLoginData = {
-			senderAddress: {
-				street: "123 Athol Street",
-				city: "Warri",
-				postCode: "WR3 X45",
-				country: "Nigeria",
-			},
+		// const receivedLoginData = {
+		// 	senderAddress: {
+		// 		street: "123 Athol Street",
+		// 		city: "Warri",
+		// 		postCode: "WR3 X45",
+		// 		country: "Nigeria",
+		// 	},
 
-			token:
-				"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTlkMTJiMWIyMzY5Y",
-			statusCode: 200,
-		};
+		// 	token:
+		// 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTlkMTJiMWIyMzY5Y",
+		// 	statusCode: 200,
+		// };
 
-		await store.dispatch(
-			UserLogin({ email: "test@test.com", password: "test1234", history })
-		);
+		// await store.dispatch(
+		// 	UserLogin({ email: "test@test.com", password: "test1234", history })
+		// );
 
-		await store.dispatch(login(receivedLoginData));
+		// await store.dispatch(login(receivedLoginData));
 
 		const localStorageObject = {
 			street: "1234 Athol Street",
@@ -240,6 +307,8 @@ describe("Edit form actions", () => {
 			country: "England, United Kingdom",
 		};
 		localStorage.setItem("senderAddress", JSON.stringify(localStorageObject));
+
+		store.dispatch(getOneInvoice(passedData.invoiceItem));
 
 		render(
 			<Provider store={store}>
@@ -251,6 +320,8 @@ describe("Edit form actions", () => {
 				</Router>
 			</Provider>
 		);
+
+		await store.dispatch(getSingleInvoice(mainData));
 
 		const editButtonElement = screen.getByRole("button", {
 			name: "Edit",
@@ -275,7 +346,7 @@ describe("Edit form actions", () => {
 		// screen.debug();
 	});
 
-	test(`When the user clicks on the "Save changes Button" after failing to fill the input fields correctly`, () => {
+	test(`When the user clicks on the "Save changes Button" after failing to fill the input fields correctly`, async () => {
 		// const receivedLoginData = {
 		// 	senderAddress: {
 		// 		street: "123 Athol Street",
@@ -303,7 +374,7 @@ describe("Edit form actions", () => {
 		// };
 		// localStorage.setItem("senderAddress", JSON.stringify(localStorageObject));
 
-		passedData.invoiceItem.clientStreet = "";
+		store.dispatch(getOneInvoice(passedData.invoiceItem));
 
 		render(
 			<Provider store={store}>
@@ -315,6 +386,12 @@ describe("Edit form actions", () => {
 				</Router>
 			</Provider>
 		);
+
+		// passedData.invoiceItem.clientStreet = "";
+
+		mainData[0].clientStreet = "";
+
+		await store.dispatch(getSingleInvoice(mainData));
 
 		const editButtonElement = screen.getByRole("button", {
 			name: "Edit",
@@ -335,7 +412,7 @@ describe("Edit form actions", () => {
 		);
 
 		fireEvent.change(screen.getByTestId("clientStreet", { exact: false }), {
-			target: { value: passedData.invoiceItem.clientStreet },
+			target: { value: mainData[0].clientStreet },
 		});
 
 		fireEvent.change(screen.getByTestId("clientCity", { exact: false }), {
@@ -377,5 +454,7 @@ describe("Edit form actions", () => {
 		expect(
 			screen.queryByText("Can't be empty", { exact: true })
 		).toBeInTheDocument();
+
+		// screen.debug();
 	});
 });

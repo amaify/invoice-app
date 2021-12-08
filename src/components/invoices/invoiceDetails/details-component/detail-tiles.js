@@ -16,7 +16,10 @@ import Button from "../../../buttons/buttons";
 function DetailsTiles(props) {
 	const dispatch = useDispatch();
 
-	const { data, invoice, loading } = props;
+	const { data, invoice, loading, markedLoading, invoiceMarked, testing } =
+		props;
+
+	// console.log(testing[0]);
 
 	// console.log(data);
 	// const [paid, setPaid] = useState(data.status);
@@ -78,13 +81,13 @@ function DetailsTiles(props) {
 					</div>
 				</div>
 
-				<div className="details-tiles__tile--buttons">
+				<div className="details-tiles__tile--buttons details-tiles__tile--buttons-desktop">
 					<Button type="8" text="Edit" onClick={onEditInvoice} />
 					<Button type="7" text="Delete" onClick={onDeleteInvoice} />
 					{data.status !== "Paid" ? (
 						<Button
 							type="2"
-							text={!loading ? "Mark as Paid" : "Marking...."}
+							text={!markedLoading ? "Mark as Paid" : "Marking...."}
 							onClick={setInvoiceToPaid}
 							dataTestid="markAsPaid"
 						/>
@@ -102,6 +105,9 @@ const mapStateToProps = (state) => {
 		toggled: state.routeReducer.routeToggled,
 		invoice: state.invoiceReducer.invoice,
 		loading: state.invoiceReducer.loading,
+		markedLoading: state.invoiceReducer.markedLoading,
+		invoiceMarked: state.invoiceReducer.invoiceMarked,
+		markedData: state.invoiceReducer.markedData,
 	};
 };
 

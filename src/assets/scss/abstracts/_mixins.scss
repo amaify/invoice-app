@@ -4,3 +4,11 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+
+@mixin responsive_layout($break-point) {
+	@if ($break-point == bp__sm) {
+		@media only screen and (min-width: 600px) {
+			@content;
+		}
+	}
+}
