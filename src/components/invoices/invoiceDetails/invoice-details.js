@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, connect } from "react-redux";
 import Button from "../../buttons/buttons";
@@ -25,10 +25,11 @@ function InvoiceDetails(props) {
 
 	const dataFromStore = props.singleInvoice;
 
-	const { showModal, loading, error, markedLoading, invoice } = props;
+	const { showModal, loading, error, markedLoading, invoice, token } = props;
 
 	useEffect(() => {
-		return dispatch(getOneInvoice(data));
+		console.log(token);
+		return dispatch(getOneInvoice(data, token));
 	}, []);
 
 	const setInvoiceToPaid = () => {
@@ -39,7 +40,7 @@ function InvoiceDetails(props) {
 				// dispatch(setToPaid(data));
 				// data.status = "Paid";
 				// dispatch(markAsPaid(dataFromStore[0]));
-				dispatch(markAsPaid(dataFromStore[0]));
+				return dispatch(markAsPaid(dataFromStore[0], token));
 			}
 		});
 	};
@@ -61,7 +62,7 @@ function InvoiceDetails(props) {
 	// console.log(passedData);
 	// console.log(passed);
 
-	console.log(dataFromStore[0]);
+	// console.log(dataFromStore[0]);
 
 	return (
 		<section className="details">
@@ -83,7 +84,7 @@ function InvoiceDetails(props) {
 									<div className="details-tiles__tile--buttons details-tiles__tile--buttons-mobile">
 										<Button type="8" text="Edit" onClick={onEditInvoice} />
 										<Button type="7" text="Delete" onClick={onDeleteInvoice} />
-										{dataFromStore[0].status !== "Paid" ? (
+										{dataFromStore[0].status === "Pending" ? (
 											<Button
 												type="2"
 												text={!markedLoading ? "Mark as Paid" : "Marking...."}
@@ -119,6 +120,7 @@ function InvoiceDetails(props) {
 			</div>
 			{showModal && <Modal data={data} />}
 			<SkeletonDetails /> */}
+			{/* <SkeletonDetails /> */}
 		</section>
 	);
 }
@@ -131,6 +133,7 @@ const mapStateToProps = (state) => {
 		singleInvoice: state.invoiceReducer.singleInvoice,
 		markedLoading: state.invoiceReducer.markedLoading,
 		invoice: state.invoiceReducer.invoice,
+		token: state.authReducer.token,
 	};
 };
 

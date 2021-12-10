@@ -34,68 +34,80 @@ const passedData = {
 };
 
 export const handlers = [
-	rest.post("http://localhost:8080/authentication/login", (req, res, ctx) => {
-		const { email, password } = req.body;
+	rest.post(
+		"https://amaify-invoice-backend.herokuapp.com/authentication/login",
+		(req, res, ctx) => {
+			const { email, password } = req.body;
 
-		return res(
-			ctx.status(200),
-			ctx.json({
-				senderAddress: {
-					street: "123 Test Street",
-					city: "Test City",
-					postCode: "TE1 4XC",
-					country: "Nigeria",
-				},
-				token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
-				statusCode: 200,
-				email,
-				password,
-			})
-		);
-	}),
-
-	rest.post("http://localhost:8080/invoice/new-invoice", (req, res, ctx) => {
-		return res(
-			ctx.status(201),
-			ctx.json({
-				clientCity: "Middlesbrough",
-				clientCountry: "Niger",
-				clientEmail: "test@test.com",
-				clientName: "Leah Peters",
-				clientPostCode: "TXX 2XX",
-				clientStreet: "123 Street Road",
-				description: "Design",
-				listOfItems: [
-					{ name: "Game", quantity: "10", price: "10", total: "100" },
-				],
-			})
-		);
-	}),
-
-	rest.get("http://localhost:8080/invoice/invoice", (req, res, ctx) => {
-		return res(
-			ctx.status(200),
-			ctx.json({
-				invoice: [
-					{
-						id: "123456",
-						paymentDue: "2021-12-10",
-						clientName: "James Stella",
-						total: "100.00",
-						status: "paid",
+			return res(
+				ctx.status(200),
+				ctx.json({
+					senderAddress: {
+						street: "123 Test Street",
+						city: "Test City",
+						postCode: "TE1 4XC",
+						country: "Nigeria",
 					},
-				],
-				statusCode: 200,
-			})
-		);
-	}),
+					token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+					statusCode: 200,
+					email,
+					password,
+				})
+			);
+		}
+	),
 
-	rest.post("http://localhost:8080/authentication/signup", (req, res, ctx) => {
-		return res(ctx.status(201), ctx.json(newUserData));
-	}),
+	rest.post(
+		"https://amaify-invoice-backend.herokuapp.com/invoice/new-invoice",
+		(req, res, ctx) => {
+			return res(
+				ctx.status(201),
+				ctx.json({
+					clientCity: "Middlesbrough",
+					clientCountry: "Niger",
+					clientEmail: "test@test.com",
+					clientName: "Leah Peters",
+					clientPostCode: "TXX 2XX",
+					clientStreet: "123 Street Road",
+					description: "Design",
+					listOfItems: [
+						{ name: "Game", quantity: "10", price: "10", total: "100" },
+					],
+				})
+			);
+		}
+	),
+
+	rest.get(
+		"https://amaify-invoice-backend.herokuapp.com/invoice/invoice",
+		(req, res, ctx) => {
+			return res(
+				ctx.status(200),
+				ctx.json({
+					invoice: [
+						{
+							id: "123456",
+							paymentDue: "2021-12-10",
+							clientName: "James Stella",
+							total: "100.00",
+							status: "paid",
+						},
+					],
+					statusCode: 200,
+				})
+			);
+		}
+	),
+
+	rest.post(
+		"https://amaify-invoice-backend.herokuapp.com/authentication/signup",
+		(req, res, ctx) => {
+			return res(ctx.status(201), ctx.json(newUserData));
+		}
+	),
 
 	rest.put(
-		"http://localhost:8080/invoice/invoice/:invoicdId",
+		"https://amaify-invoice-backend.herokuapp.com/invoice/invoice/:invoicdId",
 		(req, res, ctx) => {
 			return res(
 				ctx.status(200),
@@ -105,7 +117,7 @@ export const handlers = [
 	),
 
 	rest.delete(
-		`http://localhost:8080/invoice/invoice/:invoiceId`,
+		`https://amaify-invoice-backend.herokuapp.com/invoice/invoice/:invoiceId`,
 		(req, res, ctx) => {
 			return res(
 				ctx.status(200),
@@ -115,7 +127,7 @@ export const handlers = [
 	),
 
 	rest.get(
-		"http://localhost:8080/invoice/invoice/:invoiceId",
+		"https://amaify-invoice-backend.herokuapp.com/invoice/invoice/:invoiceId",
 		(req, res, ctx) => {
 			return res(ctx.status(200), ctx.json(passedData));
 		}

@@ -3,10 +3,10 @@ import {
 	authLoading,
 	emailSent,
 	login,
-	loginSuccess,
+	// loginSuccess,
 	logout,
 	register,
-	resetError,
+	// resetError,
 } from "../actions/authAction";
 import { emptyInvoiceOnLogout } from "../actions/invoiceAction";
 import { displayInvoice } from "./invoiceUtility";
@@ -45,7 +45,34 @@ export const retrieveStoredToken = () => {
 };
 
 export const logoutUser = () => {
+	// const token = localStorage.getItem("token");
 	return (dispatch) => {
+		// fetch("http://localhost:8080/authentication/logout", {
+		// 	method: "POST",
+		// 	headers: {
+		// 		authorization: "Bearer " + token,
+		// 		"Content-Type": "application/json",
+		// 	},
+		// })
+		// 	.then((response) => response.json())
+		// 	.then((responseData) => {
+		// 		if (responseData.statusCode === 200) {
+		// 			console.log(responseData);
+		// 			dispatch(logout());
+		// 			dispatch(emptyInvoiceOnLogout());
+		// 			localStorage.removeItem("token");
+		// 			localStorage.removeItem("expirationTime");
+		// 			localStorage.removeItem("senderAddress");
+		// 		} else {
+		// 			console.log(responseData);
+		// 			// dispatch(authError(responseData.message));
+		// 			dispatch(setError(responseData.message));
+		// 		}
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log(error);
+		// 		dispatch(setError(error.message));
+		// 	});
 		dispatch(logout());
 		dispatch(emptyInvoiceOnLogout());
 		localStorage.removeItem("token");
@@ -62,13 +89,16 @@ export const newUser = (data, history) => {
 	return (dispatch) => {
 		dispatch(authLoading());
 
-		fetch("http://localhost:8080/authentication/signup", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		})
+		fetch(
+			"https://amaify-invoice-backend.herokuapp.com/authentication/signup",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			}
+		)
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 201) {
@@ -92,7 +122,7 @@ export const UserLogin = (data, history) => {
 	return (dispatch) => {
 		dispatch(authLoading());
 
-		fetch("http://localhost:8080/authentication/login", {
+		fetch("https://amaify-invoice-backend.herokuapp.com/authentication/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -111,8 +141,8 @@ export const UserLogin = (data, history) => {
 						JSON.stringify(responseData.senderAddress)
 					);
 
-					history.push("/");
-					dispatch(displayInvoice());
+					history.replace("/");
+					dispatch(displayInvoice(responseData.token));
 
 					const expirationTime = new Date(
 						new Date().getTime() + +"3600" * 1000
@@ -142,13 +172,16 @@ export const userForgotPassword = (data) => {
 	return (dispatch) => {
 		dispatch(authLoading());
 
-		fetch("http://localhost:8080/authentication/forgot-password", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		})
+		fetch(
+			"https://amaify-invoice-backend.herokuapp.com/authentication/forgot-password",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			}
+		)
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 200) {
@@ -175,13 +208,16 @@ export const userResetPassword = (token, data, history) => {
 			resetLink: token,
 		};
 
-		fetch("http://localhost:8080/authentication/reset-password", {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(requestedData),
-		})
+		fetch(
+			"https://amaify-invoice-backend.herokuapp.com/authentication/reset-password",
+			{
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(requestedData),
+			}
+		)
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 200) {

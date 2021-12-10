@@ -40,7 +40,7 @@ function DetailItems(props) {
 									&#163; {item.price}
 								</p>
 								<p className="details-items__list--items-item details-items__list--items-item-4">
-									&#163; {item.total.toFixed(2)}
+									&#163; {item.total}
 								</p>
 							</div>
 							// </>
@@ -59,7 +59,8 @@ function DetailItems(props) {
 					amount due
 				</p>
 				<p className="details-items__amount--figure">
-					&#163; {!data.total ? "0" : data.total.toFixed(2)}
+					{/* &#163; {!data.total ? "0" : data.total} */}
+					&#163; {data.total}
 				</p>
 			</div>
 		</div>

@@ -10,10 +10,16 @@ import {
 	deleteInvoice,
 	invoiceMarked,
 	markAsPaidLoading,
-	marked,
+	// marked,
 } from "../actions/invoiceControls";
 
-export const displayInvoice = () => {
+// import { initialState } from "../reducers/authReducer";
+
+const token = localStorage.getItem("token");
+
+console.log(token);
+
+export const displayInvoice = (userToken) => {
 	return (dispatch) => {
 		dispatch(loading());
 
@@ -33,14 +39,18 @@ export const displayInvoice = () => {
 		// 		});
 		// }, 2000);
 
-		fetch("http://localhost:8080/invoice/invoice", {
+		fetch("https://amaify-invoice-backend.herokuapp.com/invoice/invoice", {
 			method: "GET",
+			headers: {
+				Authorization: "Bearer " + userToken,
+				"Content-Type": "application/json",
+			},
 		})
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.statusCode === 200) {
 					dispatch(getInvoice(data.invoice));
-					console.log(data);
+					// console.log(data);
 				} else {
 					dispatch(setError(data.message));
 				}
@@ -52,13 +62,24 @@ export const displayInvoice = () => {
 	};
 };
 
-export const getOneInvoice = (data) => {
+// console.log(initialState.token);
+
+export const getOneInvoice = (data, userToken) => {
+	// const mainToken = initialState.token;
+	console.log(data);
 	return (dispatch) => {
 		dispatch(loading());
 
-		fetch(`http://localhost:8080/invoice/invoice/${data._id}`, {
-			method: "GET",
-		})
+		fetch(
+			`https://amaify-invoice-backend.herokuapp.com/invoice/invoice/${data._id}`,
+			{
+				method: "GET",
+				headers: {
+					Authorization: "Bearer " + userToken,
+					"Content-Type": "application/json",
+				},
+			}
+		)
 			.then((response) => response.json())
 			.then((responseData) => {
 				// passed = responseData.invoice;
@@ -76,22 +97,26 @@ export const getOneInvoice = (data) => {
 	};
 };
 
-export const updateInvoice = (data, history) => {
+export const updateInvoice = (data, history, userToken) => {
 	return (dispatch) => {
 		dispatch(submitPending());
-		fetch(`http://localhost:8080/invoice/invoice/${data._id}`, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		})
+		fetch(
+			`https://amaify-invoice-backend.herokuapp.com/invoice/invoice/${data._id}`,
+			{
+				method: "PUT",
+				headers: {
+					authorization: "Bearer " + userToken,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			}
+		)
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 200) {
 					dispatch(hideForm());
 					history.push("/");
-					dispatch(displayInvoice());
+					dispatch(displayInvoice(userToken));
 				}
 
 				if (responseData.statusCode === 401) {
@@ -100,13 +125,13 @@ export const updateInvoice = (data, history) => {
 				}
 			})
 			.catch((error) => {
-				dispatch(setError(error));
+				dispatch(setError(error.message));
 				dispatch(hideForm());
 			});
 	};
 };
 
-export const markAsPaid = (data) => {
+export const markAsPaid = (data, userToken) => {
 	return (dispatch) => {
 		// dispatch(loading());
 		dispatch(markAsPaidLoading());
@@ -121,13 +146,17 @@ export const markAsPaid = (data) => {
 
 		// console.log(updatedStatusData);
 
-		fetch(`http://localhost:8080/invoice/invoice/${data._id}`, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(updatedStatusData),
-		})
+		fetch(
+			`https://amaify-invoice-backend.herokuapp.com/invoice/invoice/${data._id}`,
+			{
+				method: "PUT",
+				headers: {
+					authorization: "Bearer " + userToken,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(updatedStatusData),
+			}
+		)
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 200) {
@@ -145,32 +174,39 @@ export const markAsPaid = (data) => {
 			})
 			.catch((error) => {
 				dispatch(setError(error.message));
+				dispatch(hideForm());
 			});
 	};
 };
 
-export const deleteAnInvoice = (data, history) => {
+export const deleteAnInvoice = (data, history, userToken) => {
 	return (dispatch) => {
 		dispatch(submitDraft());
-		fetch(`http://localhost:8080/invoice/invoice/${data._id}`, {
-			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
+		fetch(
+			`https://amaify-invoice-backend.herokuapp.com/invoice/invoice/${data._id}`,
+			{
+				method: "DELETE",
+				headers: {
+					Authorization: "Bearer " + userToken,
+					"Content-Type": "application/json",
+				},
+			}
+		)
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 200) {
 					console.log(responseData);
 					dispatch(deleteInvoice());
 					history.push("/");
-					dispatch(displayInvoice());
+					dispatch(displayInvoice(userToken));
 				} else {
 					dispatch(hideForm());
 					dispatch(setError(responseData.message));
 					console.log(responseData);
 				}
 			})
-			.catch((error) => console.log(error));
+			.catch((error) => {
+				dispatch(setError(error.message));
+			});
 	};
 };

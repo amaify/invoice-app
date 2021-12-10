@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, connect } from "react-redux";
 
-import Input from "../../input/input";
+// import Input from "../../input/input";
 import Button from "../../../buttons/buttons";
-import Delete from "../../../../assets/images/icon-delete.svg";
-import { dispatchListItems } from "../../../../store/util/formUtility";
+// import Delete from "../../../../assets/images/icon-delete.svg";
+// import { dispatchListItems } from "../../../../store/util/formUtility";
 import {
 	addNewItemToList,
 	deleteListItems,
 	editListAddItems,
 	editlistDelete,
 	editOnChange,
-	getListItems,
+	// getListItems,
 	listOnChange,
 } from "../../../../store/actions/formAction";
 
 function ListItems(props) {
 	const dispatch = useDispatch();
-	const [listItemss, setListItems] = useState([]);
-	const [editListItems, setEditListItems] = useState([]);
+	const [, setListItems] = useState([]);
+	const [, setEditListItems] = useState([]);
 
 	const {
 		editForm,
@@ -26,8 +26,8 @@ function ListItems(props) {
 		formDetails,
 		listItems,
 		onHandleBlur,
-		errors,
-		validateForm,
+		// errors,
+		// validateForm,
 	} = props;
 
 	const onItemChange = (e, index) => {

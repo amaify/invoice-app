@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import SelectMonthList from "./calendarMonths/calendarMonths";
 import SelectYearList from "./calendarYears/calendarYears";
@@ -14,20 +14,20 @@ function Calendar(props) {
 	let [showMonthPopUp, setMonthPopUp] = useState(false);
 	let [showYearPopUp, setYearPopUp] = useState(false);
 	let [showTableElements, setTableElements] = useState(true);
-	let [today, setToday] = useState(moment());
+	// let [today, setToday] = useState(moment());
 	let [dateContext, setDateContext] = useState(moment());
 
 	const dispatch = useDispatch();
 	const { editForm } = props;
 
-	var weekDays = moment.weekdaysShort();
+	// var weekDays = moment.weekdaysShort();
 	var months = moment.monthsShort();
 
 	const year = () => dateContext.format("Y");
 	const month = () => dateContext.format("MMM");
 	const daysInMonth = () => dateContext.daysInMonth();
 	const currentDate = () => dateContext.get("date");
-	const currentDay = () => dateContext.get("D");
+	// const currentDay = () => dateContext.get("D");
 
 	const firstDayOfMonth = () => {
 		let mainDate = dateContext;

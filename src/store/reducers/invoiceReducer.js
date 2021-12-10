@@ -1,5 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
-import { deleteInvoice } from "../actions/invoiceControls";
+// import { deleteInvoice } from "../actions/invoiceControls";
 
 export const initialState = {
 	invoice: [],
@@ -10,7 +10,7 @@ export const initialState = {
 	filtered: false,
 	dropDown: false,
 	showModal: false,
-	backdrop: false,
+	// backdrop: false,
 
 	loading: false,
 	markedLoading: false,
@@ -53,7 +53,7 @@ export const invoiceReducer = (state = initialState, action) => {
 				loading: false,
 				errMessage: action.data,
 				showModal: true,
-				backdrop: true,
+				// backdrop: true,
 				pendingLoading: false,
 				draftLoading: false,
 			};

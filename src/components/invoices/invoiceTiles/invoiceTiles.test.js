@@ -232,8 +232,8 @@ describe("Clicking on an invoice", () => {
 
 		// await store.dispatch(getInvoice(data));
 
-		const invoiceElement = await screen.findByTestId("invoices");
-		fireEvent.click(invoiceElement);
+		const invoiceElement = await screen.findAllByTestId("invoices");
+		fireEvent.click(invoiceElement[0]);
 
 		expect(history.location.pathname).toEqual("/details/123456");
 	});

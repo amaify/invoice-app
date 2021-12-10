@@ -7,19 +7,19 @@ import {
 	submitPending,
 	submitDraft,
 } from "../actions/formAction";
-import { getInvoice, loading, setError } from "../actions/invoiceAction";
+import { setError } from "../actions/invoiceAction";
 import { displayInvoice } from "./invoiceUtility";
+
+// const token = localStorage.getItem("token");
 
 export const showFormAction = () => {
 	return (dispatch) => {
-		console.log("clicked");
 		dispatch(showForm());
 	};
 };
 
 export const getDateFromForm = () => {
 	return (dispatch) => {
-		console.log("gotten date");
 		dispatch(getDate());
 	};
 };
@@ -36,15 +36,16 @@ export const dispatchListItems = () => {
 	};
 };
 
-export const submitFormPending = (formData) => {
+export const submitFormPending = (formData, userToken) => {
 	return (dispatch) => {
 		// dispatch(loading());
 		dispatch(submitPending());
 
-		fetch("http://localhost:8080/invoice/new-invoice", {
+		fetch("https://amaify-invoice-backend.herokuapp.com/invoice/new-invoice", {
 			method: "POST",
 			body: JSON.stringify(formData),
 			headers: {
+				authorization: "Bearer " + userToken,
 				"Content-Type": "application/json",
 			},
 		})
@@ -52,7 +53,7 @@ export const submitFormPending = (formData) => {
 			.then((responseData) => {
 				if (responseData.statusCode === 201) {
 					dispatch(hideForm());
-					dispatch(displayInvoice());
+					dispatch(displayInvoice(userToken));
 					// console.log(responseData);
 					// dispatch(getInvoice());
 					// history.replace("/");
@@ -69,15 +70,16 @@ export const submitFormPending = (formData) => {
 	};
 };
 
-export const submitFormDraft = (formData) => {
+export const submitFormDraft = (formData, userToken) => {
 	return (dispatch) => {
 		// dispatch(loading());
 		dispatch(submitDraft());
 
-		fetch("http://localhost:8080/invoice/new-invoice", {
+		fetch("https://amaify-invoice-backend.herokuapp.com/invoice/new-invoice", {
 			method: "POST",
 			body: JSON.stringify(formData),
 			headers: {
+				authorization: "Bearer " + userToken,
 				"Content-Type": "application/json",
 			},
 		})
@@ -85,7 +87,7 @@ export const submitFormDraft = (formData) => {
 			.then((responseData) => {
 				if (responseData.statusCode === 201) {
 					dispatch(hideForm());
-					dispatch(displayInvoice());
+					dispatch(displayInvoice(userToken));
 					// dispatch(getInvoice());
 					// history.replace("/");
 					console.log(responseData);

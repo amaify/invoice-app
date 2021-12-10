@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, connect } from "react-redux";
 
 import Input from "../../components/form/input/input";
@@ -11,7 +11,7 @@ function Login(props) {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	const { error, loading, errMessage, isAuth } = props;
+	const { error, loading, errMessage } = props;
 
 	const [formData, setFormData] = useState({
 		email: "",

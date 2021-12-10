@@ -12,6 +12,7 @@ if (tokenData) {
 
 export const initialState = {
 	isAuth: initialToken || false,
+	token: initialToken,
 	loading: false,
 	error: false,
 	errMessage: "",
@@ -35,6 +36,7 @@ export const AuthReducer = (state = initialState, action) => {
 				loading: false,
 				error: false,
 				isAuth: !!action.data.token,
+				token: action.data.token,
 				// isAuth: true,
 			};
 
@@ -73,6 +75,7 @@ export const AuthReducer = (state = initialState, action) => {
 				...state,
 				isAuth: false,
 				errMessage: "",
+				token: null,
 			};
 
 		case actionTypes.EMAIL_SENT:

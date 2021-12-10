@@ -266,78 +266,78 @@ function Register(props) {
 					</div>
 					<div className="register-body__form--sub">
 						<div className="register-body__form--sub-content">
-							<div className="register-body__form--main">
-								<Input
-									itemId="cityID"
-									id="senderCity"
-									ariaLabelledby="cityID senderCity"
-									type="text"
-									name="senderCity"
-									label="City"
-									defaultValue={formData.senderCity}
-									error={errors.senderCityError}
-									className={
-										errors.senderCityError === ""
-											? "register-body__form--input"
-											: "register-body__form--input inputError"
-									}
-									onChange={onInputChangeHandler}
-									onBlur={onBlurHandler}
-								/>
-								<p className="register-body__form--error">
-									{errors.senderCityError}
-								</p>
-							</div>
+							{/* <div className="register-body__form--main"> */}
+							<Input
+								itemId="cityID"
+								id="senderCity"
+								ariaLabelledby="cityID senderCity"
+								type="text"
+								name="senderCity"
+								label="City"
+								defaultValue={formData.senderCity}
+								error={errors.senderCityError}
+								className={
+									errors.senderCityError === ""
+										? "register-body__form--input"
+										: "register-body__form--input inputError"
+								}
+								onChange={onInputChangeHandler}
+								onBlur={onBlurHandler}
+							/>
+							<p className="register-body__form--error">
+								{errors.senderCityError}
+							</p>
+							{/* </div> */}
 						</div>
 
 						<div className="register-body__form--sub-content">
-							<div className="register-body__form--main">
-								<Input
-									itemId="postCodeID"
-									id="senderPostCode"
-									ariaLabelledby="postCodeID senderPostCode"
-									type="text"
-									name="senderPostCode"
-									label="Post Code"
-									defaultValue={formData.senderPostCode}
-									error={errors.senderPostCodeError}
-									className={
-										errors.senderPostCodeError === ""
-											? "register-body__form--input"
-											: "register-body__form--input inputError"
-									}
-									onChange={onInputChangeHandler}
-									onBlur={onBlurHandler}
-								/>
-								<p className="register-body__form--error">
-									{errors.senderPostCodeError}
-								</p>
-							</div>
+							{/* <div className="register-body__form--main"> */}
+							<Input
+								itemId="postCodeID"
+								id="senderPostCode"
+								ariaLabelledby="postCodeID senderPostCode"
+								type="text"
+								name="senderPostCode"
+								label="Post Code"
+								defaultValue={formData.senderPostCode}
+								error={errors.senderPostCodeError}
+								className={
+									errors.senderPostCodeError === ""
+										? "register-body__form--input"
+										: "register-body__form--input inputError"
+								}
+								onChange={onInputChangeHandler}
+								onBlur={onBlurHandler}
+							/>
+							<p className="register-body__form--error">
+								{errors.senderPostCodeError}
+							</p>
+							{/* </div> */}
 						</div>
 
 						<div className="register-body__form--sub-content">
-							<div className="register-body__form--main">
-								<Input
-									itemId="countryID"
-									id="senderCountry"
-									ariaLabelledby="countryID senderCountry"
-									type="text"
-									name="senderCountry"
-									label="Country"
-									defaultValue={formData.senderCountry}
-									error={errors.senderCountryError}
-									className={
-										errors.senderCountryError === ""
-											? "register-body__form--input"
-											: "register-body__form--input inputError"
-									}
-									onChange={onInputChangeHandler}
-									onBlur={onBlurHandler}
-								/>
-								<p className="register-body__form--error">
-									{errors.senderCountryError}
-								</p>
-							</div>
+							{/* <div className="register-body__form--main"> */}
+							<Input
+								itemId="countryID"
+								id="senderCountry"
+								ariaLabelledby="countryID senderCountry"
+								type="text"
+								name="senderCountry"
+								label="Country"
+								defaultValue={formData.senderCountry}
+								error={errors.senderCountryError}
+								className={
+									errors.senderCountryError === ""
+										? "register-body__form--input"
+										: "register-body__form--input inputError"
+								}
+								onChange={onInputChangeHandler}
+								onBlur={onBlurHandler}
+							/>
+							<p className="register-body__form--error">
+								{errors.senderCountryError}
+							</p>
+							{/* </div> */}
 						</div>
 					</div>
 					<Button

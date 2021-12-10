@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch, connect } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Filter from "./filter/filter";
 import Button from "../buttons/buttons";
 
 import IconPlus from "../../assets/images/icon-plus.svg";
 import { showForm } from "../../store/actions/formAction";
-import { logoutUser } from "../../store/util/authUtility";
 
 function Controls(props) {
 	const dispatch = useDispatch();

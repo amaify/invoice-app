@@ -45,7 +45,7 @@ function InputField(props) {
 	let [showCalendar, setShowCalendar] = useState(false);
 	let [showDate, setShowDate] = useState(false);
 
-	let [dateContext, setDateContext] = useState(moment());
+	let [dateContext] = useState(moment());
 	let visibleDate = useSelector((state) => state.form.date);
 
 	const year = () => dateContext.format("Y");
@@ -452,7 +452,7 @@ function InputField(props) {
 				itemQuantityError={errors.itemQuantityError}
 				editFormListItems={editForm ? formDetails.items : ""}
 				errors={errors}
-				validateForm={validateForm}
+				// validateForm={validateForm}
 			/>
 
 			{/* <div className="form-elements__group--items-btns">

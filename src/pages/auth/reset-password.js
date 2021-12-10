@@ -6,7 +6,7 @@ import PasswordIcon from "../../assets/images/icon-password.svg";
 import Input from "../../components/form/input/input";
 import Button from "../../components/buttons/buttons";
 
-import { forgotPasswordLink, resetError } from "../../store/actions/authAction";
+import { resetError } from "../../store/actions/authAction";
 import { userResetPassword } from "../../store/util/authUtility";
 
 function ResetPassword(props) {
@@ -109,7 +109,7 @@ function ResetPassword(props) {
 		<section className="forgotpassword">
 			<div className="forgotpassword-body">
 				<figure className="forgotpassword-body__img">
-					<img src={PasswordIcon} alt="Image of a padlock" />
+					<img src={PasswordIcon} alt="A Padlock" />
 				</figure>
 				{error ? (
 					<div className={errClassName}>

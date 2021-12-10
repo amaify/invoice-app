@@ -3,6 +3,7 @@ import { logRoles } from "@testing-library/dom";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import InvoiceDetails from "./invoice-details";
+import InvoiceTiles from "./details-component/detail-tiles";
 import Form from "../../form/invoice/form";
 
 import { rest } from "msw";
@@ -130,12 +131,12 @@ describe("Invoice Details actions", () => {
 
 		await store.dispatch(getSingleInvoice(mainData));
 
-		const deleteButtonElement = screen.getByRole("button", {
+		const deleteButtonElement = screen.getAllByRole("button", {
 			name: "Delete",
 			exact: false,
 		});
 
-		fireEvent.click(deleteButtonElement);
+		fireEvent.click(deleteButtonElement[0]);
 
 		store.dispatch(confirmDelete());
 
@@ -191,13 +192,13 @@ describe("Invoice Details actions", () => {
 
 		// await store.dispatch(login(receivedLoginData));
 
-		const localStorageObject = {
-			street: "1234 Athol Street",
-			city: "Darlington",
-			postCode: "DL1 5SR",
-			country: "England, United Kingdom",
-		};
-		localStorage.setItem("senderAddress", JSON.stringify(localStorageObject));
+		// const localStorageObject = {
+		// 	street: "1234 Athol Street",
+		// 	city: "Darlington",
+		// 	postCode: "DL1 5SR",
+		// 	country: "England, United Kingdom",
+		// };
+		// localStorage.setItem("senderAddress", JSON.stringify(localStorageObject));
 
 		render(
 			<Provider store={store}>
@@ -214,12 +215,12 @@ describe("Invoice Details actions", () => {
 
 		await store.dispatch(getSingleInvoice(mainData));
 
-		const editButtonElement = screen.getByRole("button", {
+		const editButtonElement = screen.getAllByRole("button", {
 			name: "Edit",
 			exact: false,
 		});
 
-		fireEvent.click(editButtonElement);
+		fireEvent.click(editButtonElement[0]);
 
 		store.dispatch(editForm(passedData.invoiceItem));
 
@@ -254,12 +255,12 @@ describe("Invoice Details actions", () => {
 
 		await store.dispatch(getSingleInvoice(mainData));
 
-		const markAsPaidButtonElement = screen.getByRole("button", {
+		const markAsPaidButtonElement = screen.getAllByRole("button", {
 			name: "Mark as Paid",
 			exact: false,
 		});
 
-		fireEvent.click(markAsPaidButtonElement);
+		fireEvent.click(markAsPaidButtonElement[0]);
 
 		mainData[0].status = "Paid";
 
@@ -300,13 +301,13 @@ describe("Edit form actions", () => {
 
 		// await store.dispatch(login(receivedLoginData));
 
-		const localStorageObject = {
-			street: "1234 Athol Street",
-			city: "Darlington",
-			postCode: "DL1 5SR",
-			country: "England, United Kingdom",
-		};
-		localStorage.setItem("senderAddress", JSON.stringify(localStorageObject));
+		// const localStorageObject = {
+		// 	street: "1234 Athol Street",
+		// 	city: "Darlington",
+		// 	postCode: "DL1 5SR",
+		// 	country: "England, United Kingdom",
+		// };
+		// localStorage.setItem("senderAddress", JSON.stringify(localStorageObject));
 
 		store.dispatch(getOneInvoice(passedData.invoiceItem));
 
@@ -323,12 +324,12 @@ describe("Edit form actions", () => {
 
 		await store.dispatch(getSingleInvoice(mainData));
 
-		const editButtonElement = screen.getByRole("button", {
+		const editButtonElement = screen.getAllByRole("button", {
 			name: "Edit",
 			exact: false,
 		});
 
-		fireEvent.click(editButtonElement);
+		fireEvent.click(editButtonElement[0]);
 
 		store.dispatch(editForm(passedData.invoiceItem));
 
@@ -393,12 +394,12 @@ describe("Edit form actions", () => {
 
 		await store.dispatch(getSingleInvoice(mainData));
 
-		const editButtonElement = screen.getByRole("button", {
+		const editButtonElement = screen.getAllByRole("button", {
 			name: "Edit",
 			exact: false,
 		});
 
-		fireEvent.click(editButtonElement);
+		fireEvent.click(editButtonElement[0]);
 
 		fireEvent.change(screen.getByLabelText("Client's Name", { exact: false }), {
 			target: { value: passedData.invoiceItem.clientName },

@@ -23,7 +23,7 @@ function SelectYearList(props) {
 	let twelveYears = getDates(props, nextTen);
 
 	twelveYears.map((data) => {
-		months.push(
+		return months.push(
 			<td
 				key={data}
 				className="calendar-month"

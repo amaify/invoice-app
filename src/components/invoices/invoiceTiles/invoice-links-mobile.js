@@ -1,22 +1,22 @@
 import React from "react";
 
-import { useDispatch, connect } from "react-redux";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import data from "../data.json";
-import Modal from "../../modal/modal";
-import ArrowRight from "../../../assets/images/icon-arrow-right.svg";
-import Skeleton from "../../skeleton/skeleton";
-import EmptyInvoice from "../emptyInvoice/emptyInvoice";
+// import data from "../data.json";
+// import Modal from "../../modal/modal";
+// import ArrowRight from "../../../assets/images/icon-arrow-right.svg";
+// import Skeleton from "../../skeleton/skeleton";
+// import EmptyInvoice from "../emptyInvoice/emptyInvoice";
 import { parseDate } from "../../util/utility";
 
 function InvoiceMobileLinks(props) {
 	// let invoiceData;
-	let items, classList, invoiceX;
+	let classList, invoiceX;
 
 	// console.log(props.invoiceData);
 
-	const { filtered, invoiceArray, filteredInvoice } = props;
+	// const { filtered, invoiceArray, filteredInvoice } = props;
 
 	props.filtered
 		? (invoiceX = props.filteredInvoice)
@@ -64,7 +64,7 @@ function InvoiceMobileLinks(props) {
 							className="invoice-tiles__content--total-amount"
 							data-testid="totalAmount"
 						>
-							<span>&#163;</span> {!item.total ? "0" : item.total}
+							<span>&#163;</span> {item.total}
 						</p>
 					</div>
 

@@ -6,7 +6,7 @@ const EmptyInvoice = () => {
 	return (
 		<div className="invoice-empty" data-testid="empty-invoice">
 			<picture className="invoice-empty__image">
-				<img src={EmptyImage} alt="No Invoice image" />
+				<img src={EmptyImage} alt="No Invoice Description" />
 			</picture>
 
 			<div className="invoice-empty__heading">

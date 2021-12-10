@@ -1,30 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-import data from "../data.json";
+// import data from "../data.json";
 import Modal from "../../modal/modal";
-import ArrowRight from "../../../assets/images/icon-arrow-right.svg";
+// import ArrowRight from "../../../assets/images/icon-arrow-right.svg";
 import Skeleton from "../../skeleton/skeleton";
 import EmptyInvoice from "../emptyInvoice/emptyInvoice";
 import InvoiceLinks from "./invoice-links";
 import InvoiceMobileLinks from "./invoice-links-mobile";
-import { parseDate } from "../../util/utility";
-import { getInvoice } from "../../../store/actions/invoiceAction";
-import { toggleRoute } from "../../../store/actions/routeAction";
+// import { parseDate } from "../../util/utility";
+// import { getInvoice } from "../../../store/actions/invoiceAction";
+// import { toggleRoute } from "../../../store/actions/routeAction";
 import { displayInvoice } from "../../../store/util/invoiceUtility";
 
 function InvoiceTiles({
 	invoiceData,
-	filteredInvoice,
-	filtered,
+	// filteredInvoice,
+	// filtered,
 	loading,
 	isAuth,
 	showModal,
+	token,
 }) {
 	const dispatch = useDispatch();
 	// const { invoiceData } = props;
-	let invoiceX;
+	// let invoiceX;
 
 	useEffect(() => {
 		// dispatch(getInvoice(data));
@@ -39,7 +40,7 @@ function InvoiceTiles({
 		// 		}
 		// 	})
 		// 	.catch((err) => console.log(err));
-		return isAuth ? dispatch(displayInvoice()) : null;
+		return isAuth ? dispatch(displayInvoice(token)) : null;
 	}, []);
 
 	// const [invoice, setInvoice] = useState([]);
@@ -112,8 +113,9 @@ function InvoiceTiles({
 
 	return (
 		// <div className="invoice-tiles">{!props.loading ? items : <Skeleton />}</div>
-		<div className="invoice-tiles">
-			{/* {!props.loading ? (
+		<>
+			<div className="invoice-tiles">
+				{/* {!props.loading ? (
 				invoiceData.length !== 0 ? (
 					<InvoiceLinks />
 				) : (
@@ -123,27 +125,27 @@ function InvoiceTiles({
 				<Skeleton />
 			)} */}
 
-			{!loading ? (
-				isAuth ? (
-					invoiceData.length !== 0 ? (
-						<div>
-							<InvoiceLinks invoiceData={invoiceData} />
-							<InvoiceMobileLinks invoiceData={invoiceData} />
-						</div>
+				{!loading ? (
+					isAuth ? (
+						invoiceData.length !== 0 ? (
+							<div>
+								<InvoiceLinks invoiceData={invoiceData} />
+								<InvoiceMobileLinks invoiceData={invoiceData} />
+							</div>
+						) : (
+							<EmptyInvoice />
+						)
 					) : (
 						<EmptyInvoice />
 					)
 				) : (
-					<EmptyInvoice />
-				)
-			) : (
-				<Skeleton />
-			)}
+					<Skeleton />
+				)}
 
-			{/* {invoiceItems} */}
-
+				{/* {invoiceItems} */}
+			</div>
 			{showModal && <Modal />}
-		</div>
+		</>
 	);
 }
 
@@ -155,6 +157,7 @@ const mapStateToProps = (state) => {
 		loading: state.invoiceReducer.loading,
 		showModal: state.invoiceReducer.showModal,
 		isAuth: state.authReducer.isAuth,
+		token: state.authReducer.token,
 	};
 };
 

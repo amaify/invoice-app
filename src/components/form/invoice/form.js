@@ -1,37 +1,37 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { useSelector, useDispatch, connect } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch, connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 
 import ArrowLeft from "../../../assets/images/icon-arrow-left.svg";
 
-import Validate from "../../util/validate";
-import Input from "../input/input";
-import Delete from "../../../assets/images/icon-delete.svg";
-import Button from "../../buttons/buttons";
+// import Validate from "../../util/validate";
+// import Input from "../input/input";
+// import Delete from "../../../assets/images/icon-delete.svg";
+// import Button from "../../buttons/buttons";
 
-import PaymentTerms from "./components/payment-terms";
-import Calendar from "../../calendar/calendar";
-import ListItems from "./components/list-items";
+// import PaymentTerms from "./components/payment-terms";
+// import Calendar from "../../calendar/calendar";
+// import ListItems from "./components/list-items";
 import InputField from "./components/input-field";
 
-import ArrowDown from "../../../assets/images/icon-arrow-down.svg";
-import CalendarImage from "../../../assets/images/icon-calendar.svg";
+// import ArrowDown from "../../../assets/images/icon-arrow-down.svg";
+// import CalendarImage from "../../../assets/images/icon-calendar.svg";
 import {
 	editInput,
 	getDate,
 	hideForm,
 	paymentTerms,
-	setEditPaymentTerms,
-	submitPending,
+	// setEditPaymentTerms,
+	// submitPending,
 } from "../../../store/actions/formAction";
 import {
-	getPaymentTerms,
+	// getPaymentTerms,
 	submitFormDraft,
 	submitFormPending,
 } from "../../../store/util/formUtility";
 import {
-	displayInvoice,
+	// displayInvoice,
 	updateInvoice,
 } from "../../../store/util/invoiceUtility";
 
@@ -39,7 +39,7 @@ function Form(props) {
 	// let selectedDate, paymentTerms;
 	// let paymentTerms
 	const history = useHistory();
-	let visibleDate = useSelector((state) => state.form.date);
+	// let visibleDate = useSelector((state) => state.form.date);
 	const dispatch = useDispatch();
 	const { formDetails, editForm } = props;
 
@@ -60,7 +60,7 @@ function Form(props) {
 
 	// console.log(addressItems);
 
-	const [senderDetails, setSenderDetails] = useState({
+	const [senderDetails] = useState({
 		senderStreet: addressItems.street,
 		senderCity: addressItems.city,
 		senderPostCode: addressItems.postCode,
@@ -128,7 +128,7 @@ function Form(props) {
 
 	const [isError, setIsError] = useState(false);
 	const [listError, setListError] = useState(false);
-	const [listItemError, setListItemError] = useState(false);
+	const [listItemError] = useState(false);
 	const [submitPending, setSubmitPending] = useState(false);
 	const [submitDraft, setSubmitDraft] = useState(false);
 	const [submitEditForm, setSubmitEditForm] = useState(false);
@@ -154,13 +154,14 @@ function Form(props) {
 	// });
 
 	// let [itemList, setItemList] = useState([]);
-	let [showCalendar, setShowCalendar] = useState(false);
-	let [showDate, setShowDate] = useState(false);
-	// let [selectedDate, setSelectedDate] = useState("");
-	let [dateContext, setDateContext] = useState(moment());
+	// let [showCalendar, setShowCalendar] = useState(false);
 	const [onEditInput, setEditInput] = useState(
 		editForm ? formDetails || onEditInput : ""
 	);
+
+	let [showDate] = useState(false);
+	// let [selectedDate, setSelectedDate] = useState("");
+	let [dateContext] = useState(moment());
 
 	const year = () => dateContext.format("Y");
 	const month = () => dateContext.format("MMM");
@@ -422,8 +423,8 @@ function Form(props) {
 			// setListItemError(true);
 			// setSubmitDraft(false);
 			setIsError(true);
-			console.log(isError);
-			console.log("Error occured here!");
+			// console.log(isError);
+			// console.log("Error occured here!");
 			return false;
 		} else {
 			setErrors({
@@ -581,7 +582,7 @@ function Form(props) {
 
 				setSubmitPending(false);
 
-				dispatch(submitFormPending(formData, history));
+				dispatch(submitFormPending(formData, props.token));
 			}
 		}
 		// console.log(formData);
@@ -605,7 +606,7 @@ function Form(props) {
 
 			setSubmitDraft(false);
 
-			dispatch(submitFormDraft(formData));
+			dispatch(submitFormDraft(formData, props.token));
 		}
 		// console.log(formData);
 	}, [submitDraft]);
@@ -619,7 +620,7 @@ function Form(props) {
 				formDetails.status = "Pending";
 				setSubmitEditForm(false);
 
-				dispatch(updateInvoice(formDetails, history));
+				dispatch(updateInvoice(formDetails, history, props.token));
 			}
 			// console.log(formDetails);
 
@@ -736,57 +737,57 @@ function Form(props) {
 	// 	setListData([...listData, listItems]);
 	// };
 
-	const addItemToList = (e) => {
-		// e.preventDefault();
-		// let items =
-		// <div class="list">
-		// 	<div className="form-elements__group" id='item-name'>
-		// 		<input
-		// 			type='text'
-		// 			value=''
-		// 			name='itemName'
-		// 			onChange=""
-		// 			class="added-item"
-		// 		/>
-		// 	</div>
-		// 	<div className="form-elements__group" id='item-qty'>
-		// 		<input
-		// 			type='number'
-		// 			value=''
-		// 			name='itemQuantity'
-		// 			onChange=""
-		// 			class="added-item"
-		// 		/>
-		// 	</div>
-		// 	<div className="form-elements__group" id='item-price'>
-		// 		<input
-		// 			type='number'
-		// 			value=''
-		// 			name='itemPrice'
-		// 			onChange=""
-		// 			class="added-item"
-		// 		/>
-		// 	</div>
-		// 	<p class="total-price"></p>
-		// 	<img src={Delete} alt="Delete Item" class="delete-icon"/>
-		// </div>;
-		// setItemList([
-		// 	...itemList,
-		// 	<ListItems
-		// 		onListItemChange={onListItemChange}
-		// 		listItems={listItems}
-		// 		listData={listData}
-		// 		itemList={itemList}
-		// 	/>,
-		// ]);
-		// console.log(itemList);
-		// setListItems(...listItems, {
-		// 	itemName: "",
-		// 	itemQuantity: "",
-		// 	itemPrice: "",
-		// 	total: "",
-		// });
-	};
+	// const addItemToList = (e) => {
+	// e.preventDefault();
+	// let items =
+	// <div class="list">
+	// 	<div className="form-elements__group" id='item-name'>
+	// 		<input
+	// 			type='text'
+	// 			value=''
+	// 			name='itemName'
+	// 			onChange=""
+	// 			class="added-item"
+	// 		/>
+	// 	</div>
+	// 	<div className="form-elements__group" id='item-qty'>
+	// 		<input
+	// 			type='number'
+	// 			value=''
+	// 			name='itemQuantity'
+	// 			onChange=""
+	// 			class="added-item"
+	// 		/>
+	// 	</div>
+	// 	<div className="form-elements__group" id='item-price'>
+	// 		<input
+	// 			type='number'
+	// 			value=''
+	// 			name='itemPrice'
+	// 			onChange=""
+	// 			class="added-item"
+	// 		/>
+	// 	</div>
+	// 	<p class="total-price"></p>
+	// 	<img src={Delete} alt="Delete Item" class="delete-icon"/>
+	// </div>;
+	// setItemList([
+	// 	...itemList,
+	// 	<ListItems
+	// 		onListItemChange={onListItemChange}
+	// 		listItems={listItems}
+	// 		listData={listData}
+	// 		itemList={itemList}
+	// 	/>,
+	// ]);
+	// console.log(itemList);
+	// setListItems(...listItems, {
+	// 	itemName: "",
+	// 	itemQuantity: "",
+	// 	itemPrice: "",
+	// 	total: "",
+	// });
+	// };
 
 	// console.log(listItems);
 
@@ -851,7 +852,7 @@ function Form(props) {
 		setEditInput(updatedInput);
 		// console.log(name);
 		// console.log(value);
-		console.log(onEditInput);
+		// console.log(onEditInput);
 	};
 
 	const onHideForm = () => {
@@ -1206,6 +1207,7 @@ const mapStateToProps = (state) => {
 		paymentTerms: state.form.paymentTerms,
 		showForm: state.form.showForm,
 		listItems: state.form.listItems,
+		token: state.authReducer.token,
 	};
 };
 

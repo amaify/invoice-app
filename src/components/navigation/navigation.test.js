@@ -31,11 +31,11 @@ describe("Navigation Actions", () => {
 
 		fireEvent.click(loginButtonElement);
 
-		console.log(history);
+		// console.log(history);
 
 		expect(history.location.pathname).toEqual("/login");
 
-		screen.debug();
+		// screen.debug();
 	});
 
 	test(`When the user clicks the "Logout Icon" when authenticated`, () => {
@@ -62,6 +62,6 @@ describe("Navigation Actions", () => {
 			screen.getByText("There is nothing here", { exact: false })
 		).toBeInTheDocument();
 
-		screen.debug();
+		// screen.debug();
 	});
 });

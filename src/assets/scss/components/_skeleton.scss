@@ -33,33 +33,33 @@
 	}
 
 	& .id {
-		width: 25%;
+		width: 100%;
 		height: 15px;
-		margin-right: 43px;
+		// margin-right: 43px;
 	}
 
-	& .due-payment {
-		width: 25%;
-		height: 15px;
-		margin-right: 45px;
-	}
+	// & .due-payment {
+	// 	width: 25%;
+	// 	height: 15px;
+	// 	margin-right: 45px;
+	// }
 
-	& .client-name {
-		width: 25%;
-		height: 15px;
-		margin-right: 73px;
-	}
+	// & .client-name {
+	// 	width: 25%;
+	// 	height: 15px;
+	// 	margin-right: 73px;
+	// }
 
-	& .total-amount {
-		width: 20%;
-		height: 24px;
-		margin-right: 40px;
-	}
+	// & .total-amount {
+	// 	width: 20%;
+	// 	height: 24px;
+	// 	margin-right: 40px;
+	// }
 
-	& .status {
-		width: 104px;
-		height: 40px;
-	}
+	// & .status {
+	// 	width: 104px;
+	// 	height: 40px;
+	// }
 }
 
 .skeleton-details {

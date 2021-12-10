@@ -1,23 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, connect } from "react-redux";
 
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ArrowLeft from "../../../../assets/images/icon-arrow-left.svg";
 import { editForm, showForm } from "../../../../store/actions/formAction";
 import {
 	confirmDelete,
-	deleteInvoice,
-	setToPaid,
+	// deleteInvoice,
+	// setToPaid,
 } from "../../../../store/actions/invoiceControls";
-import { toggleRoute } from "../../../../store/actions/routeAction";
+// import { toggleRoute } from "../../../../store/actions/routeAction";
 import { markAsPaid } from "../../../../store/util/invoiceUtility";
 import Button from "../../../buttons/buttons";
 
 function DetailsTiles(props) {
 	const dispatch = useDispatch();
 
-	const { data, invoice, loading, markedLoading, invoiceMarked, testing } =
-		props;
+	const {
+		data,
+		invoice,
+		// loading,
+		markedLoading,
+		// invoiceMarked,
+		// testing,
+		token,
+	} = props;
 
 	// console.log(testing[0]);
 
@@ -35,7 +42,7 @@ function DetailsTiles(props) {
 				// setPaid(inv.status);
 				// dispatch(setToPaid(data));
 				// data.status = "Paid";
-				dispatch(markAsPaid(data));
+				return dispatch(markAsPaid(data, token));
 			}
 		});
 	};
@@ -84,7 +91,7 @@ function DetailsTiles(props) {
 				<div className="details-tiles__tile--buttons details-tiles__tile--buttons-desktop">
 					<Button type="8" text="Edit" onClick={onEditInvoice} />
 					<Button type="7" text="Delete" onClick={onDeleteInvoice} />
-					{data.status !== "Paid" ? (
+					{data.status === "Pending" ? (
 						<Button
 							type="2"
 							text={!markedLoading ? "Mark as Paid" : "Marking...."}
@@ -108,6 +115,7 @@ const mapStateToProps = (state) => {
 		markedLoading: state.invoiceReducer.markedLoading,
 		invoiceMarked: state.invoiceReducer.invoiceMarked,
 		markedData: state.invoiceReducer.markedData,
+		token: state.authReducer.token,
 	};
 };
 

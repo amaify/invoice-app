@@ -44,7 +44,7 @@ function DetailMobileItems(props) {
 
 								<div className="details-items__list--items-total">
 									<p className="details-items__list--items-item details-items__list--items-item-4">
-										&#163; {item.total.toFixed(2)}
+										&#163; {item.total}
 									</p>
 								</div>
 							</div>
@@ -60,9 +60,7 @@ function DetailMobileItems(props) {
 					grand total
 				</p>
 
-				<p className="details-items__amount--figure">
-					&#163; {!data.total ? "0" : data.total.toFixed(2)}
-				</p>
+				<p className="details-items__amount--figure">&#163; {data.total}</p>
 			</div>
 		</div>
 	);

@@ -349,5 +349,95 @@ export const GlobalStyle = createGlobalStyle`
             color: ${(props) =>
 							props.theme.mode === "light" ? "#0C0E16" : "#DFE3FA"};
         }
+
+        .login-body,
+        .register-body {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#FFFFFF" : "#1E2139"};
+        }
+
+        .login-body h1,
+        .register-body h1 { 
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#DFE3FA"};
+        }
+
+        .register-body__form input,
+        .login-body__form input {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#FFFFFF" : "#141625"};
+
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#DFE3FA"};
+
+           border: ${(props) =>
+							props.theme.mode === "light"
+								? "1px solid #DFE3FA"
+								: "1px solid #141625"};             
+        }
+
+        .register-body__form input::placeholder,
+        .login-body__form input::placeholder {
+            
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#DFE3FA"};
+        }
+
+        .register-body__links span,
+        .login-body__links span {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#DFE3FA"};
+        }
+
+        .register-body__links a,
+        .login-body__links a {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#7c5dfa" : "#DFE3FA"};
+        }
+
+        .forgotpassword-body {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#FFFFFF" : "#1E2139"};
+        }
+
+        .forgotpassword-body__heading {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#DFE3FA"};
+        }
+
+        .forgotpassword-body input {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#FFFFFF" : "#141625"};
+            
+            border: ${(props) =>
+							props.theme.mode === "light"
+								? "1px solid #DFE3FA"
+								: "1px solid #141625"};
+
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#DFE3FA"};
+        }
+
+        .forgotpassword-body input::placeholder {
+            color: ${(props) =>
+							props.theme.mode === "light" ? "#0C0E16" : "#DFE3FA"};
+        }
+
+        .skeleton-details__content {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#FFFFFF" : "#1E2139"};
+        }
+
+        .skeleton-details .loading {
+            background: ${(props) =>
+							props.theme.mode === "light" ? "#c1c1c1" : "#ffffff"};
+        }
+
+        .skeleton-details .loading::before {
+            background: ${(props) =>
+							props.theme.mode === "light"
+								? "linear-gradient(to right, transparent, #dedede, transparent);"
+								: "linear-gradient(to right, transparent, #c1c1c1, transparent);"};
+        }
     }
 `;

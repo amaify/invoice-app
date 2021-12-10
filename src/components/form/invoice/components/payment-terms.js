@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 
 import ArrowDown from "../../../../assets/images/icon-arrow-down.svg";

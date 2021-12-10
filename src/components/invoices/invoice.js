@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
-import EmptyInvoice from "./emptyInvoice/emptyInvoice";
+// import EmptyInvoice from "./emptyInvoice/emptyInvoice";
 import Controls from "../controls/control";
 import InvoiceTiles from "./invoiceTiles/invoice-tiles";
 
-function Invoices(props) {
-	const { invoice } = props;
+function Invoices() {
+	// const { invoice } = props;
 	// console.log(invoice);
 	return (
 		<section className="invoice">

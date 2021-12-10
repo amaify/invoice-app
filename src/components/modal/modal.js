@@ -3,7 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import {
 	cancelDelete,
-	deleteInvoice,
+	// deleteInvoice,
 	removeError,
 } from "../../store/actions/invoiceControls";
 import { deleteAnInvoice } from "../../store/util/invoiceUtility";
@@ -12,12 +12,12 @@ import Button from "../buttons/buttons";
 function Modal(props) {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const { data, error, errMessage, draftLoading } = props;
+	const { data, error, errMessage, draftLoading, token } = props;
 
 	const onDeleteInvoice = () => {
 		// dispatch(deleteInvoice(data));
 
-		return dispatch(deleteAnInvoice(data, history));
+		return dispatch(deleteAnInvoice(data, history, token));
 	};
 
 	const onCancelDelete = () => {
@@ -66,6 +66,7 @@ const mapStateToProps = (state) => {
 		error: state.invoiceReducer.error,
 		errMessage: state.invoiceReducer.errMessage,
 		draftLoading: state.invoiceReducer.draftLoading,
+		token: state.authReducer.token,
 	};
 };
 

@@ -1,28 +1,22 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "./components/layout/layout";
 import { connect, useDispatch } from "react-redux";
-import { withRouter } from "react-router-dom";
-import data from "./data.json";
-import Router from "./components/routes/route";
 
 import moment from "moment";
-import Skeleton from "./components/skeleton/skeleton";
-import { getInvoice } from "./store/actions/invoiceAction";
 import { logoutUser, retrieveStoredToken } from "./store/util/authUtility";
 
 import { GlobalStyle } from "./components/theme/global";
 import { ThemeProvider } from "styled-components";
 
 import "./assets/scss/main.css";
-import { getDate, paymentTerms } from "./store/actions/formAction";
-import { displayInvoice } from "./store/util/invoiceUtility";
+import { getDate } from "./store/actions/formAction";
 
-function App(props) {
+function App() {
 	let getThemeMode = localStorage.getItem("theme");
 	let themeObject = JSON.parse(getThemeMode);
 	let mainTheme = themeObject;
 
-	let [dateContext, setToday] = useState(moment());
+	let [dateContext] = useState(moment());
 
 	const dispatch = useDispatch();
 	const tokenData = retrieveStoredToken();
@@ -40,7 +34,7 @@ function App(props) {
 	useEffect(() => {
 		dispatch(getDate(dateElement));
 		// dispatch(paymentTerms());
-	}, []);
+	}, [dispatch, dateElement]);
 
 	useEffect(() => {
 		localStorage.setItem("theme", JSON.stringify(themeObject));
@@ -59,7 +53,7 @@ function App(props) {
 	// 	// 		}
 	// 	// 	})
 	// 	// 	.catch((err) => console.log(err));
-	// 	return props.isAuth ? dispatch(displayInvoice()) : null;
+	// 	return props.isAuth ? dispatch(displayInvoice(props.token)) : null;
 	// }, []);
 
 	useEffect(() => {
@@ -69,7 +63,7 @@ function App(props) {
 				dispatch(logoutUser());
 			}, tokenData.duration);
 		}
-	}, [tokenData]);
+	}, [tokenData, dispatch]);
 
 	return (
 		<ThemeProvider theme={themeObject}>
@@ -86,8 +80,8 @@ const mapStateToProps = (state) => {
 	return {
 		theme: state.themeReducer.theme,
 		isAuth: state.authReducer.isAuth,
+		token: state.authReducer.token,
 	};
 };
 
 export default connect(mapStateToProps, null)(App);
-// export default withRouter(connect(mapStateToProps, null)(App));

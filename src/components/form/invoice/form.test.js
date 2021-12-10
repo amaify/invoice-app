@@ -153,12 +153,12 @@ describe("Creating an invoice", () => {
 			exact: false,
 		});
 
-		const saveAndSendButtonElement = screen.getByRole("button", {
+		const saveAndSendButtonElement = screen.getAllByRole("button", {
 			name: "Save & Send",
 			exact: false,
 		});
 
-		fireEvent.click(saveAndSendButtonElement);
+		fireEvent.click(saveAndSendButtonElement[0]);
 
 		// server.use(
 		// 	rest.post("http://localhost:8080/invoice/invoice", (req, res, ctx) => {
@@ -322,12 +322,12 @@ describe("Creating an invoice", () => {
 		// 	exact: false,
 		// });
 
-		const saveAsDraftButtonElement = screen.getByRole("button", {
+		const saveAsDraftButtonElement = screen.getAllByRole("button", {
 			name: "Save as Draft",
 			exact: false,
 		});
 
-		fireEvent.click(saveAsDraftButtonElement);
+		fireEvent.click(saveAsDraftButtonElement[0]);
 
 		await store.dispatch(submitFormDraft(userInput));
 
@@ -344,13 +344,22 @@ describe("Creating an invoice", () => {
 
 		// logRoles(xxx);
 
-		expect(
-			screen.queryByText("No Information", { exact: false })
-		).toBeInTheDocument();
+		const informationElement = screen.queryAllByText("No Information")[0];
+		const totalAmountElement = screen.queryAllByTestId("totalAmount")[0];
 
-		expect(
-			screen.queryByTestId("totalAmount", { exact: false })
-		).toBeInTheDocument();
+		const information = informationElement[0];
+
+		// expect(
+		// 	screen.queryAllByText("No Information", { exact: false })
+		// )[0].toBeInTheDocument();
+
+		expect(informationElement).toBeInTheDocument();
+
+		// expect(
+		// 	screen.queryByTestId("totalAmount", { exact: false })
+		// ).toBeInTheDocument();
+
+		expect(totalAmountElement).toBeInTheDocument();
 
 		// screen.debug();
 	});
