@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 function Router(props) {
 	const { isAuth, forgotPassword } = props;
 
-	console.log(isAuth);
+	// console.log(isAuth);
 	return (
 		<>
 			<Switch>

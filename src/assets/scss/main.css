@@ -921,10 +921,8 @@ html {
 
 .control-filter__dropdown--container input {
   position: absolute;
-  opacity: 0;
+  opacity: 1;
   cursor: pointer;
-  height: 0;
-  width: 0;
 }
 
 .control-filter__dropdown--container .checkmark {
@@ -932,8 +930,8 @@ html {
   top: 0;
   left: -30px;
   height: 16px;
-  background: #dfe3fa;
   width: 16px;
+  background: #dfe3fa;
   border-radius: 2px;
 }
 
@@ -1994,7 +1992,7 @@ html {
   overflow-y: scroll;
   overflow-x: hidden;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background: #ffffff;
   padding: 13rem 2rem 0 2rem;
   border-top-right-radius: 0;

@@ -20,11 +20,12 @@ function InputField(props) {
 		formData,
 		senderDetails,
 		validateForm,
-		listItemError,
+		// listItemError,
 
 		errors,
 		isError,
 		listError,
+		listItemError,
 		editForm,
 		formDetails,
 		onEditFormSave,
@@ -70,6 +71,8 @@ function InputField(props) {
 	const onCancelEditForm = () => {
 		return dispatch(hideForm());
 	};
+
+	// console.log(listItemError);
 
 	return (
 		<form
@@ -452,6 +455,7 @@ function InputField(props) {
 				itemQuantityError={errors.itemQuantityError}
 				editFormListItems={editForm ? formDetails.items : ""}
 				errors={errors}
+
 				// validateForm={validateForm}
 			/>
 

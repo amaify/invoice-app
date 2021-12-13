@@ -128,7 +128,7 @@ function Form(props) {
 
 	const [isError, setIsError] = useState(false);
 	const [listError, setListError] = useState(false);
-	const [listItemError] = useState(false);
+	// let [listItemErrors] = useState(false);
 	const [submitPending, setSubmitPending] = useState(false);
 	const [submitDraft, setSubmitDraft] = useState(false);
 	const [submitEditForm, setSubmitEditForm] = useState(false);
@@ -200,8 +200,7 @@ function Form(props) {
 		let itemNameError = "";
 		let itemPriceError = "";
 		let itemQuantityError = "";
-
-		// let listItemError = false;
+		let listItemError = false;
 
 		if (!editForm) {
 			if (formData.clientEmail === "") {
@@ -370,7 +369,11 @@ function Form(props) {
 				setListError(false);
 			} else {
 				setListError(true);
+				listItemError = true;
 				console.log("listError here");
+				// return false;
+				// console.log(errors.listItemError);
+				// console.log(isError);
 			}
 		} else {
 			if (formDetails.items.length > 0) {
@@ -382,6 +385,8 @@ function Form(props) {
 				setListError(false);
 			} else {
 				setListError(true);
+				listItemError = true;
+				// return false;
 			}
 		}
 
@@ -503,9 +508,10 @@ function Form(props) {
 		// 	setIsError(false);
 		// }
 
-		if (listError) {
+		if (listItemError) {
 			setSubmitPending(false);
 			setSubmitEditForm(false);
+			console.log("there is an errror here");
 			return false;
 		}
 
@@ -514,8 +520,10 @@ function Form(props) {
 		return true;
 	};
 
+	// console.log(listItemErrors);
+
 	const onHandleBlur = () => {
-		if (isError) {
+		if (isError || listError) {
 			// console.log("validating is somehow working!");
 			return validateForm();
 		}
@@ -887,6 +895,7 @@ function Form(props) {
 				errors={errors}
 				isError={isError}
 				listError={listError}
+				// listItemError={listItemError}
 				// calendarClass={calendarClass}
 				// getDateData={getDateData}
 				// displayCalendar={displayCalendar}
