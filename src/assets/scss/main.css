@@ -921,8 +921,10 @@ html {
 
 .control-filter__dropdown--container input {
   position: absolute;
-  opacity: 1;
+  opacity: 0;
   cursor: pointer;
+  height: 0;
+  width: 0;
 }
 
 .control-filter__dropdown--container .checkmark {
