@@ -1,11 +1,7 @@
 import React from "react";
 import { connect, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import {
-	cancelDelete,
-	// deleteInvoice,
-	removeError,
-} from "../../store/actions/invoiceControls";
+import { cancelDelete, removeError } from "../../store/actions/invoiceControls";
 import { deleteAnInvoice } from "../../store/util/invoiceUtility";
 import Button from "../buttons/buttons";
 
@@ -15,8 +11,6 @@ function Modal(props) {
 	const { data, error, errMessage, draftLoading, token } = props;
 
 	const onDeleteInvoice = () => {
-		// dispatch(deleteInvoice(data));
-
 		return dispatch(deleteAnInvoice(data, history, token));
 	};
 
@@ -71,4 +65,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, null)(Modal);
-// export default Modal;

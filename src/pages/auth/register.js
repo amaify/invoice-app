@@ -43,12 +43,6 @@ function Register(props) {
 	};
 
 	const validateForm = () => {
-		// let emailError = "";
-		// let passwordError = "";
-		// let userNameError = "";
-		// let senderStreetError = "";
-		// let senderCityError = ""
-
 		let emailError = "",
 			passwordError = "",
 			userNameError = "",

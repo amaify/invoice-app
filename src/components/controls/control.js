@@ -17,13 +17,6 @@ function Controls(props) {
 
 	const openForm = () => {
 		return isAuth ? dispatch(showForm()) : history.push("/login");
-		// if (isAuth) {
-		// 	dispatch(showForm());
-		// } else {
-		// 	<Redirect to="/login" />;
-		// }
-
-		// return dispatch(showForm());
 	};
 
 	let status, invoiceText, pluralText;
@@ -60,21 +53,11 @@ function Controls(props) {
 		filteredInvoice.length < 2 ? (pluralText = "is") : (pluralText = "are");
 	}
 
-	// const logoutHandler = () => {
-	// 	return dispatch(logoutUser());
-	// };
-
 	return (
 		<header className="control">
 			<div className="control-header">
 				<h1 className="control-header__title">Invoices</h1>
 				<p className="control-header__text control-header__text-mobile">
-					{/* {!filtered
-						? invoiceData.length < 1
-							? "No Invoice"
-							: `There ${pluralText} ${invoiceData.length} total ${invoiceText}`
-						: `There ${pluralText} ${filteredInvoice.length} ${status} ${invoiceText}`} */}
-
 					{isAuth
 						? !filtered
 							? invoiceData.length < 1
@@ -85,12 +68,6 @@ function Controls(props) {
 				</p>
 
 				<p className="control-header__text control-header__text-desktop">
-					{/* {!filtered
-						? invoiceData.length < 1
-							? "No Invoice"
-							: `There ${pluralText} ${invoiceData.length} total ${invoiceText}`
-						: `There ${pluralText} ${filteredInvoice.length} ${status} ${invoiceText}`} */}
-
 					{isAuth
 						? !filtered
 							? invoiceData.length < 1
@@ -100,8 +77,6 @@ function Controls(props) {
 						: "No Invoice"}
 				</p>
 			</div>
-
-			{/* {isAuth && <Button type="2" text="Logout" onClick={logoutHandler} />} */}
 
 			<Filter />
 			<Button

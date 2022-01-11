@@ -109,26 +109,11 @@ function ForgotPassword(props) {
 		}
 	};
 
-	// const removeSuccessMessage = () => {
-	// 	if (success) {
-	// 		setTimeout(() => {
-	// 			console.log("remove success message");
-	// 			dispatch(resetError());
-	// 			setSuccessClassName("auth-success-remove");
-	// 		}, 8000);
-	// 	}
-	// };
-
 	useEffect(() => {
 		removeFlashMessage();
 		setErrClassName("auth-error");
 		setSuccessClassName("auth-success");
 	}, [error, success]);
-
-	// useEffect(() => {
-	// 	removeSuccessMessage();
-	// 	setSuccessClassName("auth-success");
-	// }, [success]);
 
 	return (
 		<section className="forgotpassword">

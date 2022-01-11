@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, connect } from "react-redux";
 
-// import Input from "../../input/input";
 import Button from "../../../buttons/buttons";
-// import Delete from "../../../../assets/images/icon-delete.svg";
-// import { dispatchListItems } from "../../../../store/util/formUtility";
+
 import {
 	addNewItemToList,
 	deleteListItems,
 	editListAddItems,
 	editlistDelete,
 	editOnChange,
-	// getListItems,
 	listOnChange,
 } from "../../../../store/actions/formAction";
 
@@ -20,15 +17,8 @@ function ListItems(props) {
 	const [, setListItems] = useState([]);
 	const [, setEditListItems] = useState([]);
 
-	const {
-		editForm,
-		editFormListItems,
-		formDetails,
-		listItems,
-		onHandleBlur,
-		// errors,
-		// validateForm,
-	} = props;
+	const { editForm, editFormListItems, formDetails, listItems, onHandleBlur } =
+		props;
 
 	const onItemChange = (e, index) => {
 		const { name, value } = e.target;
@@ -36,7 +26,6 @@ function ListItems(props) {
 		let newArray = [...listItems];
 		newArray[index][name] = value;
 
-		// console.log(newArray);
 		setListItems(newArray);
 		dispatch(listOnChange(newArray));
 	};
@@ -47,24 +36,12 @@ function ListItems(props) {
 		let editListArray = [...formDetails.items];
 		editListArray[index][name] = value;
 
-		// console.log(y);
 		setEditListItems(editListArray);
 		dispatch(editOnChange(editListArray));
 	};
 
-	// useEffect(() => {
-	// 	dispatch(getListItems(listItems));
-	// }, [listItems]);
-
-	// useEffect(() => {
-	// 	dispatch(editOnChange(editListItems));
-	// }, [editListItems]);
-
 	const addItemToList = (e) => {
 		e.preventDefault();
-		// if (errors) {
-		// validateForm();
-		// }
 
 		if (!editForm) {
 			return dispatch(addNewItemToList());
@@ -74,18 +51,10 @@ function ListItems(props) {
 	};
 
 	const deleteList = (index) => {
-		// const newArray = [...listItems];
-		// let x = newArray.splice(index, 1);
-		// console.log(x);
-		// setListItems(x);
-
 		return dispatch(deleteListItems(index));
 	};
 
 	const onDeleteEditList = (index) => {
-		// const deleteList = [...formDetails.items];
-		// deleteList.splice(index, 1);
-		// setEditListItems(deleteList);
 		return dispatch(editlistDelete(index));
 	};
 
@@ -108,7 +77,6 @@ function ListItems(props) {
 										<label>Item Name</label>
 										<input
 											type="text"
-											// defaultValue={item.name}
 											value={item.name}
 											name="name"
 											onChange={(e) => onEditItemChange(e, i)}
@@ -125,7 +93,6 @@ function ListItems(props) {
 										<label>Qty.</label>
 										<input
 											type="number"
-											// defaultValue={item.quantity}
 											value={item.quantity}
 											name="quantity"
 											onChange={(e) => onEditItemChange(e, i)}
@@ -142,7 +109,6 @@ function ListItems(props) {
 										<label>Price</label>
 										<input
 											type="number"
-											// defaultValue={item.price}
 											value={item.price}
 											name="price"
 											onChange={(e) => onEditItemChange(e, i)}
@@ -156,19 +122,10 @@ function ListItems(props) {
 									</div>
 									<p className="total-price" data-testid="totalPrice">
 										<label>Total</label>
-										{/* {listItems.length > 0
-									? (listItems[i].total = (
-											listItems[i].itemQuantity * listItems[i].itemPrice
-									  ).toFixed(2))
-									: ""} */}
+
 										{(item.total = (item.quantity * item.price).toFixed(2))}
 									</p>
-									{/* <img
-								src={Delete}
-								alt="Delete Item"
-								className="delete-icon"
-								onClick={() => deleteList(i)}
-							/> */}
+
 									<svg
 										width="13"
 										height="16"
@@ -178,7 +135,6 @@ function ListItems(props) {
 									>
 										<path
 											d="M11.583 3.556v10.666c0 .982-.795 1.778-1.777 1.778H2.694a1.777 1.777 0 01-1.777-1.778V3.556h10.666zM8.473 0l.888.889h3.111v1.778H.028V.889h3.11L4.029 0h4.444z"
-											// fill="#888EB0"
 											fillRule="nonzero"
 										/>
 									</svg>
@@ -241,19 +197,10 @@ function ListItems(props) {
 									</div>
 									<p className="total-price" data-testid="totalPrice">
 										<label>Total</label>
-										{/* {listItems.length > 0
-											? (listItems[i].total = (
-													listItems[i].itemQuantity * listItems[i].itemPrice
-											  ).toFixed(2))
-											: ""} */}
+
 										{(item.total = (item.price * item.quantity).toFixed(2))}
 									</p>
-									{/* <img
-									src={Delete}
-									alt="Delete Item"
-									className="delete-icon"
-									onClick={() => deleteList(i)}
-								/> */}
+
 									<svg
 										width="13"
 										height="16"
@@ -263,7 +210,6 @@ function ListItems(props) {
 									>
 										<path
 											d="M11.583 3.556v10.666c0 .982-.795 1.778-1.777 1.778H2.694a1.777 1.777 0 01-1.777-1.778V3.556h10.666zM8.473 0l.888.889h3.111v1.778H.028V.889h3.11L4.029 0h4.444z"
-											// fill="#888EB0"
 											fillRule="nonzero"
 										/>
 									</svg>
@@ -278,8 +224,6 @@ function ListItems(props) {
 				onClick={addItemToList}
 				dataTestid="addItemsButton"
 			/>
-
-			{/* <div>{JSON.stringify(listItems)}</div> */}
 		</div>
 	);
 }

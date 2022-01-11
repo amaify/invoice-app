@@ -18,8 +18,6 @@ function PaymentTerms(props) {
 		{ id: 4, text: "Net 30 Days", value: 30 },
 	];
 
-	// console.log(editFormPaymentTerms);
-
 	let [visible, setVisible] = useState(false);
 	let [paymentTermsText, setPaymentTerms] = useState("");
 	let [paymentTermsValue, setPaymentTermsValue] = useState(30);

@@ -4,8 +4,7 @@ import { hideForm } from "../../store/actions/formAction";
 import Router from "../routes/route";
 
 import Navigation from "../navigation/navigation";
-// import Controls from "../controls/control";
-// import Invoices from "../invoices/invoice";
+
 import Form from "../form/invoice/form";
 import Backdrop from "../backdrop/backdrop";
 
@@ -26,8 +25,7 @@ const Layout = (props) => {
 			<div className="layout-main">
 				{(props.showBackdrop && <Backdrop onClick={closeForm} />) ||
 					(props.invoiceBackdrop && <Backdrop />)}
-				{/* {!props.routeToggled && <Controls />} */}
-				{/* <Invoices /> */}
+
 				<Router />
 			</div>
 		</section>

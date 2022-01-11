@@ -20,7 +20,6 @@ function InputField(props) {
 		formData,
 		senderDetails,
 		validateForm,
-		// listItemError,
 
 		errors,
 		isError,
@@ -34,11 +33,6 @@ function InputField(props) {
 		onDiscardFormInputs,
 		pendingLoading,
 		draftLoading,
-		// calendarClass,
-		// displayCalendar,
-		// getDateData,
-		// showCalendar,
-		// showDate,
 	} = props;
 
 	const dispatch = useDispatch();
@@ -72,12 +66,9 @@ function InputField(props) {
 		return dispatch(hideForm());
 	};
 
-	// console.log(listItemError);
-
 	return (
 		<form
 			className="form-elements"
-			// onSubmit={onSendPending || onSaveDraft || onEditFormSave}
 			onSubmit={
 				!editForm
 					? onSendPending || onSaveDraft || onDiscardFormInputs
@@ -93,11 +84,7 @@ function InputField(props) {
 					label="Street Address"
 					type="text"
 					defaultValue={senderDetails.senderStreet}
-					// defaultValue="3 Enfield Street"
-					// value={editForm ? formDetails.senderAddress.street : ""}
-					// value={editForm ? "3 Enfield Street" : ""}
 					onChange={!editForm ? handleInputChange : editHandleInputChange}
-					// className="form-elements__group--input"
 					className={
 						errors.streetError === ""
 							? "form-elements__group--input form-elements__group--sender"
@@ -115,11 +102,7 @@ function InputField(props) {
 						type="text"
 						name="senderCity"
 						defaultValue={senderDetails.senderCity}
-						// defaultValue="Middlesbrough"
-						// value={editForm ? formDetails.senderAddress.city : ""}
-						// value={editForm ? "Middlesbrough" : ""}
 						onChange={!editForm ? handleInputChange : editHandleInputChange}
-						// className="form-elements__group--subInput"
 						className={
 							errors.cityError === ""
 								? "form-elements__group--subInput form-elements__group--sender"
@@ -137,11 +120,7 @@ function InputField(props) {
 						name="senderPostCode"
 						type="text"
 						defaultValue={senderDetails.senderPostCode}
-						// defaultValue="TS1 4EH"
-						// value={editForm ? formDetails.senderAddress.postCode : ""}
-						// value={editForm ? "TS1 4EH" : ""}
 						onChange={!editForm ? handleInputChange : editHandleInputChange}
-						// className="form-elements__group--subInput"
 						className={
 							errors.postCodeError === ""
 								? "form-elements__group--subInput form-elements__group--sender"
@@ -161,11 +140,7 @@ function InputField(props) {
 						name="senderCountry"
 						type="text"
 						defaultValue={senderDetails.senderCountry}
-						// value={editForm ? formDetails.senderAddress.country : ""}
-						// defaultValue="England"
-						// value={editForm ? "England" : ""}
 						onChange={!editForm ? handleInputChange : editHandleInputChange}
-						// className="form-elements__group--subInput"
 						className={
 							errors.countryError === ""
 								? "form-elements__group--subInput form-elements__group--sender"
@@ -191,10 +166,8 @@ function InputField(props) {
 					defaultValue={
 						!editForm ? formData.clientName : formDetails.clientName
 					}
-					// value={editForm ? formDetails.clientName : ""}
 					onChange={!editForm ? handleInputChange : editHandleInputChange}
 					onBlur={onHandleBlur}
-					// className="form-elements__group--input"
 					className={
 						errors.clientNameError === ""
 							? "form-elements__group--input form-elements__group--client"
@@ -217,12 +190,10 @@ function InputField(props) {
 					defaultValue={
 						!editForm ? formData.clientEmail : formDetails.clientEmail
 					}
-					// value={editForm ? formDetails.clientEmail : ""}
 					onChange={!editForm ? handleInputChange : editHandleInputChange}
 					onBlur={onHandleBlur}
 					type="email"
 					placeholder="e.g. email@example.com"
-					// className="form-elements__group--input"
 					className={
 						errors.emailError === ""
 							? "form-elements__group--input form-elements__group--client"
@@ -239,17 +210,14 @@ function InputField(props) {
 					itemId="clientStreetID"
 					id="clientStreet"
 					ariaLabelledby="clientStreetID clientStreet"
-					// id="client-address"
 					label="Street Address"
 					name="clientStreet"
 					type="text"
 					defaultValue={
 						!editForm ? formData.clientStreet : formDetails.clientStreet
 					}
-					// value={editForm ? formDetails.clientAddress.street : ""}
 					onChange={!editForm ? handleInputChange : editHandleInputChange}
 					onBlur={onHandleBlur}
-					// className="form-elements__group--input"
 					className={
 						errors.clientStreetError === ""
 							? "form-elements__group--input form-elements__group--client"
@@ -273,10 +241,8 @@ function InputField(props) {
 						defaultValue={
 							!editForm ? formData.clientCity : formDetails.clientCity
 						}
-						// value={editForm ? formDetails.clientAddress.city : ""}
 						onChange={!editForm ? handleInputChange : editHandleInputChange}
 						onBlur={onHandleBlur}
-						// className="form-elements__group--subInput"
 						className={
 							errors.clientCityError === ""
 								? "form-elements__group--subInput form-elements__group--client"
@@ -299,10 +265,8 @@ function InputField(props) {
 						defaultValue={
 							!editForm ? formData.clientPostCode : formDetails.clientPostCode
 						}
-						// value={editForm ? formDetails.clientAddress.postCode : ""}
 						onChange={!editForm ? handleInputChange : editHandleInputChange}
 						onBlur={onHandleBlur}
-						// className="form-elements__group--subInput"
 						className={
 							errors.clientPostCodeError === ""
 								? "form-elements__group--subInput form-elements__group--client"
@@ -325,10 +289,8 @@ function InputField(props) {
 						defaultValue={
 							!editForm ? formData.clientCountry : formDetails.clientCountry
 						}
-						// value={editForm ? formDetails.clientAddress.country : ""}
 						onChange={!editForm ? handleInputChange : editHandleInputChange}
 						onBlur={onHandleBlur}
-						// className="form-elements__group--subInput"
 						className={
 							errors.clientCountryError === ""
 								? "form-elements__group--subInput form-elements__group--client"
@@ -343,20 +305,10 @@ function InputField(props) {
 			</div>
 
 			<div className="form-elements__group--period">
-				{/* <Input
-            label="Invoice Date"
-            id="date"
-            name="invoiceDate"
-            type="date"
-            value=""
-            className="form-elements__group--subInput"
-        /> */}
 				<div className="invoice-date">
 					<label>Issue Date</label>
 					<div className={calendarClass} onClick={displayCalendar}>
 						<p>
-							{/* <span>10 Sept 2021</span> */}
-							{/* <span>{selectedDate}</span> */}
 							{!showDate ? (
 								<span>
 									{!editForm
@@ -367,26 +319,14 @@ function InputField(props) {
 								<span>
 									{!editForm ? visibleDate : parseDate(formDetails.createdAt)}
 								</span>
-								// <span>{}</span>
 							)}
-							{/* //{" "}
-                    <span>
-                        // {currentDate()} {month()} {year()}
-                        //{" "}
-                    </span> */}
+
 							<span>
 								<img src={CalendarImage} alt="A Calendar" />
 							</span>
 						</p>
 					</div>
-					{/* {showCalendar ? (
-						<Calendar
-							selectedDate={getDateData}
-							displayCalendar={displayCalendar}
-						/>
-					) : (
-						""
-					)} */}
+
 					<Calendar
 						selectedDate={getDateData}
 						displayCalendar={displayCalendar}
@@ -404,18 +344,15 @@ function InputField(props) {
 					itemId="projectDescriptionID"
 					id="projectDescription"
 					ariaLabelledby="projectDescriptionID projectDescription"
-					// id="projectDescription"
 					label="Project Description"
 					name="description"
 					type="text"
 					defaultValue={
 						!editForm ? formData.description : formDetails.description
 					}
-					// value={editForm ? formDetails.description : ""}
 					onChange={!editForm ? handleInputChange : editHandleInputChange}
 					onBlur={onHandleBlur}
 					placeholder="e.g. Graphic Design Service"
-					// className="form-elements__group--input"
 					className={
 						errors.projectDescriptionError === ""
 							? "form-elements__group--input form-elements__group--client"
@@ -428,24 +365,6 @@ function InputField(props) {
 				</p>
 			</div>
 
-			{/* <div className="form-elements__group--items">
-        <h3>item list</h3>
-
-        <div className="form-elements__group--items-label">
-            <p className="form-elements__group--items-label-1">Item Name</p>
-            <p className="form-elements__group--items-label-2">Qty.</p>
-            <p className="form-elements__group--items-label-3">Price</p>
-            <p className="form-elements__group--items-label-4">Total</p>
-        </div>
-
-        <div
-            dangerouslySetInnerHTML={{ __html: listItems.join(" ") }}
-            className="form-elements__group--items-form"
-        ></div>
-        <div className="form-elements__group--items-form">{itemList}</div>
-        {listItems.map((list) => list.props.children)}
-        <Button text="+ Add New Item" type="6" onClick={addItemToList} />
-    </div> */}
 			<ListItems
 				validateForm={validateForm}
 				onHandleBlur={onHandleBlur}
@@ -459,11 +378,6 @@ function InputField(props) {
 				// validateForm={validateForm}
 			/>
 
-			{/* <div className="form-elements__group--items-btns">
-        <Button type="3" text="Discard" />
-        <Button type="4" text="Save as Draft" />
-        <Button type="2" text="Save &amp; Send" />
-    </div> */}
 			<div className="form-error">
 				{isError && (
 					<p className="form-error__text form-error__all">

@@ -3,26 +3,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-// import data from "../data.json";
-// import Modal from "../../modal/modal";
-// import ArrowRight from "../../../assets/images/icon-arrow-right.svg";
-// import Skeleton from "../../skeleton/skeleton";
-// import EmptyInvoice from "../emptyInvoice/emptyInvoice";
 import { parseDate } from "../../util/utility";
 
 function InvoiceMobileLinks(props) {
-	// let invoiceData;
 	let classList, invoiceX;
-
-	// console.log(props.invoiceData);
-
-	// const { filtered, invoiceArray, filteredInvoice } = props;
 
 	props.filtered
 		? (invoiceX = props.filteredInvoice)
 		: (invoiceX = props.invoiceData);
-
-	// console.log(invoiceX);
 
 	let tiles;
 
@@ -87,55 +75,7 @@ function InvoiceMobileLinks(props) {
 		});
 	}
 
-	// console.log(tiles);
-
 	return tiles;
-
-	// return (
-	// 	<div className="testing invoice">
-	// 		{invoiceX
-	// 			? invoiceX.map((item) => (
-	// 					<Link
-	// 						className="invoice-tiles__content"
-	// 						key={item.id}
-	// 						// to="/details"
-	// 						to={{
-	// 							pathname: `/details/${item.id}`,
-	// 							state: { invoiceItem: item },
-	// 						}}
-	// 						// onClick={onToggleRoute}
-	// 						data-testid="invoices"
-	// 					>
-	// 						<p className="invoice-tiles__content--id">
-	// 							<span>#</span>
-	// 							{item.id}
-	// 						</p>
-
-	// 						<p className="invoice-tiles__content--payment-due">
-	// 							<span>Due</span> {parseDate(item.paymentDue)}
-	// 						</p>
-
-	// 						<p className="invoice-tiles__content--client-name">
-	// 							{item.clientName === "" ? "No Information" : item.clientName}
-	// 						</p>
-
-	// 						<p className="invoice-tiles__content--total-amount">
-	// 							<span>&#163;</span> {!item.total ? "0" : item.total}
-	// 						</p>
-
-	// 						<div className={classList}>
-	// 							<p>
-	// 								<span></span>
-	// 								<span>{item.status}</span>
-	// 							</p>
-	// 						</div>
-
-	// 						<img src={ArrowRight} alt="Arrow facing right" />
-	// 					</Link>
-	// 			  ))
-	// 			: null}
-	// 	</div>
-	// );
 }
 
 const mapStateToProps = (state) => {
