@@ -1,81 +1,25 @@
-import {
-	render,
-	screen,
-	fireEvent,
-	waitFor,
-	cleanup,
-} from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 
 import { rest } from "msw";
 import { server } from "../../mocks/server";
-import { setupServer } from "msw/node";
-import { SWRConfig, useSWRConfig, Cache } from "swr";
+import { SWRConfig } from "swr";
 
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 
-import { createStore, combineReducers, compose } from "redux";
 import { createMemoryHistory } from "history";
 import store from "../../store/store";
 
 import Login from "./login";
-import Register from "./register";
-import { newUser, UserLogin } from "../../store/util/authUtility";
+import { UserLogin } from "../../store/util/authUtility";
 import { displayInvoice } from "../../store/util/invoiceUtility";
 import {
 	authError,
 	forgotPasswordLink,
 	login,
-	register,
 } from "../../store/actions/authAction";
-
-// const loginForm = rest.post(
-// 	"http://localhost:8080/authentication/login",
-// 	(req, res, ctx) => {
-// 		return res(
-// 			ctx.status(200),
-// 			ctx.json({
-// 				email: "test@test.com",
-// 				password: "test1234",
-// 			})
-// 		);
-// 	}
-// );
-
-// const server = setupServer(
-// 	rest.post("http://localhost:8080/authentication/login", (req, res, ctx) => {
-// 		return res(
-// 			ctx.status(200),
-// 			ctx.json({
-// 				email: "test@test.com",
-// 				password: "test1234",
-// 			})
-// 		);
-// 	}),
-
-// 	rest.get("*", (req, res, ctx) => {
-// 		console.error(`Please add a request handler for ${req.url.toString()}`);
-// 		return res(
-// 			ctx.status(500),
-// 			ctx.json({ error: "Please add a request handler" })
-// 		);
-// 	})
-// );
-
-// const server = setupServer(loginForm);
-
-// console.log(Cache());
-// beforeAll(() => server.listen());
-// afterEach(() => {
-// 	server.resetHandlers();
-// 	// console.log(cleanup);
-// 	// console.log(cache);
-// });
-// afterAll(() => server.close());
-
-// // afterEach(() => cache.clear())
 
 const history = createMemoryHistory();
 describe("Login Page Actions", () => {
@@ -89,8 +33,6 @@ describe("Login Page Actions", () => {
 				</Router>
 			</Provider>
 		);
-
-		// console.log(history);
 
 		const userInput = {
 			email: "test@test.com",
@@ -208,6 +150,7 @@ describe("Login Page Actions", () => {
 
 		await store.dispatch(authError("User does not exist"));
 
+		// eslint-disable-next-line jest/valid-expect
 		expect(screen.getByText("user does not exist", { exact: false }));
 
 		// screen.debug();

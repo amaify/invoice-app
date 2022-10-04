@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -78,6 +79,7 @@ function Form(props) {
 	const [submitEditForm, setSubmitEditForm] = useState(false);
 
 	const [onEditInput, setEditInput] = useState(
+		// eslint-disable-next-line no-use-before-define
 		editForm ? formDetails || onEditInput : ""
 	);
 

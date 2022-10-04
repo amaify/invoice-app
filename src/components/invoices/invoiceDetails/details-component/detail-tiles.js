@@ -4,51 +4,25 @@ import { useDispatch, connect } from "react-redux";
 import { Link } from "react-router-dom";
 import ArrowLeft from "../../../../assets/images/icon-arrow-left.svg";
 import { editForm, showForm } from "../../../../store/actions/formAction";
-import {
-	confirmDelete,
-	// deleteInvoice,
-	// setToPaid,
-} from "../../../../store/actions/invoiceControls";
-// import { toggleRoute } from "../../../../store/actions/routeAction";
+import { confirmDelete } from "../../../../store/actions/invoiceControls";
 import { markAsPaid } from "../../../../store/util/invoiceUtility";
 import Button from "../../../buttons/buttons";
 
 function DetailsTiles(props) {
 	const dispatch = useDispatch();
 
-	const {
-		data,
-		invoice,
-		// loading,
-		markedLoading,
-		// invoiceMarked,
-		// testing,
-		token,
-	} = props;
-
-	// console.log(testing[0]);
-
-	// console.log(data);
-	// const [paid, setPaid] = useState(data.status);
-
-	// const onRouteToggle = () => {
-	// 	return dispatch(toggleRoute());
-	// };
+	const { data, invoice, markedLoading, token } = props;
 
 	const setInvoiceToPaid = () => {
+		// eslint-disable-next-line array-callback-return
 		return invoice.map((inv) => {
 			if (inv.id === data.id) {
-				// inv.status = "paid";
-				// setPaid(inv.status);
-				// dispatch(setToPaid(data));
-				// data.status = "Paid";
 				return dispatch(markAsPaid(data, token));
 			}
 		});
 	};
 
 	const onDeleteInvoice = () => {
-		// return dispatch(deleteInvoice(data));
 		return dispatch(confirmDelete());
 	};
 

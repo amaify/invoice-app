@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
 
@@ -23,10 +24,7 @@ function InvoiceTiles({
 		return isAuth ? dispatch(displayInvoice(token)) : null;
 	}, []);
 
-	// console.log(invoiceData);
-
 	return (
-		// <div className="invoice-tiles">{!props.loading ? items : <Skeleton />}</div>
 		<>
 			<div className="invoice-tiles">
 				{!loading ? (

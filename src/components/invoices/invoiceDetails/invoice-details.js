@@ -16,10 +16,6 @@ import { editForm, showForm } from "../../../store/actions/formAction";
 function InvoiceDetails(props) {
 	const location = useLocation();
 	const dispatch = useDispatch();
-	// let data;
-	// var passed;
-
-	// const [passedData, setPassedData] = useState([]);
 
 	let data = location.state.invoiceItem;
 
@@ -28,41 +24,27 @@ function InvoiceDetails(props) {
 	const { showModal, loading, error, markedLoading, invoice, token } = props;
 
 	useEffect(() => {
-		console.log(token);
 		return dispatch(getOneInvoice(data, token));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const setInvoiceToPaid = () => {
+		// eslint-disable-next-line array-callback-return
 		return invoice.map((inv) => {
 			if (inv.id === data.id) {
-				// inv.status = "paid";
-				// setPaid(inv.status);
-				// dispatch(setToPaid(data));
-				// data.status = "Paid";
-				// dispatch(markAsPaid(dataFromStore[0]));
 				return dispatch(markAsPaid(dataFromStore[0], token));
 			}
 		});
 	};
 
 	const onDeleteInvoice = () => {
-		// return dispatch(deleteInvoice(data));
-		// return dispatch(confirmDelete());
 		return dispatch(confirmDelete());
 	};
 
 	const onEditInvoice = () => {
-		// dispatch(editForm(dataFromStore[0]));
-		// dispatch(showForm());
-
 		dispatch(editForm(dataFromStore[0]));
 		dispatch(showForm());
 	};
-
-	// console.log(passedData);
-	// console.log(passed);
-
-	// console.log(dataFromStore[0]);
 
 	return (
 		<section className="details">
@@ -103,24 +85,12 @@ function InvoiceDetails(props) {
 					) : (
 						showModal && <Modal data={data} />
 					)}
-					{/* <DetailsTiles data={data} />
-					<div className="details-body__wrapper">
-						<DetailsBody data={data} />
-						<DetailItems data={data} />
-					</div> */}
+
 					{showModal && <Modal data={data} />}
 				</>
 			) : (
 				<SkeletonDetails />
 			)}
-			{/* <DetailsTiles data={data} />
-			<div className="details-body__wrapper">
-				<DetailsBody data={data} />
-				<DetailItems data={data} />
-			</div>
-			{showModal && <Modal data={data} />}
-			<SkeletonDetails /> */}
-			{/* <SkeletonDetails /> */}
 		</section>
 	);
 }

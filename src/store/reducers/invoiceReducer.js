@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import * as actionTypes from "../actions/actionTypes";
 // import { deleteInvoice } from "../actions/invoiceControls";
 

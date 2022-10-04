@@ -43,14 +43,12 @@ function Dropdown(props) {
 
 	useEffect(() => {
 		deselectableRadios();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
 		<div className={`control-filter__dropdown ${props.animateDropdown}`}>
-			<label
-				className="control-filter__dropdown--container"
-				// onChange={OnSelectFilter}
-			>
+			<label className="control-filter__dropdown--container">
 				Draft
 				<input
 					type="radio"

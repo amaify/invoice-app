@@ -7,10 +7,8 @@ import { toggleFilter } from "../../../store/actions/invoiceAction";
 
 function Filter(props) {
 	const dispatch = useDispatch();
-	// let [dropDown, setDropdown] = useState(false);
 
 	const setDropdownVisibility = () => {
-		// dropDown ? setDropdown(false) : setDropdown(true);
 		dispatch(toggleFilter());
 	};
 
@@ -29,15 +27,11 @@ function Filter(props) {
 				<span className="control-filter__title--text control-filter__title--text-desktop">
 					Filter by status
 				</span>
-				{/* <span className="control-filter__title--img">
-					<img src={ArrowDown} alt="Directional Arrow" className={imgClass} />
-				</span> */}
 			</p>
 			<picture className="control-filter__title--img">
 				<img src={ArrowDown} alt="Directional Arrow" className={imgClass} />
 			</picture>
 
-			{/* {props.dropDown ? <Dropdown animateDropdown={slide} /> : ""} */}
 			<Dropdown animateDropdown={slide} />
 		</div>
 	);
