@@ -47,7 +47,6 @@
 	},
 	"devDependencies": {
 		"cypress": "^9.1.0",
-		"msw": "^0.35.0",
-		"webpack-dev-server": "^3.11.1"
+		"msw": "^0.35.0"
 	}
 }
