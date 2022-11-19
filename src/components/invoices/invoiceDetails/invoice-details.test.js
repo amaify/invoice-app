@@ -1,19 +1,11 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { logRoles } from "@testing-library/dom";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import InvoiceDetails from "./invoice-details";
-import InvoiceTiles from "./details-component/detail-tiles";
 import Form from "../../form/invoice/form";
-
-import { rest } from "msw";
-import { setupServer } from "msw/node";
-
-import { SWRConfig, useSWRConfig, Cache } from "swr";
-
+import { SWRConfig } from "swr";
 import store from "../../../store/store";
 import { createMemoryHistory } from "history";
-import { server } from "../../../mocks/server";
 import {
 	confirmDelete,
 	deleteInvoice,
@@ -29,8 +21,6 @@ import {
 	hideForm,
 	showForm,
 } from "../../../store/actions/formAction";
-import { UserLogin } from "../../../store/util/authUtility";
-import { login } from "../../../store/actions/authAction";
 import {
 	getSingleInvoice,
 	resetInvoice,
@@ -60,27 +50,6 @@ const passedData = {
 		total: 3725.54,
 	},
 };
-
-// const singleInvoiceData = {
-// 	_id: "61981046b75d3052ec0e9bd",
-// 	id: "123456",
-// 	createdAt: "2021-11-25",
-// 	paymentDue: "2021-11-26",
-// 	description: "Test things",
-// 	paymentTerms: 1,
-// 	status: "testStatus",
-// 	clientName: "Test Abraham",
-// 	clientEmail: "rajval@test.co.au",
-// 	clientStreet: "1009 Test road",
-// 	clientPostCode: "DU00 HTST",
-// 	clientCity: "Duss City",
-// 	clientCountry: "Test Republic",
-// 	items: [
-// 		{ name: "Test Uniform", price: 140.99, quantity: 23, total: 3242.77 },
-// 		{ name: "Test Shoes", price: 20.99, quantity: 23, total: 482.77 },
-// 	],
-// 	total: 3725.54,
-// };
 
 const mainData = [
 	{
@@ -148,21 +117,6 @@ describe("Invoice Details actions", () => {
 
 		fireEvent.click(confirmDeleteButtonElement);
 
-		// server.use(
-		// 	rest.delete(
-		// 		`http://localhost:8080/invoice/invoice/${passedData.invoiceItem._id}`,
-		// 		(req, res, ctx) => {
-		// 			return res(
-		// 				ctx.status(200),
-		// 				ctx.json({
-		// 					message: "Invoice successfully deleted",
-		// 					statuCode: 200,
-		// 				})
-		// 			);
-		// 		}
-		// 	)
-		// );
-
 		await store.dispatch(deleteAnInvoice(passedData, history));
 
 		store.dispatch(deleteInvoice());
@@ -173,33 +127,6 @@ describe("Invoice Details actions", () => {
 	});
 
 	test("When the edit button is clicked", async () => {
-		// const receivedLoginData = {
-		// 	senderAddress: {
-		// 		street: "123 Athol Street",
-		// 		city: "Warri",
-		// 		postCode: "WR3 X45",
-		// 		country: "Nigeria",
-		// 	},
-
-		// 	token:
-		// 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTlkMTJiMWIyMzY5Y",
-		// 	statusCode: 200,
-		// };
-
-		// await store.dispatch(
-		// 	UserLogin({ email: "test@test.com", password: "test1234", history })
-		// );
-
-		// await store.dispatch(login(receivedLoginData));
-
-		// const localStorageObject = {
-		// 	street: "1234 Athol Street",
-		// 	city: "Darlington",
-		// 	postCode: "DL1 5SR",
-		// 	country: "England, United Kingdom",
-		// };
-		// localStorage.setItem("senderAddress", JSON.stringify(localStorageObject));
-
 		render(
 			<Provider store={store}>
 				<Router history={history}>
@@ -226,16 +153,9 @@ describe("Invoice Details actions", () => {
 
 		store.dispatch(showForm());
 
-		// expect(
-		// 	screen.getByText(`Edit #${passedData.invoiceItem.id}`, { exact: false })
-		// ).toBeInTheDocument();
-
 		expect(
 			screen.getByTestId("invoice-form", { exact: false })
 		).toBeInTheDocument();
-
-		// screen.debug();
-		// screen.debug();
 	});
 
 	test(`When the user clicks the "Mark as paid" button`, async () => {
@@ -248,10 +168,6 @@ describe("Invoice Details actions", () => {
 				</Router>
 			</Provider>
 		);
-
-		// mainData[0].status = "Paid";
-
-		// store.dispatch(getOneInvoice(passedData.invoiceItem));
 
 		await store.dispatch(getSingleInvoice(mainData));
 
@@ -282,33 +198,6 @@ describe("Invoice Details actions", () => {
 
 describe("Edit form actions", () => {
 	test(`When the user clicks on the "Save changes Button" after filling out the input fields correctly`, async () => {
-		// const receivedLoginData = {
-		// 	senderAddress: {
-		// 		street: "123 Athol Street",
-		// 		city: "Warri",
-		// 		postCode: "WR3 X45",
-		// 		country: "Nigeria",
-		// 	},
-
-		// 	token:
-		// 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTlkMTJiMWIyMzY5Y",
-		// 	statusCode: 200,
-		// };
-
-		// await store.dispatch(
-		// 	UserLogin({ email: "test@test.com", password: "test1234", history })
-		// );
-
-		// await store.dispatch(login(receivedLoginData));
-
-		// const localStorageObject = {
-		// 	street: "1234 Athol Street",
-		// 	city: "Darlington",
-		// 	postCode: "DL1 5SR",
-		// 	country: "England, United Kingdom",
-		// };
-		// localStorage.setItem("senderAddress", JSON.stringify(localStorageObject));
-
 		store.dispatch(getOneInvoice(passedData.invoiceItem));
 
 		render(
@@ -348,33 +237,6 @@ describe("Edit form actions", () => {
 	});
 
 	test(`When the user clicks on the "Save changes Button" after failing to fill the input fields correctly`, async () => {
-		// const receivedLoginData = {
-		// 	senderAddress: {
-		// 		street: "123 Athol Street",
-		// 		city: "Warri",
-		// 		postCode: "WR3 X45",
-		// 		country: "Nigeria",
-		// 	},
-
-		// 	token:
-		// 		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTlkMTJiMWIyMzY5Y",
-		// 	statusCode: 200,
-		// };
-
-		// await store.dispatch(
-		// 	UserLogin({ email: "test@test.com", password: "test1234", history })
-		// );
-
-		// await store.dispatch(login(receivedLoginData));
-
-		// const localStorageObject = {
-		// 	street: "1234 Athol Street",
-		// 	city: "Darlington",
-		// 	postCode: "DL1 5SR",
-		// 	country: "England, United Kingdom",
-		// };
-		// localStorage.setItem("senderAddress", JSON.stringify(localStorageObject));
-
 		store.dispatch(getOneInvoice(passedData.invoiceItem));
 
 		render(
@@ -387,8 +249,6 @@ describe("Edit form actions", () => {
 				</Router>
 			</Provider>
 		);
-
-		// passedData.invoiceItem.clientStreet = "";
 
 		mainData[0].clientStreet = "";
 
@@ -455,7 +315,5 @@ describe("Edit form actions", () => {
 		expect(
 			screen.queryByText("Can't be empty", { exact: true })
 		).toBeInTheDocument();
-
-		// screen.debug();
 	});
 });

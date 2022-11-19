@@ -16,7 +16,7 @@ export const displayInvoice = (userToken) => {
 	return (dispatch) => {
 		dispatch(loading());
 
-		fetch("https://amaify-invoice-backend.herokuapp.com/invoice/invoice", {
+		fetch("https://invoice-backend.onrender.com/invoice/invoice", {
 			method: "GET",
 			headers: {
 				Authorization: "Bearer " + userToken,
@@ -32,7 +32,6 @@ export const displayInvoice = (userToken) => {
 				}
 			})
 			.catch((err) => {
-				console.log(err.message);
 				return dispatch(setError(err.message));
 			});
 	};
@@ -43,28 +42,22 @@ export const getOneInvoice = (data, userToken) => {
 	return (dispatch) => {
 		dispatch(loading());
 
-		fetch(
-			`https://amaify-invoice-backend.herokuapp.com/invoice/invoice/${data._id}`,
-			{
-				method: "GET",
-				headers: {
-					Authorization: "Bearer " + userToken,
-					"Content-Type": "application/json",
-				},
-			}
-		)
+		fetch(`https://invoice-backend.onrender.com/invoice/invoice/${data._id}`, {
+			method: "GET",
+			headers: {
+				Authorization: "Bearer " + userToken,
+				"Content-Type": "application/json",
+			},
+		})
 			.then((response) => response.json())
 			.then((responseData) => {
-				// passed = responseData.invoice;
 				if (responseData.statusCode === 200) {
-					console.log(responseData);
 					dispatch(getSingleInvoice(responseData.invoice));
 				} else {
 					dispatch(setError(responseData.message));
 				}
 			})
 			.catch((error) => {
-				// console.log(err.message);
 				return dispatch(setError(error.message));
 			});
 	};
@@ -73,22 +66,19 @@ export const getOneInvoice = (data, userToken) => {
 export const updateInvoice = (data, history, userToken) => {
 	return (dispatch) => {
 		dispatch(submitPending());
-		fetch(
-			`https://amaify-invoice-backend.herokuapp.com/invoice/invoice/${data._id}`,
-			{
-				method: "PUT",
-				headers: {
-					authorization: "Bearer " + userToken,
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(data),
-			}
-		)
+		fetch(`https://invoice-backend.onrender.com/invoice/invoice/${data._id}`, {
+			method: "PUT",
+			headers: {
+				authorization: "Bearer " + userToken,
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+		})
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 200) {
-					dispatch(hideForm());
 					history.push("/");
+					dispatch(hideForm());
 					dispatch(displayInvoice(userToken));
 				}
 
@@ -113,17 +103,14 @@ export const markAsPaid = (data, userToken) => {
 			status: "Paid",
 		};
 
-		fetch(
-			`https://amaify-invoice-backend.herokuapp.com/invoice/invoice/${data._id}`,
-			{
-				method: "PUT",
-				headers: {
-					authorization: "Bearer " + userToken,
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(updatedStatusData),
-			}
-		)
+		fetch(`https://invoice-backend.onrender.com/invoice/invoice/${data._id}`, {
+			method: "PUT",
+			headers: {
+				authorization: "Bearer " + userToken,
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(updatedStatusData),
+		})
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 200) {
@@ -147,27 +134,23 @@ export const markAsPaid = (data, userToken) => {
 export const deleteAnInvoice = (data, history, userToken) => {
 	return (dispatch) => {
 		dispatch(submitDraft());
-		fetch(
-			`https://amaify-invoice-backend.herokuapp.com/invoice/invoice/${data._id}`,
-			{
-				method: "DELETE",
-				headers: {
-					Authorization: "Bearer " + userToken,
-					"Content-Type": "application/json",
-				},
-			}
-		)
+		fetch(`https://invoice-backend.onrender.com/invoice/invoice/${data._id}`, {
+			method: "DELETE",
+			headers: {
+				Authorization: "Bearer " + userToken,
+				"Content-Type": "application/json",
+			},
+		})
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 200) {
 					console.log(responseData);
-					dispatch(deleteInvoice());
 					history.push("/");
+					dispatch(deleteInvoice());
 					dispatch(displayInvoice(userToken));
 				} else {
 					dispatch(hideForm());
 					dispatch(setError(responseData.message));
-					console.log(responseData);
 				}
 			})
 			.catch((error) => {

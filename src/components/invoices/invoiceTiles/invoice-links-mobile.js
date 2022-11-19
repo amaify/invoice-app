@@ -68,8 +68,6 @@ function InvoiceMobileLinks(props) {
 							</p>
 						</div>
 					</div>
-
-					{/* <img src={ArrowRight} alt="Arrow facing right" /> */}
 				</Link>
 			);
 		});
@@ -80,7 +78,6 @@ function InvoiceMobileLinks(props) {
 
 const mapStateToProps = (state) => {
 	return {
-		// invoiceArray: state.invoiceReducer.invoice,
 		filteredInvoice: state.invoiceReducer.filteredInvoice,
 		filtered: state.invoiceReducer.filtered,
 		loading: state.invoiceReducer.loading,

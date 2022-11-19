@@ -33,7 +33,6 @@ function InvoiceLinks(props) {
 				<Link
 					className="invoice-tiles__content invoice-tiles__content-desktop"
 					key={item.id}
-					// to="/details"
 					to={{
 						pathname: `/details/${item.id}`,
 						state: { invoiceItem: item },

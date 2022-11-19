@@ -5,21 +5,6 @@ function DetailMobileItems(props) {
 
 	return (
 		<div className="details-items details-items__mobile">
-			{/* <div className="details-items__heading">
-				<p className="details-items__heading--title details-items__heading--title-1">
-					item name
-				</p>
-				<p className="details-items__heading--title details-items__heading--title-2">
-					QTY.
-				</p>
-				<p className="details-items__heading--title details-items__heading--title-3">
-					price
-				</p>
-				<p className="details-items__heading--title details-items__heading--title-4">
-					total
-				</p>
-			</div> */}
-
 			<div className="details-items__list">
 				{data.items.length !== 0 ? (
 					data.items.map((item) => {
@@ -33,9 +18,6 @@ function DetailMobileItems(props) {
 										{item.name}
 									</p>
 									<div className="details-items__list--items-details-quantity">
-										{/* <p className="details-items__list--items-item details-items__list--items-item-2">
-												{item.quantity} &times; &#163; {item.price}
-											</p> */}
 										<p className="details-items__list--items-item details-items__list--items-item-3">
 											{item.quantity} &times; &#163; {item.price}
 										</p>

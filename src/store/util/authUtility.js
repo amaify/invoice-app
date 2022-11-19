@@ -3,10 +3,8 @@ import {
 	authLoading,
 	emailSent,
 	login,
-	// loginSuccess,
 	logout,
 	register,
-	// resetError,
 } from "../actions/authAction";
 import { emptyInvoiceOnLogout } from "../actions/invoiceAction";
 import { displayInvoice } from "./invoiceUtility";
@@ -45,34 +43,7 @@ export const retrieveStoredToken = () => {
 };
 
 export const logoutUser = () => {
-	// const token = localStorage.getItem("token");
 	return (dispatch) => {
-		// fetch("http://localhost:8080/authentication/logout", {
-		// 	method: "POST",
-		// 	headers: {
-		// 		authorization: "Bearer " + token,
-		// 		"Content-Type": "application/json",
-		// 	},
-		// })
-		// 	.then((response) => response.json())
-		// 	.then((responseData) => {
-		// 		if (responseData.statusCode === 200) {
-		// 			console.log(responseData);
-		// 			dispatch(logout());
-		// 			dispatch(emptyInvoiceOnLogout());
-		// 			localStorage.removeItem("token");
-		// 			localStorage.removeItem("expirationTime");
-		// 			localStorage.removeItem("senderAddress");
-		// 		} else {
-		// 			console.log(responseData);
-		// 			// dispatch(authError(responseData.message));
-		// 			dispatch(setError(responseData.message));
-		// 		}
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log(error);
-		// 		dispatch(setError(error.message));
-		// 	});
 		dispatch(logout());
 		dispatch(emptyInvoiceOnLogout());
 		localStorage.removeItem("token");
@@ -89,30 +60,23 @@ export const newUser = (data, history) => {
 	return (dispatch) => {
 		dispatch(authLoading());
 
-		fetch(
-			"https://amaify-invoice-backend.herokuapp.com/authentication/signup",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(data),
-			}
-		)
+		fetch("https://invoice-backend.onrender.com/authentication/signup", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+		})
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 201) {
-					console.log(responseData);
 					dispatch(register());
-
 					history.push("/login");
 				} else {
-					console.log(responseData);
 					dispatch(authError(responseData.message));
 				}
 			})
 			.catch((error) => {
-				console.log(error);
 				dispatch(authError(error.message));
 			});
 	};
@@ -122,7 +86,7 @@ export const UserLogin = (data, history) => {
 	return (dispatch) => {
 		dispatch(authLoading());
 
-		fetch("https://amaify-invoice-backend.herokuapp.com/authentication/login", {
+		fetch("https://invoice-backend.onrender.com/authentication/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -132,9 +96,7 @@ export const UserLogin = (data, history) => {
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 200) {
-					console.log(responseData);
 					dispatch(login(responseData));
-					// dispatch(loginSuccess());
 					localStorage.setItem("token", responseData.token);
 					localStorage.setItem(
 						"senderAddress",
@@ -173,7 +135,7 @@ export const userForgotPassword = (data) => {
 		dispatch(authLoading());
 
 		fetch(
-			"https://amaify-invoice-backend.herokuapp.com/authentication/forgot-password",
+			"https://invoice-backend.onrender.com/authentication/forgot-password",
 			{
 				method: "POST",
 				headers: {
@@ -185,15 +147,12 @@ export const userForgotPassword = (data) => {
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 200) {
-					console.log(responseData);
 					dispatch(emailSent(responseData));
 				} else {
-					console.log(responseData);
 					dispatch(authError(responseData.message));
 				}
 			})
 			.catch((error) => {
-				console.log(error);
 				dispatch(authError(error.message));
 			});
 	};
@@ -209,7 +168,7 @@ export const userResetPassword = (token, data, history) => {
 		};
 
 		fetch(
-			"https://amaify-invoice-backend.herokuapp.com/authentication/reset-password",
+			"https://invoice-backend.onrender.com/authentication/reset-password",
 			{
 				method: "PUT",
 				headers: {
@@ -221,16 +180,13 @@ export const userResetPassword = (token, data, history) => {
 			.then((response) => response.json())
 			.then((responseData) => {
 				if (responseData.statusCode === 200) {
-					console.log(responseData);
 					dispatch(emailSent(responseData));
 					history.push("/login");
 				} else {
-					console.log(responseData);
 					dispatch(authError(responseData.message));
 				}
 			})
 			.catch((error) => {
-				console.log(error);
 				dispatch(authError(error.message));
 			});
 	};

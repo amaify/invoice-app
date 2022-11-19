@@ -10,8 +10,6 @@ import {
 import { setError } from "../actions/invoiceAction";
 import { displayInvoice } from "./invoiceUtility";
 
-// const token = localStorage.getItem("token");
-
 export const showFormAction = () => {
 	return (dispatch) => {
 		dispatch(showForm());
@@ -38,10 +36,9 @@ export const dispatchListItems = () => {
 
 export const submitFormPending = (formData, userToken) => {
 	return (dispatch) => {
-		// dispatch(loading());
 		dispatch(submitPending());
 
-		fetch("https://amaify-invoice-backend.herokuapp.com/invoice/new-invoice", {
+		fetch("https://invoice-backend.onrender.com/invoice/new-invoice", {
 			method: "POST",
 			body: JSON.stringify(formData),
 			headers: {
@@ -54,13 +51,9 @@ export const submitFormPending = (formData, userToken) => {
 				if (responseData.statusCode === 201) {
 					dispatch(hideForm());
 					dispatch(displayInvoice(userToken));
-					// console.log(responseData);
-					// dispatch(getInvoice());
-					// history.replace("/");
 				} else {
 					dispatch(hideForm());
 					dispatch(setError(responseData.message));
-					console.log(responseData);
 				}
 			})
 			.catch((error) => {
@@ -72,10 +65,9 @@ export const submitFormPending = (formData, userToken) => {
 
 export const submitFormDraft = (formData, userToken) => {
 	return (dispatch) => {
-		// dispatch(loading());
 		dispatch(submitDraft());
 
-		fetch("https://amaify-invoice-backend.herokuapp.com/invoice/new-invoice", {
+		fetch("https://invoice-backend.onrender.com/invoice/new-invoice", {
 			method: "POST",
 			body: JSON.stringify(formData),
 			headers: {
@@ -88,13 +80,9 @@ export const submitFormDraft = (formData, userToken) => {
 				if (responseData.statusCode === 201) {
 					dispatch(hideForm());
 					dispatch(displayInvoice(userToken));
-					// dispatch(getInvoice());
-					// history.replace("/");
-					console.log(responseData);
 				} else {
 					dispatch(hideForm());
 					dispatch(setError(responseData.message));
-					console.log(responseData);
 				}
 			})
 			.catch((error) => {

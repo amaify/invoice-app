@@ -33,7 +33,6 @@ function App() {
 
 	useEffect(() => {
 		dispatch(getDate(dateElement));
-		// dispatch(paymentTerms());
 	}, [dispatch, dateElement]);
 
 	useEffect(() => {

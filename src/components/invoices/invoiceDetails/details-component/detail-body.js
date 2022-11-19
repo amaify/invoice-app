@@ -22,10 +22,6 @@ function DetailsBody(props) {
 					</span>
 				</p>
 				<p className="details-body__heading--address">
-					{/* <span>{data.senderAddress.street}</span>
-					<span>{data.senderAddress.city}</span>
-					<span>{data.senderAddress.postCode}</span>
-					<span>{data.senderAddress.country}</span> */}
 					<span>{addressItems.street}</span>
 					<span>{addressItems.city}</span>
 					<span>{addressItems.postCode}</span>

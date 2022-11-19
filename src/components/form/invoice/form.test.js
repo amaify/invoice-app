@@ -1,16 +1,11 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 
-import { rest } from "msw";
-import { setupServer } from "msw/node";
-import { server } from "../../../mocks/server";
-
-import { SWRConfig, useSWRConfig, Cache } from "swr";
+import { SWRConfig } from "swr";
 
 import "@testing-library/jest-dom";
 
-import { createStore, combineReducers, compose } from "redux";
 import { createMemoryHistory } from "history";
 
 import store from "../../../store/store";
@@ -26,33 +21,6 @@ import {
 import { displayInvoice } from "../../../store/util/invoiceUtility";
 import { getInvoice } from "../../../store/actions/invoiceAction";
 import { UserLogin } from "../../../store/util/authUtility";
-
-// const submitForm = rest.post(
-// 	"http://localhost:8080/invoice/new-invoice",
-// 	(req, res, ctx) => {
-// 		return res(
-// 			ctx.status(201),
-// 			ctx.json({
-// 				clientCity: "Middlesbrough",
-// 				clientCountry: "Niger",
-// 				clientEmail: "test@test.com",
-// 				clientName: "Leah Peters",
-// 				clientPostCode: "TXX 2XX",
-// 				clientStreet: "123 Street Road",
-// 				description: "Design",
-// 				listOfItems: [
-// 					{ name: "Game", quantity: "10", price: "10", total: "100" },
-// 				],
-// 			})
-// 		);
-// 	}
-// );
-
-// const server = new setupServer(submitForm);
-
-// beforeAll(() => server.listen());
-// afterEach(() => server.resetHandlers());
-// afterAll(() => server.close());
 
 const userInput = {
 	clientCity: "Middlesbrough",
@@ -90,10 +58,6 @@ describe("Creating an invoice", () => {
 				</Router>
 			</Provider>
 		);
-
-		// const saveAndSendButtonElement = screen.getByRole("button", {
-		// 	name: "Save & Send",
-		// });
 
 		fireEvent.change(screen.getByLabelText("Client's Name", { exact: false }), {
 			target: { value: userInput.clientName },
@@ -160,17 +124,6 @@ describe("Creating an invoice", () => {
 
 		fireEvent.click(saveAndSendButtonElement[0]);
 
-		// server.use(
-		// 	rest.post("http://localhost:8080/invoice/invoice", (req, res, ctx) => {
-		// 		return res(
-		// 			ctx.status(201),
-		// 			ctx.json({
-		// 				userInput,
-		// 			})
-		// 		);
-		// 	})
-		// );
-
 		await store.dispatch(submitFormPending(userInput));
 
 		const receivedData = [
@@ -195,16 +148,6 @@ describe("Creating an invoice", () => {
 
 	test(`Creating an invoice when the user clicks "Save as Draft" button`, async () => {
 		const history = createMemoryHistory();
-		// await store.dispatch(
-		// 	UserLogin({ email: "test@test.com", password: "test1234" }, history)
-		// );
-		// const localStorageObject = {
-		// 	street: "1234 Athol Street",
-		// 	city: "Darlington",
-		// 	postCode: "DL1 5SR",
-		// 	country: "England, United Kingdom",
-		// };
-		// localStorage.setItem("senderAddress", JSON.stringify(localStorageObject));
 
 		userInput.clientPostCode = "";
 		userInput.clientCountry = "";
@@ -250,20 +193,6 @@ describe("Creating an invoice", () => {
 
 		await store.dispatch(login(receivedLoginData));
 
-		// const userInput = {
-		// 	clientCity: "Middlesbrough",
-		// 	clientCountry: "Niger",
-		// 	clientEmail: "test@test.com",
-		// 	clientName: "Leah Peters",
-		// 	date: "2021-11-30",
-		// 	clientPostCode: "TXX 2XX",
-		// 	clientStreet: "123 Street Road",
-		// 	description: "Design",
-		// 	listOfItems: [
-		// 		{ name: "Game", quantity: "10", price: "10", total: "100" },
-		// 	],
-		// };
-
 		fireEvent.change(screen.getByLabelText("Client's Name", { exact: false }), {
 			target: { value: userInput.clientName },
 		});
@@ -300,28 +229,6 @@ describe("Creating an invoice", () => {
 			}
 		);
 
-		// const addNewItemButton = screen.getByTestId("addItemsButton", {
-		// 	exact: false,
-		// });
-
-		// fireEvent.click(addNewItemButton);
-
-		// fireEvent.change(screen.getAllByTestId("itemName", { exact: false }), {
-		// 	target: { value: userInput.listOfItems[0].name },
-		// });
-
-		// fireEvent.change(screen.getAllByTestId("itemQuantity", { exact: false }), {
-		// 	target: { value: userInput.listOfItems[0].quantity },
-		// });
-
-		// fireEvent.change(screen.getAllByTestId("itemPrice", { exact: false }), {
-		// 	target: { value: userInput.listOfItems[0].price },
-		// });
-
-		// const totalPriceElement = screen.getAllByTestId("totalPrice", {
-		// 	exact: false,
-		// });
-
 		const saveAsDraftButtonElement = screen.getAllByRole("button", {
 			name: "Save as Draft",
 			exact: false,
@@ -333,34 +240,16 @@ describe("Creating an invoice", () => {
 
 		store.dispatch(hideForm());
 
-		// history.push("/");
-
 		await store.dispatch(displayInvoice());
 		await store.dispatch(getInvoice(receivedData));
 
 		expect(history.location.pathname).toEqual("/");
 
-		// const xxx = screen.getByTestId("invoices", { exact: false });
-
-		// logRoles(xxx);
-
 		const informationElement = screen.queryAllByText("No Information")[0];
 		const totalAmountElement = screen.queryAllByTestId("totalAmount")[0];
 
-		const information = informationElement[0];
-
-		// expect(
-		// 	screen.queryAllByText("No Information", { exact: false })
-		// )[0].toBeInTheDocument();
-
 		expect(informationElement).toBeInTheDocument();
 
-		// expect(
-		// 	screen.queryByTestId("totalAmount", { exact: false })
-		// ).toBeInTheDocument();
-
 		expect(totalAmountElement).toBeInTheDocument();
-
-		// screen.debug();
 	});
 });

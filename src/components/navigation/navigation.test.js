@@ -1,16 +1,11 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { Router } from "react-router";
-
-import { rest } from "msw";
-import { setupServer } from "msw/node";
-
 import "@testing-library/jest-dom";
 import store from "../../store/store";
 import Navigation from "./navigation";
 import InvoiceTiles from "../invoices/invoiceTiles/invoice-tiles";
 
-import { createStore, combineReducers, compose } from "redux";
 import { createMemoryHistory } from "history";
 
 const history = createMemoryHistory();
@@ -31,11 +26,7 @@ describe("Navigation Actions", () => {
 
 		fireEvent.click(loginButtonElement);
 
-		// console.log(history);
-
 		expect(history.location.pathname).toEqual("/login");
-
-		// screen.debug();
 	});
 
 	test(`When the user clicks the "Logout Icon" when authenticated`, () => {
@@ -61,7 +52,5 @@ describe("Navigation Actions", () => {
 		expect(
 			screen.getByText("There is nothing here", { exact: false })
 		).toBeInTheDocument();
-
-		// screen.debug();
 	});
 });

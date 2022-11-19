@@ -52,16 +52,10 @@ function DetailItems(props) {
 			</div>
 
 			<div className="details-items__amount">
-				{/* <p className="details-items__amount--text details-items__amount--text-mobile">
-					grand total
-				</p> */}
 				<p className="details-items__amount--text details-items__amount--text-desktop">
 					amount due
 				</p>
-				<p className="details-items__amount--figure">
-					{/* &#163; {!data.total ? "0" : data.total} */}
-					&#163; {data.total}
-				</p>
+				<p className="details-items__amount--figure">&#163; {data.total}</p>
 			</div>
 		</div>
 	);
